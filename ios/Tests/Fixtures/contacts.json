@@ -1,0 +1,16 @@
+{
+  "items": [
+    {
+      "contact_id": "f30172f8699b4025b86d315cc8d61a37",
+      "user_public_ref": "1448fad955ad4512bc58dee6e5ab0028",
+      "pet": {
+        "name": null,
+        "species": null,
+        "breed": null,
+        "age_months": null,
+        "avatar_url": null
+      },
+      "since": 1793764813.459187
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{$WAGELPAW_PUBLIC_HOST} {
+    request_body {
+        max_size 9MB
+    }
+    reverse_proxy 127.0.0.1:18766
+    header {
+        X-Content-Type-Options nosniff
+        Referrer-Policy no-referrer
+    }
+}

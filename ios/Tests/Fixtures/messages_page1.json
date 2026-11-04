@@ -1,0 +1,22 @@
+{
+  "items": [
+    {
+      "message_id": "c687a52609794fcaac82ed302bb13709",
+      "contact_id": "f30172f8699b4025b86d315cc8d61a37",
+      "sender": "them",
+      "body": "live-message-2",
+      "created_at": 1793764813.468532,
+      "client_id": "live-cid-2"
+    },
+    {
+      "message_id": "8a10b656d6d74c7eb7f96ca4af49ce8f",
+      "contact_id": "f30172f8699b4025b86d315cc8d61a37",
+      "sender": "them",
+      "body": "live-message-1",
+      "created_at": 1793764813.4665751,
+      "client_id": "live-cid-1"
+    }
+  ],
+  "next_before": 1793764813.4665751,
+  "next_before_id": "8a10b656d6d74c7eb7f96ca4af49ce8f"
+}

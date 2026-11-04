@@ -1,0 +1,8 @@
+{
+  "challenge_id": "1d22bb1003e6427ed6d262413289e62b",
+  "purpose": "mobile_login",
+  "email_masked": "l****a@dogios.test",
+  "expires_at": 1793765413.385046,
+  "delivery": "outbox",
+  "dev_code": "000000"
+}

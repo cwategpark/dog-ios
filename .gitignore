@@ -1,0 +1,27 @@
+# local runtimes and build outputs
+backend/.venv/
+backend/var/
+backend/build/
+backend/*.egg-info/
+backend/__pycache__/
+**/__pycache__/
+**/.pytest_cache/
+ios/build/
+ios/.build/
+.swiftpm/
+ios/**/DerivedData/
+**/xcuserdata/
+# secrets and runtime data
+.env
+.env.local
+*.db
+*.db-shm
+*.db-wal
+backend/uploads/
+backend/var/media/
+var/logs/
+var/ui-backend/
+var/logs-public/
+.pytest_cache/
+# staging snapshot (verified separately)
+.handoff/

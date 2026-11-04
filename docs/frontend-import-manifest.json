@@ -1,0 +1,98 @@
+[
+  {
+    "path": "ios/PawlyDemo/PawlyDemoApp.swift",
+    "sha256": "6bf9e22cdc866ee260ba256ba8a4454fbbd5d6dc61e4a95cc46d9ceca6bb45dd"
+  },
+  {
+    "path": "ios/Package.swift",
+    "sha256": "308827b0c36ba48ea10e199c609d8edcb1f6272e4dd1ce64f1fc0d24be491048"
+  },
+  {
+    "path": "ios/PawlyDemo/Features/Mobile/GLBModelView.swift",
+    "sha256": "daa84c5ed5d5fd5256758081886fbee4960aba40f369a9ceb6a4ae00dbb59f58"
+  },
+  {
+    "path": "ios/PawlyDemo/Features/Mobile/NearbyPetsView.swift",
+    "sha256": "acd780b7476b0c232cd35d80c3f50f50f6944361d915ed380401a8aa2d92988e"
+  },
+  {
+    "path": "ios/PawlyDemo/Features/Mobile/MobileAppStore.swift",
+    "sha256": "b72021588a1691e41fa75ff6ca1025c95b04d9f49f06f5f667c977aebc9df957"
+  },
+  {
+    "path": "ios/PawlyDemo/Features/Mobile/MobileAccountView.swift",
+    "sha256": "ba73b7562398a4cc229ba33f4cd3434744725d4ff88affa4efd985f20fe89b6b"
+  },
+  {
+    "path": "ios/PawlyDemo/Features/Mobile/PetContactsView.swift",
+    "sha256": "67fcd5b297375b4327e6dc656c71361c7b4f3a083f638aa0710f3f801c5fb9c5"
+  },
+  {
+    "path": "ios/PawlyDemo/Features/Mobile/MobileRootView.swift",
+    "sha256": "3f0f6e0931e974077611b6fed84870551f399febac991067dbaecbd530d4c9e6"
+  },
+  {
+    "path": "ios/PawlyDemo/Features/Mobile/PetSpaceView.swift",
+    "sha256": "e731f8c88ce5d26105d888987f5ba45f124c19a37ea4a905c0845d1b2e31470f"
+  },
+  {
+    "path": "ios/PawlyDemo/Resources/Viewer/THREE-LICENSE.txt",
+    "sha256": "4c40a1ef62450b857c3b2aaf294936304cd552d965fbcd9d32d4c5bcf4ba4454"
+  },
+  {
+    "path": "ios/PawlyDemo/Resources/Viewer/pawly-BufferGeometryUtils.js",
+    "sha256": "de04a32b950ec6af30f234d43f84879bc62a1c8d88ee566aa7f2f7a7626cac50"
+  },
+  {
+    "path": "ios/PawlyDemo/Resources/Viewer/pawly-OrbitControls.js",
+    "sha256": "7296466acd2f5cc660e2afa4bd0d25f89ee3831289a5b72ce71a8b81004f1020"
+  },
+  {
+    "path": "ios/PawlyDemo/Resources/Viewer/pawly-three.module.js",
+    "sha256": "f7cee3c7533449a1505cc12cb5128b89e3d4fd3d7ea62b05f9f5464a217472ee"
+  },
+  {
+    "path": "ios/PawlyDemo/Resources/Viewer/pawly-RoomEnvironment.js",
+    "sha256": "f7b33bc8a7b7d19e5d2120569a97ced8921305f3c6e85e755ecf4524f7f2e9e4"
+  },
+  {
+    "path": "ios/PawlyDemo/Resources/Viewer/pawly-GLTFLoader.js",
+    "sha256": "c1997c621f3a5ab066d7c26162b8686090a7054c8d28a97e155fca34d90d158d"
+  },
+  {
+    "path": "ios/PawlyDemo/Resources/Viewer/pawly-viewer.html",
+    "sha256": "fd604e631ccdb20826a619b7036c427d19269cd36ffcfa356a90648f02989dfa"
+  },
+  {
+    "path": "ios/PawlyUITests/MobileFlowTests.swift",
+    "sha256": "bf6e75e833a3582a150e684b8007a13c3cf70f5840df4c8a587b9beccae7f0b7"
+  },
+  {
+    "path": "ios/PawlyDemo/Core/Data/MobileAPIClient.swift",
+    "sha256": "522cfd7967db7f90df5e50dbfe50778d7534b1fef92f54f568f2c683cf16ba69"
+  },
+  {
+    "path": "ios/PawlyDemo/Core/Data/IdentityService.swift",
+    "sha256": "ba234f2d547627be7ffef132a09c5559bd291176382ac2e5d08a0c02b7cfc3cf"
+  },
+  {
+    "path": "ios/PawlyDemo/Core/Data/MobileAPIError.swift",
+    "sha256": "566582ad0fcc85350df0eca009d815b397b295ba32ee5f67ccef72b0070aa5fb"
+  },
+  {
+    "path": "ios/Tests/DataLayerTests/SessionRaceTests.swift",
+    "sha256": "dfc42c484a315cacb3dae009e76ea849f8d20848b87943fa94cbcb5a59c72f2c"
+  },
+  {
+    "path": "ios/PawlyDemo.xcodeproj/project.pbxproj",
+    "sha256": "8229e178824d6ba60b9aaaab09db74d7d504dabf78ae804d53492ff5ec71e148"
+  },
+  {
+    "path": "ios/PawlyDemo.xcodeproj/xcshareddata/xcschemes/PawlyDemo.xcscheme",
+    "sha256": "79ed7eddf8b8d14dd2d2166235c189c90df1d9ce83df32995c07d70091d914b1"
+  },
+  {
+    "path": "docs/ios-frontend-design.md",
+    "sha256": "94d8ee8eba4a40575855033ae7ba6d77c0fe38c8c6eea0df3dd0a341d84157cd"
+  }
+]

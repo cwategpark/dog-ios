@@ -1,0 +1,11 @@
+{
+  "user_id": "a10729a1e6e44556b554c1a496f8676e",
+  "email": "live-a@dogios.test",
+  "email_verified_at": 1793764813.298636,
+  "full_name": "A Dog",
+  "access_token": "redacted-access-token",
+  "refresh_token": "redacted-refresh-token",
+  "access_expires_at": 1793765713.3908238,
+  "refresh_expires_at": 1796356813.3908238,
+  "claimed_session_ids": []
+}

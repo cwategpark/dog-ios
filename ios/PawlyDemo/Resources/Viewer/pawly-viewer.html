@@ -1,0 +1,47 @@
+<!doctype html><html><head><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src pawlyviewer: 'unsafe-inline'; connect-src pawlyviewer: blob: data:; img-src blob: data:; style-src 'unsafe-inline';">
+<style>html,body{margin:0;height:100%;overflow:hidden;touch-action:none}canvas{display:block;width:100%;height:100%}</style>
+</head><body><script>
+addEventListener('error',e=>window.webkit?.messageHandlers.viewer.postMessage('error|'+(e.message||e.target?.src||'resource')),true);
+addEventListener('unhandledrejection',e=>window.webkit?.messageHandlers.viewer.postMessage('error|'+String(e.reason)));
+</script><script type="module">
+import * as THREE from './pawly-three.module.js';
+import { GLTFLoader } from './pawly-GLTFLoader.js';
+import { OrbitControls } from './pawly-OrbitControls.js';
+import { RoomEnvironment } from './pawly-RoomEnvironment.js';
+const notify=s=>window.webkit?.messageHandlers.viewer.postMessage(s);notify('loading');
+try {
+ const dark=new URL(location.href).searchParams.get('dark')==='1';
+ const scene=new THREE.Scene(); scene.background=new THREE.Color(dark?'#2C251F':'#F4EADC');
+ const camera=new THREE.PerspectiveCamera(36,innerWidth/innerHeight,0.01,100);
+ const renderer=new THREE.WebGLRenderer({antialias:true,alpha:false});
+ renderer.setPixelRatio(Math.min(devicePixelRatio,2)); renderer.setSize(innerWidth,innerHeight);
+ renderer.outputColorSpace=THREE.SRGBColorSpace; renderer.toneMapping=THREE.ACESFilmicToneMapping;
+ renderer.toneMappingExposure=1.2; document.body.appendChild(renderer.domElement);
+ const env=new RoomEnvironment(),pmrem=new THREE.PMREMGenerator(renderer);
+ scene.environment=pmrem.fromScene(env,0.04).texture;env.dispose();pmrem.dispose();scene.environmentIntensity=0.65;
+ scene.add(new THREE.HemisphereLight(0xffffff,0xb8a18b,1.2));
+ const light=new THREE.DirectionalLight(0xfff5df,2);light.position.set(4,6,5);scene.add(light);
+ const fill=new THREE.DirectionalLight(0xffffff,1.5);fill.position.set(-4,2,-3);scene.add(fill);
+ const controls=new OrbitControls(camera,renderer.domElement);
+ controls.enablePan=false;controls.enableDamping=false;controls.minDistance=2.4;controls.maxDistance=8;
+ controls.maxPolarAngle=Math.PI*0.52;controls.target.set(0,0.9,0);camera.position.set(3.4,1.9,4.5);
+ const render=()=>renderer.render(scene,camera);controls.addEventListener('change',render);
+ addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);render()});
+ const manager=new THREE.LoadingManager();
+ manager.setURLModifier(url=>{if(!url.startsWith('pawlyviewer:')&&!url.startsWith('blob:')&&!url.startsWith('data:'))throw Error('external resource');return url});
+ const bytes=await (await fetch('pawlyviewer://viewer/model.glb')).arrayBuffer();
+ new GLTFLoader(manager).parse(bytes,'pawlyviewer://viewer/',gltf=>{
+   const model=gltf.scene;const box=new THREE.Box3().setFromObject(model);
+   let meshCount=0;model.traverse(n=>{if(n.isMesh)meshCount++});if(!meshCount){notify('error|empty model');return}
+   const size=box.getSize(new THREE.Vector3());const center=box.getCenter(new THREE.Vector3());
+   const scale=2.5/Math.max(size.x,size.y,size.z);
+   model.position.sub(center);const group=new THREE.Group();group.add(model);group.scale.setScalar(scale);
+   group.position.y=size.y*scale/2;scene.add(group);
+   controls.target.set(0,size.y*scale*0.43,0);controls.update();render();
+   window.pawlyRendered={meshes:0,triangles:0};
+   model.traverse(n=>{if(n.isMesh){window.pawlyRendered.meshes++;window.pawlyRendered.triangles+=(n.geometry.index?.count??n.geometry.attributes.position.count)/3}});
+   notify('ready');
+ },()=>notify('error'));
+} catch(error){notify('error|'+String(error))}
+</script></body></html>

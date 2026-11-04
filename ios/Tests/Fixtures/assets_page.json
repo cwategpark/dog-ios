@@ -1,0 +1,21 @@
+{
+  "items": [
+    {
+      "asset_id": "5e55337a9af84b7a89a56c34d7502753",
+      "kind": "photo",
+      "format": "jpeg",
+      "mime": "image/jpeg",
+      "bytes": 693,
+      "sha256": "43147746d4610cfb25b1a9c7de6ff1b5e7222178efd84882040716252f97ae74",
+      "source_job_id": null,
+      "pet_id": "a35633f64f7747c68423c1fbb1072ce6",
+      "created_at": 1793764813.216714,
+      "download_url": "/mobile/v1/assets/5e55337a9af84b7a89a56c34d7502753/download",
+      "manifest_url": "/mobile/v1/assets/5e55337a9af84b7a89a56c34d7502753/manifest",
+      "kind_role": "upload",
+      "product_id": null,
+      "variant_id": null
+    }
+  ],
+  "next_cursor": null
+}

@@ -1,0 +1,309 @@
+--- sections/pet-tools.liquid
++++ sections/pet-tools.liquid
+@@ -1,6 +1,26 @@
+-{% if settings.ai_enabled %}
+-{{ 'pet-tools.css' | asset_url | stylesheet_tag }}
+-<script src="{{ 'pet-tools.js' | asset_url }}" defer></script>
+-<section class="section-wrap pet-tools" data-pet-tools data-fitting-module="{{ 'cat-fitting.js' | asset_url }}" data-root-url="{{ routes.root_url }}" data-cart-url="{{ routes.cart_url }}" data-proxy="{{ settings.app_proxy_path | escape }}" data-product-id="{{ product.id }}" data-variant-id="{{ product.selected_or_first_available_variant.id }}" data-product-image="{% if product.featured_image %}{{ product.featured_image | image_url: width: 1000 }}{% endif %}" data-working="{{ 'assistant.working' | t }}" data-error="{{ 'assistant.error' | t }}" data-ready="{{ 'assistant.ready' | t }}" data-expired="{{ 'assistant.expired' | t }}"><script type="application/json" data-pet-copy>{"working":{{ 'assistant.working' | t | json }},"error":{{ 'assistant.error' | t | json }},"ready":{{ 'assistant.ready' | t | json }},"expired":{{ 'assistant.expired' | t | json }},"download":{{ 'assistant.download' | t | json }},"select":{{ 'assistant.select' | t | json }},"no_recommendations":{{ 'assistant.no_recommendations' | t | json }},"result_note":{{ 'assistant.result_note' | t | json }},"max_three":{{ 'assistant.max_three' | t | json }},"fit_confirm":{{ 'assistant.fit_confirm' | t | json }},"missing_fitting":{{ 'assistant.missing_fitting' | t | json }},"photos":{{ 'assistant.photo_preview' | t | json }}}</script><div class="pet-tools__intro"><p class="eyebrow">{% render 'theme-copy', value: section.settings.eyebrow %}</p><h2>{% render 'theme-copy', value: section.settings.heading %}</h2><p>{{ 'assistant.description' | t }}</p></div><div class="pet-tools__workspace"><form data-pet-profile><h3>{{ 'assistant.profile_title' | t }}</h3><fieldset><legend>{{ 'assistant.pet_type' | t }}</legend><label><input type="radio" name="type" value="dog" checked>{{ 'assistant.dog' | t }}</label><label><input type="radio" name="type" value="cat">{{ 'assistant.cat' | t }}</label></fieldset><label>{{ 'assistant.age' | t }}<input type="number" name="age_months" min="0" max="480" step="1" value="24" required></label><label data-dog-size>{{ 'assistant.size' | t }}<select name="dog_size"><option value="small">{{ 'assistant.small' | t }}</option><option value="medium">{{ 'assistant.medium' | t }}</option><option value="large">{{ 'assistant.large' | t }}</option></select></label><label class="consent-label"><input name="consent" type="checkbox" required>{{ 'assistant.consent' | t }}</label><button class="button" type="submit">{{ 'assistant.save' | t }} ↗</button></form><div class="pet-tools__generation" data-generation-panel hidden><div class="pet-profile-saved"><h3>{{ 'assistant.saved' | t }}</h3><button type="button" class="text-link" data-profile-reset>{{ 'assistant.edit' | t }}</button></div><form data-pet-generation><label>{{ 'assistant.photo' | t }}<input type="file" name="file" accept="image/jpeg,image/png,image/webp" required></label><img class="pet-photo-preview" alt="{{ 'assistant.photo_preview' | t }}" data-photo-preview hidden width="240" height="240"><label>{{ 'assistant.choose' | t }}<select name="kind"><option value="tryon">{{ 'assistant.tryon' | t }}</option><option value="avatar">{{ 'assistant.avatar' | t }}</option><option value="cat-fitting">{{ 'assistant.fitting' | t }}</option></select></label><p class="form-note">{{ 'assistant.preview_note' | t }}</p><button type="submit" class="button">{{ 'assistant.generate' | t }} ↗</button></form><button class="text-link" type="button" data-recommend>{{ 'assistant.recommend' | t }} ↗</button><div class="pet-tools__results" data-pet-results></div></div><p class="pet-tools__status" role="status" aria-live="polite" data-pet-status></p></div></section>
+-{% endif %}
+-{% schema %}{"name":"Pet assistant","settings":[{"type":"text","id":"eyebrow","label":"Eyebrow","default":"A LITTLE MORE THEIR WAY"},{"type":"text","id":"heading","label":"Heading","default":"Made for your companion."}],"presets":[{"name":"Pet assistant"}]}{% endschema %}
++{% if settings.ai_enabled %}
++{{ 'pet-tools.css' | asset_url | stylesheet_tag }}
++<script src="{{ 'pet-tools.js' | asset_url }}" defer></script>
++{% assign copy_claim_title = 'assistant.claim_title' | t %}{% if copy_claim_title == blank or copy_claim_title contains 'ranslation missing' %}{% assign copy_claim_title = 'Save to the app' %}{% endif %}
++{% assign copy_claim_explain = 'assistant.claim_explain' | t %}{% if copy_claim_explain == blank or copy_claim_explain contains 'ranslation missing' %}{% assign copy_claim_explain = 'Verify your email to keep this pet profile and its results in the app.' %}{% endif %}
++{% assign copy_claim_email = 'assistant.claim_email' | t %}{% if copy_claim_email == blank or copy_claim_email contains 'ranslation missing' %}{% assign copy_claim_email = 'Email' %}{% endif %}
++{% assign copy_claim_name = 'assistant.claim_name' | t %}{% if copy_claim_name == blank or copy_claim_name contains 'ranslation missing' %}{% assign copy_claim_name = 'Name (optional)' %}{% endif %}
++{% assign copy_claim_send = 'assistant.claim_send' | t %}{% if copy_claim_send == blank or copy_claim_send contains 'ranslation missing' %}{% assign copy_claim_send = 'Save to app' %}{% endif %}
++{% assign copy_claim_code = 'assistant.claim_code' | t %}{% if copy_claim_code == blank or copy_claim_code contains 'ranslation missing' %}{% assign copy_claim_code = '6-digit code' %}{% endif %}
++{% assign copy_claim_verify = 'assistant.claim_verify' | t %}{% if copy_claim_verify == blank or copy_claim_verify contains 'ranslation missing' %}{% assign copy_claim_verify = 'Verify' %}{% endif %}
++{% assign copy_claim_attempts_exceeded = 'assistant.claim_attempts_exceeded' | t %}{% if copy_claim_attempts_exceeded == blank or copy_claim_attempts_exceeded contains 'ranslation missing' %}{% assign copy_claim_attempts_exceeded = 'Too many incorrect codes. Send a new code to continue.' %}{% endif %}
++{% assign copy_claim_link_disabled = 'assistant.claim_link_disabled' | t %}{% if copy_claim_link_disabled == blank or copy_claim_link_disabled contains 'ranslation missing' %}{% assign copy_claim_link_disabled = 'Claim links are unavailable right now. Please use the verification code.' %}{% endif %}
++{% assign copy_claim_unverified = 'assistant.claim_unverified' | t %}{% if copy_claim_unverified == blank or copy_claim_unverified contains 'ranslation missing' %}{% assign copy_claim_unverified = 'Email not verified yet.' %}{% endif %}
++{% assign copy_claim_sent = 'assistant.claim_sent' | t %}{% if copy_claim_sent == blank or copy_claim_sent contains 'ranslation missing' %}{% assign copy_claim_sent = 'Verification code sent' %}{% endif %}
++{% assign copy_claim_verified = 'assistant.claim_verified' | t %}{% if copy_claim_verified == blank or copy_claim_verified contains 'ranslation missing' %}{% assign copy_claim_verified = 'Saved. Your email is verified and this device is linked to it.' %}{% endif %}
++{% assign copy_claim_expired = 'assistant.claim_expired' | t %}{% if copy_claim_expired == blank or copy_claim_expired contains 'ranslation missing' %}{% assign copy_claim_expired = 'The code expired or is no longer valid. Please send a new one.' %}{% endif %}
++{% assign copy_claim_rate_limited = 'assistant.claim_rate_limited' | t %}{% if copy_claim_rate_limited == blank or copy_claim_rate_limited contains 'ranslation missing' %}{% assign copy_claim_rate_limited = 'Too many attempts. Please wait a minute and try again.' %}{% endif %}
++{% assign copy_claim_invalid_code = 'assistant.claim_invalid_code' | t %}{% if copy_claim_invalid_code == blank or copy_claim_invalid_code contains 'ranslation missing' %}{% assign copy_claim_invalid_code = 'That code is incorrect. Check the email and try again.' %}{% endif %}
++{% assign copy_claim_email_invalid = 'assistant.claim_email_invalid' | t %}{% if copy_claim_email_invalid == blank or copy_claim_email_invalid contains 'ranslation missing' %}{% assign copy_claim_email_invalid = 'Enter a valid email address (up to 254 characters).' %}{% endif %}
++{% assign copy_claim_missing_email = 'assistant.claim_missing_email' | t %}{% if copy_claim_missing_email == blank or copy_claim_missing_email contains 'ranslation missing' %}{% assign copy_claim_missing_email = 'Add an email address before saving to the app.' %}{% endif %}
++{% assign copy_claim_unavailable = 'assistant.claim_unavailable' | t %}{% if copy_claim_unavailable == blank or copy_claim_unavailable contains 'ranslation missing' %}{% assign copy_claim_unavailable = 'Saving to the app is not available right now. Please try again later.' %}{% endif %}
++{% assign copy_claim_response_invalid = 'assistant.claim_response_invalid' | t %}{% if copy_claim_response_invalid == blank or copy_claim_response_invalid contains 'ranslation missing' %}{% assign copy_claim_response_invalid = 'Could not start email verification. Please refresh and try again.' %}{% endif %}
++{% assign copy_claim_expires = 'assistant.claim_expires' | t %}{% if copy_claim_expires == blank or copy_claim_expires contains 'ranslation missing' %}{% assign copy_claim_expires = 'expires' %}{% endif %}
++<section class="section-wrap pet-tools" data-pet-tools data-fitting-module="{{ 'cat-fitting.js' | asset_url }}" data-root-url="{{ routes.root_url }}" data-cart-url="{{ routes.cart_url }}" data-proxy="{{ settings.app_proxy_path | escape }}" data-product-id="{{ product.id }}" data-variant-id="{{ product.selected_or_first_available_variant.id }}" data-product-image="{% if product.featured_image %}{{ product.featured_image | image_url: width: 1000 }}{% endif %}" data-working="{{ 'assistant.working' | t }}" data-error="{{ 'assistant.error' | t }}" data-ready="{{ 'assistant.ready' | t }}" data-expired="{{ 'assistant.expired' | t }}"><script type="application/json" data-pet-copy>{"working":{{ 'assistant.working' | t | json }},"error":{{ 'assistant.error' | t | json }},"ready":{{ 'assistant.ready' | t | json }},"expired":{{ 'assistant.expired' | t | json }},"download":{{ 'assistant.download' | t | json }},"select":{{ 'assistant.select' | t | json }},"no_recommendations":{{ 'assistant.no_recommendations' | t | json }},"result_note":{{ 'assistant.result_note' | t | json }},"max_three":{{ 'assistant.max_three' | t | json }},"fit_confirm":{{ 'assistant.fit_confirm' | t | json }},"missing_fitting":{{ 'assistant.missing_fitting' | t | json }},"photos":{{ 'assistant.photo_preview' | t | json }},"claim_title":{{ copy_claim_title | json }},"claim_explain":{{ copy_claim_explain | json }},"claim_email":{{ copy_claim_email | json }},"claim_name":{{ copy_claim_name | json }},"claim_send":{{ copy_claim_send | json }},"claim_code":{{ copy_claim_code | json }},"claim_verify":{{ copy_claim_verify | json }},"claim_unverified":{{ copy_claim_unverified | json }},"claim_sent":{{ copy_claim_sent | json }},"claim_verified":{{ copy_claim_verified | json }},"claim_expired":{{ copy_claim_expired | json }},"claim_rate_limited":{{ copy_claim_rate_limited | json }},"claim_invalid_code":{{ copy_claim_invalid_code | json }},"claim_email_invalid":{{ copy_claim_email_invalid | json }},"claim_missing_email":{{ copy_claim_missing_email | json }},"claim_unavailable":{{ copy_claim_unavailable | json }},"claim_expires":{{ copy_claim_expires | json }},"claim_attempts_exceeded":{{ copy_claim_attempts_exceeded | json }},"claim_link_disabled":{{ copy_claim_link_disabled | json }},"claim_response_invalid":{{ copy_claim_response_invalid | json }}}</script><div class="pet-tools__intro"><p class="eyebrow">{% render 'theme-copy', value: section.settings.eyebrow %}</p><h2>{% render 'theme-copy', value: section.settings.heading %}</h2><p>{{ 'assistant.description' | t }}</p></div><div class="pet-tools__workspace"><form data-pet-profile><h3>{{ 'assistant.profile_title' | t }}</h3><fieldset><legend>{{ 'assistant.pet_type' | t }}</legend><label><input type="radio" name="type" value="dog" checked>{{ 'assistant.dog' | t }}</label><label><input type="radio" name="type" value="cat">{{ 'assistant.cat' | t }}</label></fieldset><label>{{ 'assistant.age' | t }}<input type="number" name="age_months" min="0" max="480" step="1" value="24" required></label><label data-dog-size>{{ 'assistant.size' | t }}<select name="dog_size"><option value="small">{{ 'assistant.small' | t }}</option><option value="medium">{{ 'assistant.medium' | t }}</option><option value="large">{{ 'assistant.large' | t }}</option></select></label><label>{{ copy_claim_email }}<input type="email" name="email" autocomplete="email" inputmode="email" maxlength="254"></label><label>{{ copy_claim_name }}<input type="text" name="full_name" autocomplete="name" maxlength="120"></label><label class="consent-label"><input name="consent" type="checkbox" required>{{ 'assistant.consent' | t }}</label><button class="button" type="submit">{{ 'assistant.save' | t }} ↗</button></form><div class="pet-tools__generation" data-generation-panel hidden><div class="pet-profile-saved"><h3>{{ 'assistant.saved' | t }}</h3><button type="button" class="text-link" data-profile-reset>{{ 'assistant.edit' | t }}</button></div><section class="pet-tools__claim" data-pet-claim hidden><h3>{{ copy_claim_title }}</h3><p class="form-note">{{ copy_claim_explain }}</p><p class="form-note" data-claim-email></p><button class="button" type="button" data-claim-send>{{ copy_claim_send }}</button><form class="pet-tools__claim-code" data-claim-verify hidden><label>{{ copy_claim_code }}<input type="text" name="code" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6}" maxlength="6" required></label><button class="button" type="submit">{{ copy_claim_verify }}</button></form><p class="pet-tools__status" role="status" aria-live="polite" data-claim-status></p></section><form data-pet-generation><label>{{ 'assistant.photo' | t }}<input type="file" name="file" accept="image/jpeg,image/png,image/webp" required></label><img class="pet-photo-preview" alt="{{ 'assistant.photo_preview' | t }}" data-photo-preview hidden width="240" height="240"><label>{{ 'assistant.choose' | t }}<select name="kind"><option value="tryon">{{ 'assistant.tryon' | t }}</option><option value="avatar">{{ 'assistant.avatar' | t }}</option><option value="cat-fitting">{{ 'assistant.fitting' | t }}</option></select></label><p class="form-note">{{ 'assistant.preview_note' | t }}</p><button type="submit" class="button">{{ 'assistant.generate' | t }} ↗</button></form><button class="text-link" type="button" data-recommend>{{ 'assistant.recommend' | t }} ↗</button><div class="pet-tools__results" data-pet-results></div></div><p class="pet-tools__status" role="status" aria-live="polite" data-pet-status></p></div></section>
++{% endif %}
++{% schema %}{"name":"Pet assistant","settings":[{"type":"text","id":"eyebrow","label":"Eyebrow","default":"A LITTLE MORE THEIR WAY"},{"type":"text","id":"heading","label":"Heading","default":"Made for your companion."}],"presets":[{"name":"Pet assistant"}]}{% endschema %}
+--- assets/pet-tools.js
++++ assets/pet-tools.js
+@@ -1,4 +1,58 @@
+ (() => {
++  // @pure:start — pure helpers (no DOM/network); extracted by tests/pure-logic.test.js
++  const EMAIL_MAX_LENGTH = 254;
++  const FULL_NAME_MAX_LENGTH = 120;
++  const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
++  const SESSION_EXPIRED_DETAILS = new Set(['session_expired_or_invalid', 'questionnaire_session_required', 'session_invalid', 'session_expired']);
++  const CHALLENGE_ID_FIELDS = ['challenge_id', 'claim_id', 'challengeId'];
++  const OTP_INVALID_DETAILS = new Set(['invalid_otp', 'invalid_otp_format', 'invalid_code', 'code_invalid', 'invalid_otp_code']);
++  const OTP_EXPIRED_DETAILS = new Set(['challenge_expired', 'challenge_already_consumed', 'challenge_not_found', 'claim_not_found']);
++  const normalizeEmail = (value) => {
++    if (typeof value !== 'string') return { ok: false, email: '', reason: 'required' };
++    const email = value.trim().toLowerCase();
++    if (!email) return { ok: false, email: '', reason: 'required' };
++    if (email.length > EMAIL_MAX_LENGTH) return { ok: false, email, reason: 'too_long' };
++    if (!EMAIL_PATTERN.test(email)) return { ok: false, email, reason: 'format' };
++    return { ok: true, email, reason: '' };
++  };
++  const normalizeFullName = (value) => {
++    if (typeof value !== 'string') return '';
++    const name = value.replace(/\s+/g, ' ').trim();
++    return name.length > FULL_NAME_MAX_LENGTH ? name.slice(0, FULL_NAME_MAX_LENGTH).trim() : name;
++  };
++  const isOtpCode = (value) => typeof value === 'string' && /^[0-9]{6}$/.test(value.trim());
++  const isSessionExpiredDetail = (detail) => typeof detail === 'string' && SESSION_EXPIRED_DETAILS.has(detail);
++  // 后端 POST /v1/claims 以 challenge_id 返回；兼容旧响应/别名的 claim_id、challengeId。
++  const normalizeChallengeId = (response) => {
++    if (!response || typeof response !== 'object') return '';
++    for (const field of CHALLENGE_ID_FIELDS) {
++      const value = response[field];
++      if (typeof value === 'string' && value.trim()) return value.trim();
++      if (typeof value === 'number' && Number.isFinite(value)) return String(value);
++    }
++    return '';
++  };
++  const claimErrorKey = (context, status, detail) => {
++    if (context !== 'start' && context !== 'verify' && context !== 'link') return 'error';
++    const code = typeof detail === 'string' ? detail : '';
++    if (code === 'claim_link_disabled') return 'claim_link_disabled';
++    if (code === 'email_delivery_unavailable') return 'claim_unavailable';
++    if (context === 'verify') {
++      if (OTP_INVALID_DETAILS.has(code)) return 'claim_invalid_code';
++      if (code === 'challenge_attempts_exceeded') return 'claim_attempts_exceeded';
++      if (OTP_EXPIRED_DETAILS.has(code)) return 'claim_expired';
++    }
++    if (status === 401) return 'session';
++    if (status === 403) return 'error';
++    if (status === 410) return 'claim_expired';
++    if (status === 429) return context === 'verify' ? 'claim_attempts_exceeded' : 'claim_rate_limited';
++    if (status === 503) return 'claim_unavailable';
++    if (status === 404) return context === 'verify' ? 'claim_expired' : 'claim_unavailable';
++    if (status === 405) return 'claim_unavailable';
++    if (status === 422) return context === 'verify' ? 'claim_invalid_code' : 'claim_email_invalid';
++    return 'error';
++  };
++  // @pure:end
+   const init = (scope = document) => scope.querySelectorAll('[data-pet-tools]').forEach((root) => {
+     if (root.dataset.bound) return;
+     root.dataset.bound = 'true';
+@@ -11,6 +65,16 @@
+     const panel = root.querySelector('[data-generation-panel]');
+     const status = root.querySelector('[data-pet-status]');
+     const results = root.querySelector('[data-pet-results]');
++    const claimBlock = root.querySelector('[data-pet-claim]');
++    const claimSend = root.querySelector('[data-claim-send]');
++    const claimCodeForm = root.querySelector('[data-claim-verify]');
++    const claimCodeInput = claimCodeForm && claimCodeForm.elements.code;
++    // 旧版 section 缓存可能仍带 magic-link 节点；新 UI 不再展示/复制任何链接，仅做防御性清理。
++    const legacyLinkButton = root.querySelector('[data-claim-link]');
++    const legacyCopyButton = root.querySelector('[data-claim-copy]');
++    const legacyUrlInput = root.querySelector('[data-claim-url]');
++    const claimEmailNote = root.querySelector('[data-claim-email]');
++    const claimStatus = root.querySelector('[data-claim-status]');
+     const objectUrls = new Set();
+     let session;
+     let busy = false;
+@@ -19,8 +83,32 @@
+     const setStatus = (value) => { status.textContent = value; };
+     const remember = () => { try { if (session) sessionStorage.setItem(key, JSON.stringify(session)); else sessionStorage.removeItem(key); } catch {} };
+     const expiresAt = (value) => typeof value === 'number' ? value * 1000 : Date.parse(value);
++    const claim = { busy: false, id: '' };
++    const claimCopy = (key) => copy[key] || copy.error;
++    const setClaimStatus = (value) => { if (claimStatus) claimStatus.textContent = value; };
++    const setClaimEmail = (value) => { if (claimEmailNote) claimEmailNote.textContent = typeof value === 'string' && value ? value : ''; };
++    const resetClaim = () => {
++      claim.busy = false; claim.id = '';
++      if (claimCodeForm) { claimCodeForm.reset(); claimCodeForm.hidden = true; }
++      if (claimSend) claimSend.hidden = false;
++      if (legacyLinkButton) legacyLinkButton.hidden = true;
++      if (legacyCopyButton) legacyCopyButton.hidden = true;
++      if (legacyUrlInput) { legacyUrlInput.value = ''; legacyUrlInput.hidden = true; }
++      if (claimBlock) claimBlock.removeAttribute('aria-busy');
++      setClaimStatus('');
++    };
+     if (session && (!session.session_token || !Number.isFinite(expiresAt(session.expires_at)) || expiresAt(session.expires_at) <= Date.now())) session = undefined;
+-    const showProfileState = () => { profileForm.hidden = !!session; panel.hidden = !session; };
++    const showProfileState = () => {
++      profileForm.hidden = !!session;
++      panel.hidden = !session;
++      if (claimBlock) {
++        claimBlock.hidden = !session;
++        setClaimEmail(session && session.email);
++        if (claimSend) claimSend.hidden = !!(session && session.claimed);
++        if (session) setClaimStatus(session.claimed ? copy.claim_verified : (session.email ? copy.claim_unverified : copy.claim_missing_email));
++        else setClaimStatus('');
++      }
++    };
+     showProfileState();
+     const revoke = () => { objectUrls.forEach((url) => URL.revokeObjectURL(url)); objectUrls.clear(); };
+     const clearResults = () => { results.querySelectorAll('[src^="blob:"], [href^="blob:"]').forEach((element) => { const url = element.src || element.href; URL.revokeObjectURL(url); objectUrls.delete(url); }); results.replaceChildren(); };
+@@ -35,8 +123,16 @@
+         headers.set('X-Wagelpaw-Session', session.session_token);
+       }
+       const response = await fetch(base + path, { ...options, headers, credentials: 'same-origin' });
+-      if (response.status === 401 && !unauthenticated) { session = undefined; remember(); showProfileState(); setStatus(copy.expired); throw new Error('session'); }
+-      if (!response.ok) throw new Error('request_' + response.status);
++      if (!response.ok) {
++        let detail = '';
++        try { const body = await response.json(); if (body && typeof body.detail === 'string') detail = body.detail; } catch {}
++        // 只有明确的「会话失效」detail 才清 guest 会话；invalid_otp 等认领错误必须保留会话。
++        // 空 detail 视为旧后端 401，沿用基线的清会话行为。
++        if (response.status === 401 && !unauthenticated && (!detail || isSessionExpiredDetail(detail))) {
++          session = undefined; remember(); showProfileState(); setStatus(copy.expired); throw new Error('session');
++        }
++        const error = new Error('request_' + response.status); error.status = response.status; error.detail = detail; throw error;
++      }
+       return response.json();
+     };
+     const jsonRequest = (path, body, headers = {}, unauthenticated = false) => request(path, { method: 'POST', headers: { 'Content-Type': 'application/json', ...headers }, body: JSON.stringify(body) }, unauthenticated);
+@@ -48,6 +144,7 @@
+     const updatePet = () => { const dog = profileForm.elements.type.value === 'dog'; root.querySelector('[data-dog-size]').hidden = !dog; profileForm.elements.dog_size.disabled = !dog; };
+     profileForm.addEventListener('change', updatePet);
+     updatePet();
++    if (profileForm.elements.email) profileForm.elements.email.required = true;
+     profileForm.addEventListener('submit', async (event) => {
+       event.preventDefault();
+       if (busy || !profileForm.reportValidity()) return;
+@@ -56,13 +153,132 @@
+         const data = new FormData(profileForm);
+         const profile = { type: data.get('type'), age_months: Number(data.get('age_months')) };
+         if (profile.type === 'dog') profile.dog_size = data.get('dog_size');
+-        session = await jsonRequest('/v1/sessions', { profile, consent: true }, {}, true);
++        const emailField = profileForm.elements.email;
++        const nameField = profileForm.elements.full_name;
++        let email = '';
++        if (emailField) {
++          const normalized = normalizeEmail(emailField.value);
++          if (!normalized.ok) {
++            emailField.setCustomValidity(copy.claim_email_invalid);
++            emailField.reportValidity();
++            emailField.addEventListener('change', () => emailField.setCustomValidity(''), { once: true });
++            return;
++          }
++          emailField.setCustomValidity('');
++          email = normalized.email;
++        }
++        const body = { profile, consent: true };
++        const fullName = nameField ? normalizeFullName(nameField.value) : '';
++        if (email) body.email = email;
++        if (fullName) body.full_name = fullName;
++        try {
++          session = await jsonRequest('/v1/sessions', body, {}, true);
++        } catch (error) {
++          // 兼容尚未升级的旧后端：它用 extra="forbid" 拒绝新字段（422 + 校验数组），此时退回旧请求体。
++          if (!email || error.status !== 422 || error.detail) throw error;
++          delete body.email; delete body.full_name;
++          session = await jsonRequest('/v1/sessions', body, {}, true);
++        }
++        if (session) session.email = email;
+         remember(); showProfileState();
+       } catch { setStatus(copy.error); } finally { setBusy(false); }
+     });
+     root.querySelector('[data-profile-reset]').addEventListener('click', () => {
+-      operation += 1; session = undefined; remember(); revoke(); clearResults(); setStatus(''); showProfileState(); generationForm.reset(); root.querySelector('[data-photo-preview]').hidden = true; setBusy(false);
++      operation += 1; session = undefined; remember(); revoke(); clearResults(); setStatus(''); resetClaim(); showProfileState(); generationForm.reset(); root.querySelector('[data-photo-preview]').hidden = true; setBusy(false);
+     });
++    if (claimBlock && claimSend && claimCodeForm && claimCodeInput) {
++      const claimEmailValue = () => {
++        if (session && typeof session.email === 'string' && session.email) return normalizeEmail(session.email);
++        const field = profileForm.elements.email;
++        return field ? normalizeEmail(field.value) : { ok: false, email: '', reason: 'required' };
++      };
++      const claimTime = (value) => {
++        const timestamp = expiresAt(value);
++        if (!Number.isFinite(timestamp)) return '';
++        try { return new Date(timestamp).toLocaleTimeString(document.documentElement.lang || undefined, { hour: '2-digit', minute: '2-digit' }); }
++        catch { return new Date(timestamp).toISOString().slice(11, 16); }
++      };
++      const setClaimBusy = (value) => {
++        claim.busy = value;
++        if (claimBlock) claimBlock.setAttribute('aria-busy', String(value));
++        claimSend.disabled = value;
++        claimCodeForm.querySelector('button[type="submit"]').disabled = value;
++        if (legacyLinkButton) legacyLinkButton.disabled = value;
++        if (legacyCopyButton) legacyCopyButton.disabled = value;
++      };
++      const handleClaimError = (context, error) => {
++        if (!error || error.message === 'session') return;
++        const key = claimErrorKey(context, error.status, error.detail);
++        if (key !== 'session') setClaimStatus(claimCopy(key));
++      };
++      const sendClaimCode = async () => {
++        if (claim.busy) return;
++        const normalized = claimEmailValue();
++        if (!normalized.ok) { setClaimStatus(copy.claim_missing_email); return; }
++        claimCodeInput.value = '';
++        setClaimBusy(true); setClaimStatus(copy.working);
++        try {
++          const response = await jsonRequest('/v1/claims', { email: normalized.email });
++          claim.id = normalizeChallengeId(response);
++          if (!claim.id) { setClaimStatus(copy.claim_response_invalid); return; }
++          claimCodeForm.reset();
++          claimCodeForm.hidden = response.delivery === 'unavailable';
++          if (response.delivery === 'unavailable') {
++            setClaimStatus(copy.claim_unavailable);
++          } else {
++            const expiry = claimTime(response.expires_at);
++            setClaimStatus([response.email_masked || normalized.email, copy.claim_sent, expiry ? copy.claim_expires + ' ' + expiry : ''].filter(Boolean).join(' · '));
++            claimCodeInput.focus();
++          }
++        } catch (error) { handleClaimError('start', error); }
++        finally { setClaimBusy(false); }
++      };
++      claimSend.addEventListener('click', sendClaimCode);
++      claimCodeForm.addEventListener('submit', async (event) => {
++        event.preventDefault();
++        if (claim.busy) return;
++        if (!isOtpCode(claimCodeInput.value)) {
++          claimCodeInput.setCustomValidity(copy.claim_invalid_code);
++          claimCodeInput.reportValidity();
++          claimCodeInput.addEventListener('input', () => claimCodeInput.setCustomValidity(''), { once: true });
++          return;
++        }
++        claimCodeInput.setCustomValidity('');
++        if (!claim.id) { setClaimStatus(copy.claim_expired); return; }
++        setClaimBusy(true); setClaimStatus(copy.working);
++        try {
++          const response = await jsonRequest('/v1/claims/' + encodeURIComponent(claim.id) + '/verify', { code: claimCodeInput.value.trim() });
++          if (!response || response.claimed !== true) throw new Error('claim_verify');
++          claimCodeForm.reset(); claimCodeForm.hidden = true;
++          if (session) { session.claimed = true; remember(); }
++          setClaimStatus(copy.claim_verified);
++          claimSend.hidden = true;
++          if (legacyLinkButton) legacyLinkButton.hidden = true;
++          if (legacyCopyButton) legacyCopyButton.hidden = true;
++          if (legacyUrlInput) { legacyUrlInput.hidden = true; legacyUrlInput.value = ''; }
++        } catch (error) { handleClaimError('verify', error); }
++        finally { setClaimBusy(false); }
++      });
++      // 旧版 section 缓存残留下来的 magic-link 按钮：后端已默认关闭（503 claim_link_disabled），
++      // 新 UI 不展示链接能力；若误触旧按钮，绝不读取响应中的 url/token，也不写 DOM/剪贴板，只提示改用验证码。
++      if (legacyLinkButton) legacyLinkButton.addEventListener('click', async () => {
++        if (claim.busy || !claim.id) return;
++        setClaimBusy(true); setClaimStatus(copy.working);
++        try {
++          await jsonRequest('/v1/claims/' + encodeURIComponent(claim.id) + '/link', {});
++          setClaimStatus(copy.claim_link_disabled);
++        } catch (error) { handleClaimError('link', error); }
++        finally {
++          if (legacyUrlInput) { legacyUrlInput.value = ''; legacyUrlInput.hidden = true; }
++          if (legacyCopyButton) legacyCopyButton.hidden = true;
++          setClaimBusy(false);
++        }
++      });
++      if (legacyCopyButton) legacyCopyButton.addEventListener('click', () => {
++        if (legacyUrlInput) { legacyUrlInput.value = ''; legacyUrlInput.hidden = true; }
++        setClaimStatus(copy.claim_link_disabled);
++      });
++    }
+     generationForm.elements.kind.addEventListener('change', () => { generationForm.elements.file.required = generationForm.elements.kind.value !== 'cat-fitting'; });
+     generationForm.elements.file.addEventListener('change', () => {
+       const file = generationForm.elements.file.files[0];

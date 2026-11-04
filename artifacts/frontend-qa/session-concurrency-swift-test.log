@@ -1,0 +1,244 @@
+Building for debugging...
+[Pre-planning 1 / 124]
+[Planning deferred tasks]
+[1 / 5]
+[3 / 4] DataLayerTests-product
+Build complete! (0.83 sec)
+Test Suite 'All tests' started at 2026-11-04 13:23:04.497.
+Test Suite 'DataLayerTests.xctest' started at 2026-11-04 13:23:04.499.
+Test Suite 'AppConfigTests' started at 2026-11-04 13:23:04.499.
+Test Case '-[DataLayerTests.AppConfigTests testBlankEnvironmentFallsThroughToInfoPlist]' started.
+Test Case '-[DataLayerTests.AppConfigTests testBlankEnvironmentFallsThroughToInfoPlist]' passed (0.003 seconds).
+Test Case '-[DataLayerTests.AppConfigTests testDefaultsToLocalhostWhenNothingConfigured]' started.
+Test Case '-[DataLayerTests.AppConfigTests testDefaultsToLocalhostWhenNothingConfigured]' passed (0.000 seconds).
+Test Case '-[DataLayerTests.AppConfigTests testDirectURLInitValidatesToo]' started.
+Test Case '-[DataLayerTests.AppConfigTests testDirectURLInitValidatesToo]' passed (0.000 seconds).
+Test Case '-[DataLayerTests.AppConfigTests testEnvironmentWinsOverInfoPlist]' started.
+Test Case '-[DataLayerTests.AppConfigTests testEnvironmentWinsOverInfoPlist]' passed (0.000 seconds).
+Test Case '-[DataLayerTests.AppConfigTests testGoogleMapsKeyEnvironmentWins]' started.
+Test Case '-[DataLayerTests.AppConfigTests testGoogleMapsKeyEnvironmentWins]' passed (0.000 seconds).
+Test Case '-[DataLayerTests.AppConfigTests testGoogleMapsKeyFromInfoPlist]' started.
+Test Case '-[DataLayerTests.AppConfigTests testGoogleMapsKeyFromInfoPlist]' passed (0.000 seconds).
+Test Case '-[DataLayerTests.AppConfigTests testGoogleMapsKeyWithoutSDKIsStillUnconfigured]' started.
+Test Case '-[DataLayerTests.AppConfigTests testGoogleMapsKeyWithoutSDKIsStillUnconfigured]' passed (0.000 seconds).
+Test Case '-[DataLayerTests.AppConfigTests testHTTPSRemoteIsAllowed]' started.
+Test Case '-[DataLayerTests.AppConfigTests testHTTPSRemoteIsAllowed]' passed (0.000 seconds).
+Test Case '-[DataLayerTests.AppConfigTests testInfoPlistUsedWhenEnvironmentMissing]' started.
+Test Case '-[DataLayerTests.AppConfigTests testInfoPlistUsedWhenEnvironmentMissing]' passed (0.000 seconds).
+Test Case '-[DataLayerTests.AppConfigTests testInsecureCustomDomainHTTPThrows]' started.
+Test Case '-[DataLayerTests.AppConfigTests testInsecureCustomDomainHTTPThrows]' passed (0.000 seconds).
+Test Case '-[DataLayerTests.AppConfigTests testInsecureRemoteHTTPThrows]' started.
+Test Case '-[DataLayerTests.AppConfigTests testInsecureRemoteHTTPThrows]' passed (0.000 seconds).
+Test Case '-[DataLayerTests.AppConfigTests testInvalidBaseURLThrows]' started.
+Test Case '-[DataLayerTests.AppConfigTests testInvalidBaseURLThrows]' passed (0.000 seconds).
+Test Case '-[DataLayerTests.AppConfigTests testLocalhostHTTPIsAllowed]' started.
+Test Case '-[DataLayerTests.AppConfigTests testLocalhostHTTPIsAllowed]' passed (0.000 seconds).
+Test Case '-[DataLayerTests.AppConfigTests testMissingGoogleMapsKeyIsUnconfigured]' started.
+Test Case '-[DataLayerTests.AppConfigTests testMissingGoogleMapsKeyIsUnconfigured]' passed (0.000 seconds).
+Test Case '-[DataLayerTests.AppConfigTests testNonHTTPSSchemeThrows]' started.
+Test Case '-[DataLayerTests.AppConfigTests testNonHTTPSSchemeThrows]' passed (0.000 seconds).
+Test Case '-[DataLayerTests.AppConfigTests testUnexpandedBuildSettingIsIgnored]' started.
+Test Case '-[DataLayerTests.AppConfigTests testUnexpandedBuildSettingIsIgnored]' passed (0.000 seconds).
+Test Suite 'AppConfigTests' passed at 2026-11-04 13:23:04.504.
+	 Executed 16 tests, with 0 failures (0 unexpected) in 0.004 (0.005) seconds
+Test Suite 'AssetServiceTests' started at 2026-11-04 13:23:04.504.
+Test Case '-[DataLayerTests.AssetServiceTests testDownloadAlwaysAuthenticatesEvenWithDownloadURLInList]' started.
+Test Case '-[DataLayerTests.AssetServiceTests testDownloadAlwaysAuthenticatesEvenWithDownloadURLInList]' passed (0.052 seconds).
+Test Case '-[DataLayerTests.AssetServiceTests testDownloadForbiddenIsForbidden]' started.
+Test Case '-[DataLayerTests.AssetServiceTests testDownloadForbiddenIsForbidden]' passed (0.001 seconds).
+Test Case '-[DataLayerTests.AssetServiceTests testDownloadSendsBearerAndReturnsBytes]' started.
+Test Case '-[DataLayerTests.AssetServiceTests testDownloadSendsBearerAndReturnsBytes]' passed (0.000 seconds).
+Test Case '-[DataLayerTests.AssetServiceTests testListLastPageHasNoCursor]' started.
+Test Case '-[DataLayerTests.AssetServiceTests testListLastPageHasNoCursor]' passed (0.001 seconds).
+Test Case '-[DataLayerTests.AssetServiceTests testListSendsCursorAndParsesNextCursor]' started.
+Test Case '-[DataLayerTests.AssetServiceTests testListSendsCursorAndParsesNextCursor]' passed (0.004 seconds).
+Test Case '-[DataLayerTests.AssetServiceTests testManifest]' started.
+Test Case '-[DataLayerTests.AssetServiceTests testManifest]' passed (0.000 seconds).
+Test Case '-[DataLayerTests.AssetServiceTests testNonOwnerDownloadIsNotFound]' started.
+Test Case '-[DataLayerTests.AssetServiceTests testNonOwnerDownloadIsNotFound]' passed (0.000 seconds).
+Test Suite 'AssetServiceTests' passed at 2026-11-04 13:23:04.564.
+	 Executed 7 tests, with 0 failures (0 unexpected) in 0.060 (0.060) seconds
+Test Suite 'ContactAndMessageServiceTests' started at 2026-11-04 13:23:04.564.
+Test Case '-[DataLayerTests.ContactAndMessageServiceTests testAcceptAndContacts]' started.
+Test Case '-[DataLayerTests.ContactAndMessageServiceTests testAcceptAndContacts]' passed (0.001 seconds).
+Test Case '-[DataLayerTests.ContactAndMessageServiceTests testBlockAndUnblock]' started.
+Test Case '-[DataLayerTests.ContactAndMessageServiceTests testBlockAndUnblock]' passed (0.001 seconds).
+Test Case '-[DataLayerTests.ContactAndMessageServiceTests testIncomingRequestsQuery]' started.
+Test Case '-[DataLayerTests.ContactAndMessageServiceTests testIncomingRequestsQuery]' passed (0.000 seconds).
+Test Case '-[DataLayerTests.ContactAndMessageServiceTests testMessageBodyTooLongIsRejectedLocally]' started.
+Test Case '-[DataLayerTests.ContactAndMessageServiceTests testMessageBodyTooLongIsRejectedLocally]' passed (0.000 seconds).
+Test Case '-[DataLayerTests.ContactAndMessageServiceTests testMessageSendIsIdempotentWithClientId]' started.
+Test Case '-[DataLayerTests.ContactAndMessageServiceTests testMessageSendIsIdempotentWithClientId]' passed (0.001 seconds).
+Test Case '-[DataLayerTests.ContactAndMessageServiceTests testMessagesPaginationQuery]' started.
+Test Case '-[DataLayerTests.ContactAndMessageServiceTests testMessagesPaginationQuery]' passed (0.000 seconds).
+Test Case '-[DataLayerTests.ContactAndMessageServiceTests testRequestContactSendsTargetRefAndMessage]' started.
+Test Case '-[DataLayerTests.ContactAndMessageServiceTests testRequestContactSendsTargetRefAndMessage]' passed (0.001 seconds).
+Test Suite 'ContactAndMessageServiceTests' passed at 2026-11-04 13:23:04.568.
+	 Executed 7 tests, with 0 failures (0 unexpected) in 0.004 (0.004) seconds
+Test Suite 'DTODecodingTests' started at 2026-11-04 13:23:04.568.
+Test Case '-[DataLayerTests.DTODecodingTests testAssetManifestDecodesAvailability]' started.
+Test Case '-[DataLayerTests.DTODecodingTests testAssetManifestDecodesAvailability]' passed (0.000 seconds).
+Test Case '-[DataLayerTests.DTODecodingTests testAssetPageParsesCursorPagination]' started.
+Test Case '-[DataLayerTests.DTODecodingTests testAssetPageParsesCursorPagination]' passed (0.000 seconds).
+Test Case '-[DataLayerTests.DTODecodingTests testBlockItemAcceptsEitherRefField]' started.
+Test Case '-[DataLayerTests.DTODecodingTests testBlockItemAcceptsEitherRefField]' passed (0.001 seconds).
+Test Case '-[DataLayerTests.DTODecodingTests testChatMessageAndMessagePageDecode]' started.
+Test Case '-[DataLayerTests.DTODecodingTests testChatMessageAndMessagePageDecode]' passed (0.000 seconds).
+Test Case '-[DataLayerTests.DTODecodingTests testContactDtosDecode]' started.
+Test Case '-[DataLayerTests.DTODecodingTests testContactDtosDecode]' passed (0.001 seconds).
+Test Case '-[DataLayerTests.DTODecodingTests testDiscoveryStatusDecodes]' started.
+Test Case '-[DataLayerTests.DTODecodingTests testDiscoveryStatusDecodes]' passed (0.000 seconds).
+Test Case '-[DataLayerTests.DTODecodingTests testEmailChallengeDecodesOptionalFields]' started.
+Test Case '-[DataLayerTests.DTODecodingTests testEmailChallengeDecodesOptionalFields]' passed (0.000 seconds).
+Test Case '-[DataLayerTests.DTODecodingTests testEncoderProducesSnakeCase]' started.
+Test Case '-[DataLayerTests.DTODecodingTests testEncoderProducesSnakeCase]' passed (0.000 seconds).
+Test Case '-[DataLayerTests.DTODecodingTests testISO8601FractionalAndOffset]' started.
+Test Case '-[DataLayerTests.DTODecodingTests testISO8601FractionalAndOffset]' passed (0.001 seconds).
+Test Case '-[DataLayerTests.DTODecodingTests testMeResponseDecodesWithUnknownFieldsAndNullAvatar]' started.
+Test Case '-[DataLayerTests.DTODecodingTests testMeResponseDecodesWithUnknownFieldsAndNullAvatar]' passed (0.000 seconds).
+Test Case '-[DataLayerTests.DTODecodingTests testNearbyResponseDecodesCoarseRegion]' started.
+Test Case '-[DataLayerTests.DTODecodingTests testNearbyResponseDecodesCoarseRegion]' passed (0.001 seconds).
+Test Case '-[DataLayerTests.DTODecodingTests testPetHomeManifestDecodesContractPayload]' started.
+Test Case '-[DataLayerTests.DTODecodingTests testPetHomeManifestDecodesContractPayload]' passed (0.000 seconds).
+Test Case '-[DataLayerTests.DTODecodingTests testPetHomeManifestDecodesPersonalModel]' started.
+Test Case '-[DataLayerTests.DTODecodingTests testPetHomeManifestDecodesPersonalModel]' passed (0.000 seconds).
+Test Case '-[DataLayerTests.DTODecodingTests testTokenBundleDecodesAndDefaults]' started.
+Test Case '-[DataLayerTests.DTODecodingTests testTokenBundleDecodesAndDefaults]' passed (0.001 seconds).
+Test Case '-[DataLayerTests.DTODecodingTests testUnknownSelectedValueFallsBackSafely]' started.
+Test Case '-[DataLayerTests.DTODecodingTests testUnknownSelectedValueFallsBackSafely]' passed (0.000 seconds).
+Test Suite 'DTODecodingTests' passed at 2026-11-04 13:23:04.574.
+	 Executed 15 tests, with 0 failures (0 unexpected) in 0.006 (0.007) seconds
+Test Suite 'IdentityServiceTests' started at 2026-11-04 13:23:04.574.
+Test Case '-[DataLayerTests.IdentityServiceTests testEmailNormalization]' started.
+Test Case '-[DataLayerTests.IdentityServiceTests testEmailNormalization]' passed (0.000 seconds).
+Test Case '-[DataLayerTests.IdentityServiceTests testLogoutClearsTokensEvenWhenServerFails]' started.
+Test Case '-[DataLayerTests.IdentityServiceTests testLogoutClearsTokensEvenWhenServerFails]' passed (0.001 seconds).
+Test Case '-[DataLayerTests.IdentityServiceTests testLogoutRevokesAndClearsLocalTokens]' started.
+Test Case '-[DataLayerTests.IdentityServiceTests testLogoutRevokesAndClearsLocalTokens]' passed (0.000 seconds).
+Test Case '-[DataLayerTests.IdentityServiceTests testMe]' started.
+Test Case '-[DataLayerTests.IdentityServiceTests testMe]' passed (0.000 seconds).
+Test Case '-[DataLayerTests.IdentityServiceTests testRefreshRotatesTokens]' started.
+Test Case '-[DataLayerTests.IdentityServiceTests testRefreshRotatesTokens]' passed (0.000 seconds).
+Test Case '-[DataLayerTests.IdentityServiceTests testStartNormalizesEmailAndPurpose]' started.
+Test Case '-[DataLayerTests.IdentityServiceTests testStartNormalizesEmailAndPurpose]' passed (0.001 seconds).
+Test Case '-[DataLayerTests.IdentityServiceTests testVerifyStoresTokenBundle]' started.
+Test Case '-[DataLayerTests.IdentityServiceTests testVerifyStoresTokenBundle]' passed (0.001 seconds).
+Test Suite 'IdentityServiceTests' passed at 2026-11-04 13:23:04.578.
+	 Executed 7 tests, with 0 failures (0 unexpected) in 0.003 (0.003) seconds
+Test Suite 'LiveBackendAcceptanceTests' started at 2026-11-04 13:23:04.578.
+Test Case '-[DataLayerTests.LiveBackendAcceptanceTests testLiveEndToEndDataLayerContract]' started.
+/Users/jbf/Public/codex-handoff/frontend-workbench/ios/Tests/DataLayerTests/LiveBackendAcceptanceTests.swift:22: -[DataLayerTests.LiveBackendAcceptanceTests testLiveEndToEndDataLayerContract] : Test skipped - set DOGIOS_LIVE_BASE_URL/DOGIOS_LIVE_EMAIL_A/DOGIOS_LIVE_EMAIL_B to run the live backend acceptance test
+Test Case '-[DataLayerTests.LiveBackendAcceptanceTests testLiveEndToEndDataLayerContract]' skipped (0.003 seconds).
+Test Suite 'LiveBackendAcceptanceTests' passed at 2026-11-04 13:23:04.581.
+	 Executed 1 test, with 1 test skipped and 0 failures (0 unexpected) in 0.003 (0.003) seconds
+Test Suite 'LocationProviderTests' started at 2026-11-04 13:23:04.581.
+Test Case '-[DataLayerTests.LocationProviderTests testAppConfigReportsGoogleUnconfiguredWithoutSDK]' started.
+Test Case '-[DataLayerTests.LocationProviderTests testAppConfigReportsGoogleUnconfiguredWithoutSDK]' passed (0.000 seconds).
+Test Case '-[DataLayerTests.LocationProviderTests testDiscoveryDisableSendsNoRegion]' started.
+Test Case '-[DataLayerTests.LocationProviderTests testDiscoveryDisableSendsNoRegion]' passed (0.000 seconds).
+Test Case '-[DataLayerTests.LocationProviderTests testDiscoverySendsCoarseRegionAndClampsRadius]' started.
+Test Case '-[DataLayerTests.LocationProviderTests testDiscoverySendsCoarseRegionAndClampsRadius]' passed (0.001 seconds).
+Test Case '-[DataLayerTests.LocationProviderTests testGoogleProviderWithoutSDKIsUnconfigured]' started.
+Test Case '-[DataLayerTests.LocationProviderTests testGoogleProviderWithoutSDKIsUnconfigured]' passed (0.000 seconds).
+Test Case '-[DataLayerTests.LocationProviderTests testMapKitProviderIsFreeAndAvailable]' started.
+Test Case '-[DataLayerTests.LocationProviderTests testMapKitProviderIsFreeAndAvailable]' passed (0.000 seconds).
+Test Case '-[DataLayerTests.LocationProviderTests testNearbyUsesSavedGridOnly]' started.
+Test Case '-[DataLayerTests.LocationProviderTests testNearbyUsesSavedGridOnly]' passed (0.001 seconds).
+Test Case '-[DataLayerTests.LocationProviderTests testNoGoogleKeyYieldsUnconfiguredAndMapKitFallback]' started.
+Test Case '-[DataLayerTests.LocationProviderTests testNoGoogleKeyYieldsUnconfiguredAndMapKitFallback]' passed (0.000 seconds).
+Test Case '-[DataLayerTests.LocationProviderTests testNotDeterminedProviderRequestsWhenInUse]' started.
+Test Case '-[DataLayerTests.LocationProviderTests testNotDeterminedProviderRequestsWhenInUse]' passed (0.000 seconds).
+Test Case '-[DataLayerTests.LocationProviderTests testStaticLocationProviderDeniedThrows]' started.
+Test Case '-[DataLayerTests.LocationProviderTests testStaticLocationProviderDeniedThrows]' passed (0.000 seconds).
+Test Case '-[DataLayerTests.LocationProviderTests testStaticLocationProviderReturnsFix]' started.
+Test Case '-[DataLayerTests.LocationProviderTests testStaticLocationProviderReturnsFix]' passed (0.000 seconds).
+Test Suite 'LocationProviderTests' passed at 2026-11-04 13:23:04.583.
+	 Executed 10 tests, with 0 failures (0 unexpected) in 0.002 (0.003) seconds
+Test Suite 'MobileAPIClientTests' started at 2026-11-04 13:23:04.583.
+Test Case '-[DataLayerTests.MobileAPIClientTests test401RefreshesOnceThenRetriesWithNewToken]' started.
+Test Case '-[DataLayerTests.MobileAPIClientTests test401RefreshesOnceThenRetriesWithNewToken]' passed (0.001 seconds).
+Test Case '-[DataLayerTests.MobileAPIClientTests testAuthEndpoint401DoesNotTriggerRefresh]' started.
+Test Case '-[DataLayerTests.MobileAPIClientTests testAuthEndpoint401DoesNotTriggerRefresh]' passed (0.000 seconds).
+Test Case '-[DataLayerTests.MobileAPIClientTests testBearerHeaderIsAddedForAuthenticatedRequests]' started.
+Test Case '-[DataLayerTests.MobileAPIClientTests testBearerHeaderIsAddedForAuthenticatedRequests]' passed (0.000 seconds).
+Test Case '-[DataLayerTests.MobileAPIClientTests testConcurrent401sShareSingleRefresh]' started.
+Test Case '-[DataLayerTests.MobileAPIClientTests testConcurrent401sShareSingleRefresh]' passed (0.219 seconds).
+Test Case '-[DataLayerTests.MobileAPIClientTests testDecodingErrorIsReported]' started.
+Test Case '-[DataLayerTests.MobileAPIClientTests testDecodingErrorIsReported]' passed (0.009 seconds).
+Test Case '-[DataLayerTests.MobileAPIClientTests testHTTPStatusMapping]' started.
+Test Case '-[DataLayerTests.MobileAPIClientTests testHTTPStatusMapping]' passed (0.007 seconds).
+Test Case '-[DataLayerTests.MobileAPIClientTests testNetworkErrorIsSeparateFromHTTPErrors]' started.
+Test Case '-[DataLayerTests.MobileAPIClientTests testNetworkErrorIsSeparateFromHTTPErrors]' passed (0.004 seconds).
+Test Case '-[DataLayerTests.MobileAPIClientTests testNoAuthorizationHeaderForPublicEndpointEvenWithSession]' started.
+Test Case '-[DataLayerTests.MobileAPIClientTests testNoAuthorizationHeaderForPublicEndpointEvenWithSession]' passed (0.001 seconds).
+Test Case '-[DataLayerTests.MobileAPIClientTests testNoAuthorizationHeaderWithoutSession]' started.
+Test Case '-[DataLayerTests.MobileAPIClientTests testNoAuthorizationHeaderWithoutSession]' passed (0.001 seconds).
+Test Case '-[DataLayerTests.MobileAPIClientTests testRateLimitedParsesRetryAfterHeader]' started.
+Test Case '-[DataLayerTests.MobileAPIClientTests testRateLimitedParsesRetryAfterHeader]' passed (0.001 seconds).
+Test Case '-[DataLayerTests.MobileAPIClientTests testRefreshFailureClearsTokensAndThrowsUnauthorized]' started.
+Test Case '-[DataLayerTests.MobileAPIClientTests testRefreshFailureClearsTokensAndThrowsUnauthorized]' passed (0.001 seconds).
+Test Case '-[DataLayerTests.MobileAPIClientTests testRetryAfterRefreshStill401ThrowsUnauthorized]' started.
+Test Case '-[DataLayerTests.MobileAPIClientTests testRetryAfterRefreshStill401ThrowsUnauthorized]' passed (0.002 seconds).
+Test Case '-[DataLayerTests.MobileAPIClientTests testURLBuildingIncludesQuery]' started.
+Test Case '-[DataLayerTests.MobileAPIClientTests testURLBuildingIncludesQuery]' passed (0.001 seconds).
+Test Suite 'MobileAPIClientTests' passed at 2026-11-04 13:23:04.832.
+	 Executed 13 tests, with 0 failures (0 unexpected) in 0.247 (0.248) seconds
+Test Suite 'PetHomeServiceTests' started at 2026-11-04 13:23:04.832.
+Test Case '-[DataLayerTests.PetHomeServiceTests testNoPersonalModelUsesDefaultWithoutFallbackReason]' started.
+Test Case '-[DataLayerTests.PetHomeServiceTests testNoPersonalModelUsesDefaultWithoutFallbackReason]' passed (0.000 seconds).
+Test Case '-[DataLayerTests.PetHomeServiceTests testPersonalGLBIsPreferred]' started.
+Test Case '-[DataLayerTests.PetHomeServiceTests testPersonalGLBIsPreferred]' passed (0.000 seconds).
+Test Case '-[DataLayerTests.PetHomeServiceTests testPersonalNonGLBFallsBackToDefaultWithReason]' started.
+Test Case '-[DataLayerTests.PetHomeServiceTests testPersonalNonGLBFallsBackToDefaultWithReason]' passed (0.000 seconds).
+Test Case '-[DataLayerTests.PetHomeServiceTests testPetHomeFetchesManifestAndResolvesPersonal]' started.
+Test Case '-[DataLayerTests.PetHomeServiceTests testPetHomeFetchesManifestAndResolvesPersonal]' passed (0.001 seconds).
+Test Case '-[DataLayerTests.PetHomeServiceTests testPetHomeNetworkFallbackForUnsupportedPersonalFormat]' started.
+Test Case '-[DataLayerTests.PetHomeServiceTests testPetHomeNetworkFallbackForUnsupportedPersonalFormat]' passed (0.001 seconds).
+Test Case '-[DataLayerTests.PetHomeServiceTests testPetsList]' started.
+Test Case '-[DataLayerTests.PetHomeServiceTests testPetsList]' passed (0.001 seconds).
+Test Case '-[DataLayerTests.PetHomeServiceTests testSelectedPersonalButMissingPersonalModelFallsBackWithReason]' started.
+Test Case '-[DataLayerTests.PetHomeServiceTests testSelectedPersonalButMissingPersonalModelFallsBackWithReason]' passed (0.000 seconds).
+Test Suite 'PetHomeServiceTests' passed at 2026-11-04 13:23:04.835.
+	 Executed 7 tests, with 0 failures (0 unexpected) in 0.003 (0.004) seconds
+Test Suite 'SessionRaceTests' started at 2026-11-04 13:23:04.835.
+Test Case '-[DataLayerTests.SessionRaceTests testLate401CannotRefreshOrSignOutNewAccount]' started.
+Test Case '-[DataLayerTests.SessionRaceTests testLate401CannotRefreshOrSignOutNewAccount]' passed (0.001 seconds).
+Test Case '-[DataLayerTests.SessionRaceTests testLateAccountSyncCannotOverwriteNewAccount]' started.
+Test Case '-[DataLayerTests.SessionRaceTests testLateAccountSyncCannotOverwriteNewAccount]' passed (0.001 seconds).
+Test Case '-[DataLayerTests.SessionRaceTests testLateBootstrapResponseCannotRestorePrivateUIAfterLogout]' started.
+Test Case '-[DataLayerTests.SessionRaceTests testLateBootstrapResponseCannotRestorePrivateUIAfterLogout]' passed (0.016 seconds).
+Test Case '-[DataLayerTests.SessionRaceTests testLateConcurrent401ReusesAlreadyRotatedToken]' started.
+Test Case '-[DataLayerTests.SessionRaceTests testLateConcurrent401ReusesAlreadyRotatedToken]' passed (0.003 seconds).
+Test Case '-[DataLayerTests.SessionRaceTests testLateOTPResponseCannotReplaceNewLogin]' started.
+Test Case '-[DataLayerTests.SessionRaceTests testLateOTPResponseCannotReplaceNewLogin]' passed (0.001 seconds).
+Test Case '-[DataLayerTests.SessionRaceTests testLateRefreshCannotRestoreLoggedOutSession]' started.
+Test Case '-[DataLayerTests.SessionRaceTests testLateRefreshCannotRestoreLoggedOutSession]' passed (0.003 seconds).
+Test Case '-[DataLayerTests.SessionRaceTests testLateRefreshFailureCannotClearNewAccount]' started.
+Test Case '-[DataLayerTests.SessionRaceTests testLateRefreshFailureCannotClearNewAccount]' passed (0.001 seconds).
+Test Case '-[DataLayerTests.SessionRaceTests testLogoutClearsTokensBeforeHTTPAndLateFailureCannotClearNewLogin]' started.
+Test Case '-[DataLayerTests.SessionRaceTests testLogoutClearsTokensBeforeHTTPAndLateFailureCannotClearNewLogin]' passed (0.001 seconds).
+Test Case '-[DataLayerTests.SessionRaceTests testProfileRetryAfterOTPDoesNotReplayConsumedCode]' started.
+Test Case '-[DataLayerTests.SessionRaceTests testProfileRetryAfterOTPDoesNotReplayConsumedCode]' passed (0.002 seconds).
+Test Case '-[DataLayerTests.SessionRaceTests testUnauthorizedAlreadyDeliveredCannotClearDifferentGeneration]' started.
+Test Case '-[DataLayerTests.SessionRaceTests testUnauthorizedAlreadyDeliveredCannotClearDifferentGeneration]' passed (0.000 seconds).
+Test Suite 'SessionRaceTests' passed at 2026-11-04 13:23:04.865.
+	 Executed 10 tests, with 0 failures (0 unexpected) in 0.030 (0.030) seconds
+Test Suite 'TokenStoreTests' started at 2026-11-04 13:23:04.865.
+Test Case '-[DataLayerTests.TokenStoreTests testAccessTokenExpiry]' started.
+Test Case '-[DataLayerTests.TokenStoreTests testAccessTokenExpiry]' passed (0.000 seconds).
+Test Case '-[DataLayerTests.TokenStoreTests testInMemoryStoreSaveLoadClear]' started.
+Test Case '-[DataLayerTests.TokenStoreTests testInMemoryStoreSaveLoadClear]' passed (0.000 seconds).
+Test Case '-[DataLayerTests.TokenStoreTests testKeychainStoreIsConfigurable]' started.
+Test Case '-[DataLayerTests.TokenStoreTests testKeychainStoreIsConfigurable]' passed (0.000 seconds).
+Test Case '-[DataLayerTests.TokenStoreTests testTokenBundleRoundTripsThroughDataLayerJSON]' started.
+Test Case '-[DataLayerTests.TokenStoreTests testTokenBundleRoundTripsThroughDataLayerJSON]' passed (0.000 seconds).
+Test Suite 'TokenStoreTests' passed at 2026-11-04 13:23:04.867.
+	 Executed 4 tests, with 0 failures (0 unexpected) in 0.001 (0.001) seconds
+Test Suite 'DataLayerTests.xctest' passed at 2026-11-04 13:23:04.867.
+	 Executed 97 tests, with 1 test skipped and 0 failures (0 unexpected) in 0.362 (0.368) seconds
+Test Suite 'All tests' passed at 2026-11-04 13:23:04.867.
+	 Executed 97 tests, with 1 test skipped and 0 failures (0 unexpected) in 0.362 (0.370) seconds
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+✔ Test run with 0 tests in 0 suites passed after 0.001 seconds.

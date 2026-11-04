@@ -1,0 +1,65 @@
+# 单机部署示例。构建上下文是仓库根目录（本文件在 deploy/ 下）。
+# 用法：cd deploy && cp .env.docker.example .env && 编辑 .env && docker compose up -d --build
+# 说明：Compose 从 deploy/.env 读取 ${POSTGRES_PASSWORD} 插值，并把它作为 env_file 注入容器；
+# 因此数据库密码只需在 .env 中维护一处。
+x-backend: &backend
+  build:
+    context: ..
+    dockerfile: deploy/Dockerfile
+  env_file:
+    - .env
+  environment:
+    WAGELPAW_STORAGE_PATH: /data/media
+    WAGELPAW_PUBLIC_ASSETS_DIR: /app/public-assets
+    WAGELPAW_DATABASE_URL: postgresql+psycopg://wagelpaw:${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in deploy/.env}@db:5432/wagelpaw
+  volumes:
+    - wagelpaw-data:/data
+
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-wagelpaw}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in deploy/.env}
+      POSTGRES_DB: ${POSTGRES_DB:-wagelpaw}
+    volumes:
+      - wagelpaw-pg:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-wagelpaw} -d ${POSTGRES_DB:-wagelpaw}"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+
+  migrate:
+    <<: *backend
+    command: ["python", "-m", "app.db", "init"]
+    depends_on:
+      db:
+        condition: service_healthy
+
+  api:
+    <<: *backend
+    ports:
+      - "127.0.0.1:18766:18766"
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:18766/healthz', timeout=3)"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  worker:
+    <<: *backend
+    command: ["python", "-m", "app.worker"]
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    restart: unless-stopped
+
+volumes:
+  wagelpaw-data:
+  wagelpaw-pg:

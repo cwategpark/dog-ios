@@ -1,0 +1,453 @@
+Command line invocation:
+    /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -project /Users/jbf/Public/codex-handoff/frontend-workbench/ios/PawlyDemo.xcodeproj -scheme PawlyDemo -sdk iphonesimulator -destination "platform=iOS Simulator,id=2CB00C4E-A293-4C46-A87C-D08C79E8D152" -parallel-testing-enabled NO -collect-test-diagnostics never -derivedDataPath /Users/jbf/Public/codex-handoff/frontend-build -resultBundlePath /Users/jbf/Public/codex-handoff/ui-acceptance-10.xcresult CODE_SIGNING_ALLOWED=YES CODE_SIGN_IDENTITY=- test
+
+Build settings from command line:
+    CODE_SIGN_IDENTITY = -
+    CODE_SIGNING_ALLOWED = YES
+    SDKROOT = iphonesimulator27.1
+
+Writing result bundle at path:
+	/Users/jbf/Public/codex-handoff/ui-acceptance-10.xcresult
+
+note: Using codesigning identity override: -
+ComputePackagePrebuildTargetDependencyGraph
+
+Prepare packages
+
+CreateBuildRequest
+
+SendProjectDescription
+
+CreateBuildOperation
+
+ComputeTargetDependencyGraph
+note: Building targets in dependency order
+note: Target dependency graph (2 targets)
+    Target 'PawlyUITests' in project 'PawlyDemo'
+        ➜ Explicit dependency on target 'PawlyDemo' in project 'PawlyDemo'
+    Target 'PawlyDemo' in project 'PawlyDemo' (no dependencies)
+
+GatherProvisioningInputs
+
+CreateBuildDescription
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -v -E -dM -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.1.sdk -x c -c /dev/null
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc --version
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/usr/bin/actool --print-asset-tag-combinations --output-format xml1 /Users/jbf/Public/codex-handoff/frontend-workbench/ios/PawlyDemo/Resources/Assets.xcassets
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld -version_details
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/usr/bin/actool --version --output-format xml1
+
+Build description signature: 3fc03447631202e33e35b1560a08795d
+Build description path: /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/XCBuildData/3fc03447631202e33e35b1560a08795d.xcbuilddata
+ClangStatCache /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.1.sdk /Users/jbf/Public/codex-handoff/frontend-build/SDKStatCaches.noindex/iphonesimulator27.1-24A94232-35d3147121984ba087c28d913653d626.sdkstatcache
+    cd /Users/jbf/Public/codex-handoff/frontend-workbench/ios/PawlyDemo.xcodeproj
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.1.sdk -o /Users/jbf/Public/codex-handoff/frontend-build/SDKStatCaches.noindex/iphonesimulator27.1-24A94232-35d3147121984ba087c28d913653d626.sdkstatcache
+
+ProcessInfoPlistFile /Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator/PawlyDemo.app/Info.plist /Users/jbf/Public/codex-handoff/frontend-workbench/ios/Info.plist (in target 'PawlyDemo' from project 'PawlyDemo')
+    cd /Users/jbf/Public/codex-handoff/frontend-workbench/ios
+    builtin-infoPlistUtility /Users/jbf/Public/codex-handoff/frontend-workbench/ios/Info.plist -producttype com.apple.product-type.application -genpkginfo /Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator/PawlyDemo.app/PkgInfo -expandbuildsettings -format binary -platform iphonesimulator -additionalcontentfile /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyDemo.build/assetcatalog_generated_info.plist -o /Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator/PawlyDemo.app/Info.plist
+
+SwiftDriver PawlyDemo normal arm64 com.apple.xcode.tools.swift.compiler (in target 'PawlyDemo' from project 'PawlyDemo')
+    cd /Users/jbf/Public/codex-handoff/frontend-workbench/ios
+    builtin-SwiftDriver -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name PawlyDemo -Onone @/Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyDemo.build/Objects-normal/arm64/PawlyDemo.SwiftFileList -DDEBUG -enable-bare-slash-regex -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.1.sdk -target arm64-apple-ios17.0-simulator -g -module-cache-path /Users/jbf/Public/codex-handoff/frontend-build/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -index-store-path /Users/jbf/Public/codex-handoff/frontend-build/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator -F /Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator -emit-localized-strings -emit-localized-strings-path /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyDemo.build/Objects-normal/arm64 -c -j8 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/jbf/Public/codex-handoff/frontend-build/SDKStatCaches.noindex/iphonesimulator27.1-24A94232-35d3147121984ba087c28d913653d626.sdkstatcache -output-file-map /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyDemo.build/Objects-normal/arm64/PawlyDemo-OutputFileMap.json -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/jbf/Public/codex-handoff/frontend-build/ModuleCache.noindex -sdk-module-cache-path /Users/jbf/Public/codex-handoff/frontend-build/SDKExplicitPrecompiledModules -emit-dependencies -emit-module -emit-module-path /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyDemo.build/Objects-normal/arm64/PawlyDemo.swiftmodule -serialize-diagnostics -dependency-scan-serialize-diagnostics-path /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyDemo.build/Objects-normal/arm64/PawlyDemo-dependency-scan.dia -validate-clang-modules-once -clang-build-session-file /Users/jbf/Public/codex-handoff/frontend-build/ModuleCache.noindex/Session.modulevalidation -Xcc -fmodules-prune-interval\=86400 -Xcc -fmodules-prune-after\=345600 -emit-const-values -const-gather-protocols-list /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyDemo.build/Objects-normal/arm64/PawlyDemo_const_extract_protocols.json -Xcc -iquote -Xcc /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyDemo.build/PawlyDemo-generated-files.hmap -Xcc -I/Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyDemo.build/PawlyDemo-own-target-headers.hmap -Xcc -I/Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyDemo.build/PawlyDemo-all-target-headers.hmap -Xcc -iquote -Xcc /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyDemo.build/PawlyDemo-project-headers.hmap -Xcc -I/Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator/include -Xcc -I/Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyDemo.build/DerivedSources-normal/arm64 -Xcc -I/Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyDemo.build/DerivedSources/arm64 -Xcc -I/Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyDemo.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyDemo.build/Objects-normal/arm64/PawlyDemo-Swift.h -working-directory /Users/jbf/Public/codex-handoff/frontend-workbench/ios -experimental-emit-module-separately -disable-cmo
+
+SwiftEmitModule normal arm64 Emitting\ module\ for\ PawlyDemo (in target 'PawlyDemo' from project 'PawlyDemo')
+
+SwiftCompile normal arm64 (in target 'PawlyDemo' from project 'PawlyDemo')
+    cd /Users/jbf/Public/codex-handoff/frontend-workbench/ios
+    
+
+SwiftCompile normal arm64 Compiling\ PetSpaceView.swift /Users/jbf/Public/codex-handoff/frontend-workbench/ios/PawlyDemo/Features/Mobile/PetSpaceView.swift (in target 'PawlyDemo' from project 'PawlyDemo')
+
+SwiftCompile normal arm64 /Users/jbf/Public/codex-handoff/frontend-workbench/ios/PawlyDemo/Features/Mobile/PetSpaceView.swift (in target 'PawlyDemo' from project 'PawlyDemo')
+    cd /Users/jbf/Public/codex-handoff/frontend-workbench/ios
+    builtin-SwiftPerFileCompile PetSpaceView.swift
+
+SwiftDriverJobDiscovery normal arm64 Emitting module for PawlyDemo (in target 'PawlyDemo' from project 'PawlyDemo')
+
+SwiftDriver\ Compilation\ Requirements PawlyDemo normal arm64 com.apple.xcode.tools.swift.compiler (in target 'PawlyDemo' from project 'PawlyDemo')
+    cd /Users/jbf/Public/codex-handoff/frontend-workbench/ios
+    builtin-Swift-Compilation-Requirements -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name PawlyDemo -Onone @/Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyDemo.build/Objects-normal/arm64/PawlyDemo.SwiftFileList -DDEBUG -enable-bare-slash-regex -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.1.sdk -target arm64-apple-ios17.0-simulator -g -module-cache-path /Users/jbf/Public/codex-handoff/frontend-build/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -index-store-path /Users/jbf/Public/codex-handoff/frontend-build/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator -F /Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator -emit-localized-strings -emit-localized-strings-path /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyDemo.build/Objects-normal/arm64 -c -j8 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/jbf/Public/codex-handoff/frontend-build/SDKStatCaches.noindex/iphonesimulator27.1-24A94232-35d3147121984ba087c28d913653d626.sdkstatcache -output-file-map /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyDemo.build/Objects-normal/arm64/PawlyDemo-OutputFileMap.json -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/jbf/Public/codex-handoff/frontend-build/ModuleCache.noindex -sdk-module-cache-path /Users/jbf/Public/codex-handoff/frontend-build/SDKExplicitPrecompiledModules -emit-dependencies -emit-module -emit-module-path /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyDemo.build/Objects-normal/arm64/PawlyDemo.swiftmodule -serialize-diagnostics -dependency-scan-serialize-diagnostics-path /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyDemo.build/Objects-normal/arm64/PawlyDemo-dependency-scan.dia -validate-clang-modules-once -clang-build-session-file /Users/jbf/Public/codex-handoff/frontend-build/ModuleCache.noindex/Session.modulevalidation -Xcc -fmodules-prune-interval\=86400 -Xcc -fmodules-prune-after\=345600 -emit-const-values -const-gather-protocols-list /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyDemo.build/Objects-normal/arm64/PawlyDemo_const_extract_protocols.json -Xcc -iquote -Xcc /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyDemo.build/PawlyDemo-generated-files.hmap -Xcc -I/Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyDemo.build/PawlyDemo-own-target-headers.hmap -Xcc -I/Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyDemo.build/PawlyDemo-all-target-headers.hmap -Xcc -iquote -Xcc /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyDemo.build/PawlyDemo-project-headers.hmap -Xcc -I/Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator/include -Xcc -I/Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyDemo.build/DerivedSources-normal/arm64 -Xcc -I/Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyDemo.build/DerivedSources/arm64 -Xcc -I/Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyDemo.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyDemo.build/Objects-normal/arm64/PawlyDemo-Swift.h -working-directory /Users/jbf/Public/codex-handoff/frontend-workbench/ios -experimental-emit-module-separately -disable-cmo
+
+Copy /Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator/PawlyDemo.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyDemo.build/Objects-normal/arm64/PawlyDemo.swiftsourceinfo (in target 'PawlyDemo' from project 'PawlyDemo')
+    cd /Users/jbf/Public/codex-handoff/frontend-workbench/ios
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyDemo.build/Objects-normal/arm64/PawlyDemo.swiftsourceinfo /Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator/PawlyDemo.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo
+
+Copy /Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator/PawlyDemo.swiftmodule/arm64-apple-ios-simulator.abi.json /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyDemo.build/Objects-normal/arm64/PawlyDemo.abi.json (in target 'PawlyDemo' from project 'PawlyDemo')
+    cd /Users/jbf/Public/codex-handoff/frontend-workbench/ios
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyDemo.build/Objects-normal/arm64/PawlyDemo.abi.json /Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator/PawlyDemo.swiftmodule/arm64-apple-ios-simulator.abi.json
+
+SwiftDriverJobDiscovery normal arm64 Compiling PetSpaceView.swift (in target 'PawlyDemo' from project 'PawlyDemo')
+
+SwiftDriver\ Compilation PawlyDemo normal arm64 com.apple.xcode.tools.swift.compiler (in target 'PawlyDemo' from project 'PawlyDemo')
+    cd /Users/jbf/Public/codex-handoff/frontend-workbench/ios
+    builtin-Swift-Compilation -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name PawlyDemo -Onone @/Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyDemo.build/Objects-normal/arm64/PawlyDemo.SwiftFileList -DDEBUG -enable-bare-slash-regex -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.1.sdk -target arm64-apple-ios17.0-simulator -g -module-cache-path /Users/jbf/Public/codex-handoff/frontend-build/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -index-store-path /Users/jbf/Public/codex-handoff/frontend-build/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator -F /Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator -emit-localized-strings -emit-localized-strings-path /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyDemo.build/Objects-normal/arm64 -c -j8 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/jbf/Public/codex-handoff/frontend-build/SDKStatCaches.noindex/iphonesimulator27.1-24A94232-35d3147121984ba087c28d913653d626.sdkstatcache -output-file-map /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyDemo.build/Objects-normal/arm64/PawlyDemo-OutputFileMap.json -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/jbf/Public/codex-handoff/frontend-build/ModuleCache.noindex -sdk-module-cache-path /Users/jbf/Public/codex-handoff/frontend-build/SDKExplicitPrecompiledModules -emit-dependencies -emit-module -emit-module-path /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyDemo.build/Objects-normal/arm64/PawlyDemo.swiftmodule -serialize-diagnostics -dependency-scan-serialize-diagnostics-path /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyDemo.build/Objects-normal/arm64/PawlyDemo-dependency-scan.dia -validate-clang-modules-once -clang-build-session-file /Users/jbf/Public/codex-handoff/frontend-build/ModuleCache.noindex/Session.modulevalidation -Xcc -fmodules-prune-interval\=86400 -Xcc -fmodules-prune-after\=345600 -emit-const-values -const-gather-protocols-list /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyDemo.build/Objects-normal/arm64/PawlyDemo_const_extract_protocols.json -Xcc -iquote -Xcc /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyDemo.build/PawlyDemo-generated-files.hmap -Xcc -I/Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyDemo.build/PawlyDemo-own-target-headers.hmap -Xcc -I/Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyDemo.build/PawlyDemo-all-target-headers.hmap -Xcc -iquote -Xcc /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyDemo.build/PawlyDemo-project-headers.hmap -Xcc -I/Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator/include -Xcc -I/Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyDemo.build/DerivedSources-normal/arm64 -Xcc -I/Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyDemo.build/DerivedSources/arm64 -Xcc -I/Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyDemo.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyDemo.build/Objects-normal/arm64/PawlyDemo-Swift.h -working-directory /Users/jbf/Public/codex-handoff/frontend-workbench/ios -experimental-emit-module-separately -disable-cmo
+
+Ld /Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator/PawlyDemo.app/PawlyDemo.debug.dylib normal (in target 'PawlyDemo' from project 'PawlyDemo')
+    cd /Users/jbf/Public/codex-handoff/frontend-workbench/ios
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -Xlinker -reproducible -target arm64-apple-ios17.0-simulator -dynamiclib -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.1.sdk -O0 -Xlinker -no_warn_duplicate_libraries -L/Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-iphonesimulator -L/Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator -F/Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-iphonesimulator -F/Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator -filelist /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyDemo.build/Objects-normal/arm64/PawlyDemo.LinkFileList -install_name @rpath/PawlyDemo.debug.dylib -Xlinker -rpath -Xlinker /usr/lib/swift -Xlinker -rpath -Xlinker @executable_path/Frameworks -Xlinker -dead_strip -Xlinker -object_path_lto -Xlinker /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyDemo.build/Objects-normal/arm64/PawlyDemo_lto.o -rdynamic -Xlinker -no_deduplicate -Xlinker -objc_abi_version -Xlinker 2 -Xlinker -dependency_info -Xlinker /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyDemo.build/Objects-normal/arm64/PawlyDemo_dependency_info.dat -fobjc-link-runtime -L/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator -L/usr/lib/swift -Xlinker -add_ast_path -Xlinker /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyDemo.build/Objects-normal/arm64/PawlyDemo.swiftmodule -Xlinker -alias -Xlinker _main -Xlinker ___debug_main_executable_dylib_entry_point -Xlinker -no_adhoc_codesign -o /Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator/PawlyDemo.app/PawlyDemo.debug.dylib
+
+ConstructStubExecutorLinkFileList /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyDemo.build/PawlyDemo-ExecutorLinkFileList-normal-arm64.txt (in target 'PawlyDemo' from project 'PawlyDemo')
+    cd /Users/jbf/Public/codex-handoff/frontend-workbench/ios
+    construct-stub-executor-link-file-list /Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator/PawlyDemo.app/PawlyDemo.debug.dylib /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib/libPreviewsJITStubExecutor_no_swift_entry_point.a /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib/libPreviewsJITStubExecutor.a --output /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyDemo.build/PawlyDemo-ExecutorLinkFileList-normal-arm64.txt
+note: Using stub executor library with Swift entry point. (in target 'PawlyDemo' from project 'PawlyDemo')
+
+Ld /Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator/PawlyDemo.app/PawlyDemo normal (in target 'PawlyDemo' from project 'PawlyDemo')
+    cd /Users/jbf/Public/codex-handoff/frontend-workbench/ios
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -Xlinker -reproducible -target arm64-apple-ios17.0-simulator -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.1.sdk -O0 -Xlinker -no_warn_duplicate_libraries -L/Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator -F/Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator -Xlinker -rpath -Xlinker @executable_path -Xlinker -rpath -Xlinker @executable_path/Frameworks -rdynamic -Xlinker -no_deduplicate -Xlinker -objc_abi_version -Xlinker 2 -e ___debug_blank_executor_main -Xlinker -sectcreate -Xlinker __TEXT -Xlinker __debug_dylib -Xlinker /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyDemo.build/PawlyDemo-DebugDylibPath-normal-arm64.txt -Xlinker -sectcreate -Xlinker __TEXT -Xlinker __debug_instlnm -Xlinker /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyDemo.build/PawlyDemo-DebugDylibInstallName-normal-arm64.txt -Xlinker -filelist -Xlinker /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyDemo.build/PawlyDemo-ExecutorLinkFileList-normal-arm64.txt -Xlinker -sectcreate -Xlinker __TEXT -Xlinker __entitlements -Xlinker /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyDemo.build/PawlyDemo.app-Simulated.xcent -Xlinker -sectcreate -Xlinker __TEXT -Xlinker __ents_der -Xlinker /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyDemo.build/PawlyDemo.app-Simulated.xcent.der /Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator/PawlyDemo.app/PawlyDemo.debug.dylib -Xlinker -no_adhoc_codesign -o /Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator/PawlyDemo.app/PawlyDemo
+
+CopySwiftLibs /Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator/PawlyDemo.app (in target 'PawlyDemo' from project 'PawlyDemo')
+    cd /Users/jbf/Public/codex-handoff/frontend-workbench/ios
+    builtin-swiftStdLibTool --copy --verbose --sign - --scan-executable /Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator/PawlyDemo.app/PawlyDemo.debug.dylib --scan-folder /Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator/PawlyDemo.app/Frameworks --scan-folder /Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator/PawlyDemo.app/PlugIns --scan-folder /Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator/PawlyDemo.app/SystemExtensions --scan-folder /Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator/PawlyDemo.app/Extensions --platform iphonesimulator --toolchain /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain --destination /Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator/PawlyDemo.app/Frameworks --strip-bitcode --strip-bitcode-tool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/bitcode_strip --emit-dependency-info /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyDemo.build/SwiftStdLibToolInputDependencies.dep --filter-for-swift-os
+
+ExtractAppIntentsMetadata (in target 'PawlyDemo' from project 'PawlyDemo')
+    cd /Users/jbf/Public/codex-handoff/frontend-workbench/ios
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/appintentsmetadataprocessor --toolchain-dir /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain --module-name PawlyDemo --sdk-root /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.1.sdk --xcode-version 27A9275 --platform-family iOS --deployment-target 17.0 --bundle-identifier app.pawly.demo --output /Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator/PawlyDemo.app --target-triple arm64-apple-ios17.0-simulator --binary-file /Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator/PawlyDemo.app/PawlyDemo --dependency-file /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyDemo.build/Objects-normal/arm64/PawlyDemo_dependency_info.dat --stringsdata-file /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyDemo.build/Objects-normal/arm64/ExtractedAppShortcutsMetadata.stringsdata --source-file-list /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyDemo.build/Objects-normal/arm64/PawlyDemo.SwiftFileList --metadata-file-list /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyDemo.build/PawlyDemo.DependencyMetadataFileList --static-metadata-file-list /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyDemo.build/PawlyDemo.DependencyStaticMetadataFileList --swift-const-vals-list /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyDemo.build/Objects-normal/arm64/PawlyDemo.SwiftConstValuesFileList --compile-time-extraction --deployment-aware-processing --no-app-shortcuts-localization
+2026-11-04 13:49:26.965 appintentsmetadataprocessor[34204:3206890] Starting appintentsmetadataprocessor export
+2026-11-04 13:49:26.972 appintentsmetadataprocessor[34204:3206890] warning: Metadata extraction skipped, no AppIntents.framework dependency found
+
+CodeSign /Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator/PawlyDemo.app/PawlyDemo.debug.dylib (in target 'PawlyDemo' from project 'PawlyDemo')
+    cd /Users/jbf/Public/codex-handoff/frontend-workbench/ios
+    
+    Signing Identity:     "Sign to Run Locally"
+    
+    /usr/bin/codesign --force --sign - --timestamp\=none --generate-entitlement-der /Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator/PawlyDemo.app/PawlyDemo.debug.dylib
+
+CodeSign /Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator/PawlyDemo.app/__preview.dylib (in target 'PawlyDemo' from project 'PawlyDemo')
+    cd /Users/jbf/Public/codex-handoff/frontend-workbench/ios
+    
+    Signing Identity:     "Sign to Run Locally"
+    
+    /usr/bin/codesign --force --sign - --timestamp\=none --generate-entitlement-der /Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator/PawlyDemo.app/__preview.dylib
+/Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator/PawlyDemo.app/__preview.dylib: replacing existing signature
+
+CodeSign /Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator/PawlyDemo.app (in target 'PawlyDemo' from project 'PawlyDemo')
+    cd /Users/jbf/Public/codex-handoff/frontend-workbench/ios
+    
+    Signing Identity:     "Sign to Run Locally"
+    
+    /usr/bin/codesign --force --sign - --timestamp\=none --generate-entitlement-der /Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator/PawlyDemo.app
+
+Validate /Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator/PawlyDemo.app (in target 'PawlyDemo' from project 'PawlyDemo')
+    cd /Users/jbf/Public/codex-handoff/frontend-workbench/ios
+    builtin-validationUtility /Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator/PawlyDemo.app -shallow-bundle -infoplist-subpath Info.plist
+
+ProcessInfoPlistFile /Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator/PawlyUITests-Runner.app/PlugIns/PawlyUITests.xctest/Info.plist /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyUITests.build/empty-PawlyUITests.plist (in target 'PawlyUITests' from project 'PawlyDemo')
+    cd /Users/jbf/Public/codex-handoff/frontend-workbench/ios
+    builtin-infoPlistUtility /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyUITests.build/empty-PawlyUITests.plist -producttype com.apple.product-type.bundle.ui-testing -expandbuildsettings -format binary -platform iphonesimulator -additionalcontentfile /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyUITests.build/ProductTypeInfoPlistAdditions.plist -o /Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator/PawlyUITests-Runner.app/PlugIns/PawlyUITests.xctest/Info.plist
+
+SwiftDriver PawlyUITests normal arm64 com.apple.xcode.tools.swift.compiler (in target 'PawlyUITests' from project 'PawlyDemo')
+    cd /Users/jbf/Public/codex-handoff/frontend-workbench/ios
+    builtin-SwiftDriver -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name PawlyUITests -Onone @/Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyUITests.build/Objects-normal/arm64/PawlyUITests.SwiftFileList -DDEBUG -module-alias Testing\=_Testing_Unavailable -plugin-path /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing -enable-bare-slash-regex -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.1.sdk -target arm64-apple-ios17.0-simulator -g -module-cache-path /Users/jbf/Public/codex-handoff/frontend-build/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -index-store-path /Users/jbf/Public/codex-handoff/frontend-build/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator -Isystem /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib -F /Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.1.sdk/Developer/Library/Frameworks -parse-as-library -c -j8 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/jbf/Public/codex-handoff/frontend-build/SDKStatCaches.noindex/iphonesimulator27.1-24A94232-35d3147121984ba087c28d913653d626.sdkstatcache -output-file-map /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyUITests.build/Objects-normal/arm64/PawlyUITests-OutputFileMap.json -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/jbf/Public/codex-handoff/frontend-build/ModuleCache.noindex -sdk-module-cache-path /Users/jbf/Public/codex-handoff/frontend-build/SDKExplicitPrecompiledModules -emit-dependencies -emit-module -emit-module-path /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyUITests.build/Objects-normal/arm64/PawlyUITests.swiftmodule -serialize-diagnostics -dependency-scan-serialize-diagnostics-path /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyUITests.build/Objects-normal/arm64/PawlyUITests-dependency-scan.dia -validate-clang-modules-once -clang-build-session-file /Users/jbf/Public/codex-handoff/frontend-build/ModuleCache.noindex/Session.modulevalidation -Xcc -fmodules-prune-interval\=86400 -Xcc -fmodules-prune-after\=345600 -emit-const-values -const-gather-protocols-list /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyUITests.build/Objects-normal/arm64/PawlyUITests_const_extract_protocols.json -Xcc -iquote -Xcc /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyUITests.build/PawlyUITests-generated-files.hmap -Xcc -I/Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyUITests.build/PawlyUITests-own-target-headers.hmap -Xcc -I/Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyUITests.build/PawlyUITests-all-target-headers.hmap -Xcc -iquote -Xcc /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyUITests.build/PawlyUITests-project-headers.hmap -Xcc -I/Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator/include -Xcc -I/Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyUITests.build/DerivedSources-normal/arm64 -Xcc -I/Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyUITests.build/DerivedSources/arm64 -Xcc -I/Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyUITests.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyUITests.build/Objects-normal/arm64/PawlyUITests-Swift.h -working-directory /Users/jbf/Public/codex-handoff/frontend-workbench/ios -experimental-emit-module-separately -disable-cmo
+
+SwiftEmitModule normal arm64 Emitting\ module\ for\ PawlyUITests (in target 'PawlyUITests' from project 'PawlyDemo')
+
+SwiftCompile normal arm64 (in target 'PawlyUITests' from project 'PawlyDemo')
+    cd /Users/jbf/Public/codex-handoff/frontend-workbench/ios
+    
+
+SwiftCompile normal arm64 Compiling\ MobileFlowTests.swift /Users/jbf/Public/codex-handoff/frontend-workbench/ios/PawlyUITests/MobileFlowTests.swift (in target 'PawlyUITests' from project 'PawlyDemo')
+
+SwiftCompile normal arm64 /Users/jbf/Public/codex-handoff/frontend-workbench/ios/PawlyUITests/MobileFlowTests.swift (in target 'PawlyUITests' from project 'PawlyDemo')
+    cd /Users/jbf/Public/codex-handoff/frontend-workbench/ios
+    builtin-SwiftPerFileCompile MobileFlowTests.swift
+
+SwiftDriverJobDiscovery normal arm64 Emitting module for PawlyUITests (in target 'PawlyUITests' from project 'PawlyDemo')
+
+SwiftDriver\ Compilation\ Requirements PawlyUITests normal arm64 com.apple.xcode.tools.swift.compiler (in target 'PawlyUITests' from project 'PawlyDemo')
+    cd /Users/jbf/Public/codex-handoff/frontend-workbench/ios
+    builtin-Swift-Compilation-Requirements -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name PawlyUITests -Onone @/Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyUITests.build/Objects-normal/arm64/PawlyUITests.SwiftFileList -DDEBUG -module-alias Testing\=_Testing_Unavailable -plugin-path /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing -enable-bare-slash-regex -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.1.sdk -target arm64-apple-ios17.0-simulator -g -module-cache-path /Users/jbf/Public/codex-handoff/frontend-build/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -index-store-path /Users/jbf/Public/codex-handoff/frontend-build/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator -Isystem /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib -F /Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.1.sdk/Developer/Library/Frameworks -parse-as-library -c -j8 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/jbf/Public/codex-handoff/frontend-build/SDKStatCaches.noindex/iphonesimulator27.1-24A94232-35d3147121984ba087c28d913653d626.sdkstatcache -output-file-map /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyUITests.build/Objects-normal/arm64/PawlyUITests-OutputFileMap.json -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/jbf/Public/codex-handoff/frontend-build/ModuleCache.noindex -sdk-module-cache-path /Users/jbf/Public/codex-handoff/frontend-build/SDKExplicitPrecompiledModules -emit-dependencies -emit-module -emit-module-path /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyUITests.build/Objects-normal/arm64/PawlyUITests.swiftmodule -serialize-diagnostics -dependency-scan-serialize-diagnostics-path /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyUITests.build/Objects-normal/arm64/PawlyUITests-dependency-scan.dia -validate-clang-modules-once -clang-build-session-file /Users/jbf/Public/codex-handoff/frontend-build/ModuleCache.noindex/Session.modulevalidation -Xcc -fmodules-prune-interval\=86400 -Xcc -fmodules-prune-after\=345600 -emit-const-values -const-gather-protocols-list /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyUITests.build/Objects-normal/arm64/PawlyUITests_const_extract_protocols.json -Xcc -iquote -Xcc /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyUITests.build/PawlyUITests-generated-files.hmap -Xcc -I/Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyUITests.build/PawlyUITests-own-target-headers.hmap -Xcc -I/Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyUITests.build/PawlyUITests-all-target-headers.hmap -Xcc -iquote -Xcc /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyUITests.build/PawlyUITests-project-headers.hmap -Xcc -I/Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator/include -Xcc -I/Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyUITests.build/DerivedSources-normal/arm64 -Xcc -I/Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyUITests.build/DerivedSources/arm64 -Xcc -I/Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyUITests.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyUITests.build/Objects-normal/arm64/PawlyUITests-Swift.h -working-directory /Users/jbf/Public/codex-handoff/frontend-workbench/ios -experimental-emit-module-separately -disable-cmo
+
+Copy /Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator/PawlyUITests.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyUITests.build/Objects-normal/arm64/PawlyUITests.swiftsourceinfo (in target 'PawlyUITests' from project 'PawlyDemo')
+    cd /Users/jbf/Public/codex-handoff/frontend-workbench/ios
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyUITests.build/Objects-normal/arm64/PawlyUITests.swiftsourceinfo /Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator/PawlyUITests.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo
+
+Copy /Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator/PawlyUITests.swiftmodule/arm64-apple-ios-simulator.abi.json /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyUITests.build/Objects-normal/arm64/PawlyUITests.abi.json (in target 'PawlyUITests' from project 'PawlyDemo')
+    cd /Users/jbf/Public/codex-handoff/frontend-workbench/ios
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyUITests.build/Objects-normal/arm64/PawlyUITests.abi.json /Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator/PawlyUITests.swiftmodule/arm64-apple-ios-simulator.abi.json
+
+SwiftDriverJobDiscovery normal arm64 Compiling MobileFlowTests.swift (in target 'PawlyUITests' from project 'PawlyDemo')
+
+SwiftDriver\ Compilation PawlyUITests normal arm64 com.apple.xcode.tools.swift.compiler (in target 'PawlyUITests' from project 'PawlyDemo')
+    cd /Users/jbf/Public/codex-handoff/frontend-workbench/ios
+    builtin-Swift-Compilation -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name PawlyUITests -Onone @/Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyUITests.build/Objects-normal/arm64/PawlyUITests.SwiftFileList -DDEBUG -module-alias Testing\=_Testing_Unavailable -plugin-path /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing -enable-bare-slash-regex -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.1.sdk -target arm64-apple-ios17.0-simulator -g -module-cache-path /Users/jbf/Public/codex-handoff/frontend-build/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -index-store-path /Users/jbf/Public/codex-handoff/frontend-build/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator -Isystem /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib -F /Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.1.sdk/Developer/Library/Frameworks -parse-as-library -c -j8 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/jbf/Public/codex-handoff/frontend-build/SDKStatCaches.noindex/iphonesimulator27.1-24A94232-35d3147121984ba087c28d913653d626.sdkstatcache -output-file-map /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyUITests.build/Objects-normal/arm64/PawlyUITests-OutputFileMap.json -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/jbf/Public/codex-handoff/frontend-build/ModuleCache.noindex -sdk-module-cache-path /Users/jbf/Public/codex-handoff/frontend-build/SDKExplicitPrecompiledModules -emit-dependencies -emit-module -emit-module-path /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyUITests.build/Objects-normal/arm64/PawlyUITests.swiftmodule -serialize-diagnostics -dependency-scan-serialize-diagnostics-path /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyUITests.build/Objects-normal/arm64/PawlyUITests-dependency-scan.dia -validate-clang-modules-once -clang-build-session-file /Users/jbf/Public/codex-handoff/frontend-build/ModuleCache.noindex/Session.modulevalidation -Xcc -fmodules-prune-interval\=86400 -Xcc -fmodules-prune-after\=345600 -emit-const-values -const-gather-protocols-list /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyUITests.build/Objects-normal/arm64/PawlyUITests_const_extract_protocols.json -Xcc -iquote -Xcc /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyUITests.build/PawlyUITests-generated-files.hmap -Xcc -I/Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyUITests.build/PawlyUITests-own-target-headers.hmap -Xcc -I/Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyUITests.build/PawlyUITests-all-target-headers.hmap -Xcc -iquote -Xcc /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyUITests.build/PawlyUITests-project-headers.hmap -Xcc -I/Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator/include -Xcc -I/Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyUITests.build/DerivedSources-normal/arm64 -Xcc -I/Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyUITests.build/DerivedSources/arm64 -Xcc -I/Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyUITests.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyUITests.build/Objects-normal/arm64/PawlyUITests-Swift.h -working-directory /Users/jbf/Public/codex-handoff/frontend-workbench/ios -experimental-emit-module-separately -disable-cmo
+
+Ld /Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator/PawlyUITests-Runner.app/PlugIns/PawlyUITests.xctest/PawlyUITests normal (in target 'PawlyUITests' from project 'PawlyDemo')
+    cd /Users/jbf/Public/codex-handoff/frontend-workbench/ios
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -Xlinker -reproducible -target arm64-apple-ios17.0-simulator -bundle -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.1.sdk -O0 -Xlinker -no_warn_duplicate_libraries -L/Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-iphonesimulator -L/Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator -L/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib -F/Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-iphonesimulator -F/Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator -iframework /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks -iframework /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.1.sdk/Developer/Library/Frameworks -filelist /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyUITests.build/Objects-normal/arm64/PawlyUITests.LinkFileList -Xlinker -rpath -Xlinker /usr/lib/swift -Xlinker -rpath -Xlinker @loader_path/Frameworks -Xlinker -dead_strip -Xlinker -object_path_lto -Xlinker /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyUITests.build/Objects-normal/arm64/PawlyUITests_lto.o -rdynamic -Xlinker -no_deduplicate -Xlinker -objc_abi_version -Xlinker 2 -Xlinker -dependency_info -Xlinker /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyUITests.build/Objects-normal/arm64/PawlyUITests_dependency_info.dat -fobjc-link-runtime -L/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator -L/usr/lib/swift -Xlinker -add_ast_path -Xlinker /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyUITests.build/Objects-normal/arm64/PawlyUITests.swiftmodule -Xlinker -needed_framework -Xlinker XCTest -framework XCTest -Xlinker -needed-lXCTestSwiftSupport -lXCTestSwiftSupport -Xlinker -sectcreate -Xlinker __TEXT -Xlinker __entitlements -Xlinker /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyUITests.build/PawlyUITests.xctest-Simulated.xcent -Xlinker -sectcreate -Xlinker __TEXT -Xlinker __ents_der -Xlinker /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyUITests.build/PawlyUITests.xctest-Simulated.xcent.der -Xlinker -no_adhoc_codesign -o /Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator/PawlyUITests-Runner.app/PlugIns/PawlyUITests.xctest/PawlyUITests
+
+CopySwiftLibs /Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator/PawlyUITests-Runner.app/PlugIns/PawlyUITests.xctest (in target 'PawlyUITests' from project 'PawlyDemo')
+    cd /Users/jbf/Public/codex-handoff/frontend-workbench/ios
+    builtin-swiftStdLibTool --copy --verbose --sign - --scan-executable /Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator/PawlyUITests-Runner.app/PlugIns/PawlyUITests.xctest/PawlyUITests --scan-folder /Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator/PawlyUITests-Runner.app/PlugIns/PawlyUITests.xctest/Frameworks --scan-folder /Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator/PawlyUITests-Runner.app/PlugIns/PawlyUITests.xctest/PlugIns --scan-folder /Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator/PawlyUITests-Runner.app/PlugIns/PawlyUITests.xctest/SystemExtensions --scan-folder /Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator/PawlyUITests-Runner.app/PlugIns/PawlyUITests.xctest/Extensions --platform iphonesimulator --toolchain /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain --destination /Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator/PawlyUITests-Runner.app/PlugIns/PawlyUITests.xctest/Frameworks --strip-bitcode --scan-executable /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib/libXCTestSwiftSupport.dylib --strip-bitcode-tool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/bitcode_strip --emit-dependency-info /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyUITests.build/SwiftStdLibToolInputDependencies.dep --filter-for-swift-os
+
+ExtractAppIntentsMetadata (in target 'PawlyUITests' from project 'PawlyDemo')
+    cd /Users/jbf/Public/codex-handoff/frontend-workbench/ios
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/appintentsmetadataprocessor --toolchain-dir /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain --module-name PawlyUITests --sdk-root /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.1.sdk --xcode-version 27A9275 --platform-family iOS --deployment-target 17.0 --bundle-identifier app.pawly.uitests --output /Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator/PawlyUITests-Runner.app/PlugIns/PawlyUITests.xctest --target-triple arm64-apple-ios17.0-simulator --binary-file /Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator/PawlyUITests-Runner.app/PlugIns/PawlyUITests.xctest/PawlyUITests --dependency-file /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyUITests.build/Objects-normal/arm64/PawlyUITests_dependency_info.dat --stringsdata-file /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyUITests.build/Objects-normal/arm64/ExtractedAppShortcutsMetadata.stringsdata --source-file-list /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyUITests.build/Objects-normal/arm64/PawlyUITests.SwiftFileList --metadata-file-list /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyUITests.build/PawlyUITests.DependencyMetadataFileList --static-metadata-file-list /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyUITests.build/PawlyUITests.DependencyStaticMetadataFileList --swift-const-vals-list /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/PawlyDemo.build/Debug-iphonesimulator/PawlyUITests.build/Objects-normal/arm64/PawlyUITests.SwiftConstValuesFileList --compile-time-extraction --deployment-aware-processing --no-app-shortcuts-localization
+2026-11-04 13:49:27.513 appintentsmetadataprocessor[34213:3206937] Starting appintentsmetadataprocessor export
+2026-11-04 13:49:27.514 appintentsmetadataprocessor[34213:3206937] warning: Metadata extraction skipped, no AppIntents.framework dependency found
+
+CodeSign /Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator/PawlyUITests-Runner.app/PlugIns/PawlyUITests.xctest (in target 'PawlyUITests' from project 'PawlyDemo')
+    cd /Users/jbf/Public/codex-handoff/frontend-workbench/ios
+    
+    Signing Identity:     "Sign to Run Locally"
+    
+    /usr/bin/codesign --force --sign - --timestamp\=none --generate-entitlement-der /Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator/PawlyUITests-Runner.app/PlugIns/PawlyUITests.xctest
+
+CodeSign /Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator/PawlyUITests-Runner.app (in target 'PawlyUITests' from project 'PawlyDemo')
+    cd /Users/jbf/Public/codex-handoff/frontend-workbench/ios
+    
+    Signing Identity:     "Sign to Run Locally"
+    
+    /usr/bin/codesign --force --sign - --timestamp\=none --generate-entitlement-der /Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator/PawlyUITests-Runner.app
+/Users/jbf/Public/codex-handoff/frontend-build/Build/Products/Debug-iphonesimulator/PawlyUITests-Runner.app: replacing existing signature
+
+PruneExplicitPrecompiledModules /Users/jbf/Public/codex-handoff/frontend-build/SDKExplicitPrecompiledModules
+
+PruneExplicitPrecompiledModules /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/ExplicitPrecompiledModules
+
+PruneExplicitPrecompiledModules /Users/jbf/Public/codex-handoff/frontend-build/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules
+
+2026-11-04 13:49:27.806 xcodebuild[34168:3206156] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+2026-11-04 13:49:33.513642+0800 PawlyUITests-Runner[34216:3207094] [Default] Running tests...
+    t =      nans Interface orientation changed to Portrait
+Test Suite 'All tests' started at 2026-11-04 13:49:45.621.
+Test Suite 'PawlyUITests.xctest' started at 2026-11-04 13:49:45.625.
+Test Suite 'MobileFlowTests' started at 2026-11-04 13:49:45.625.
+Test Case '-[PawlyUITests.MobileFlowTests testRealBackendFlow]' started.
+    t =     0.01s Start Test at 2026-11-04 13:49:45.631
+    t =     0.09s Set Up
+    t =     0.10s Open app.pawly.demo
+    t =     0.10s     Launch app.pawly.demo
+2026-11-04 13:49:46.080 xcodebuild[34168:3206156] [MT] IDELaunchParametersSnapshot: debugger version lookup failed for path '<nil>': noURL
+2026-11-04 13:49:46.081 xcodebuild[34168:3206156] [MT] IDELaunchParametersSnapshot: no debugger version
+2026-11-04 13:49:46.102 xcodebuild[34168:3206156] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+objc[34216]: Class UIAccessibilityLoaderWebShared is implemented in both /private/var/run/com.apple.security.cryptexd/mnt/com.apple.iPhoneOS.SimulatorRuntime-v24.1.434.0.1A5KBe/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 27.0.simruntime/Contents/Resources/RuntimeRoot/System/Library/AccessibilityBundles/WebKit.axbundle/WebKit (0x1027b8398) and /private/var/run/com.apple.security.cryptexd/mnt/com.apple.iPhoneOS.SimulatorRuntime-v24.1.434.0.1A5KBe/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 27.0.simruntime/Contents/Resources/RuntimeRoot/System/Library/AccessibilityBundles/WebCore.axbundle/WebCore (0x105750310). This may cause spurious casting failures and mysterious crashes. One of the duplicates must be removed or renamed.
+    t =     1.53s         Setting up automation session
+    t =     4.36s         Wait for app.pawly.demo to idle
+    t =     7.07s Waiting 10.0s for "emailInput" TextField to exist
+    t =    10.15s     Checking `Expect predicate `existsNoRetry == 1` for object "emailInput" TextField`
+    t =    10.25s         Checking existence of `"emailInput" TextField`
+    t =    10.43s Tap "emailInput" TextField
+    t =    10.43s     Wait for app.pawly.demo to idle
+    t =    10.43s     Find the "emailInput" TextField
+    t =    10.44s     Check for interrupting elements affecting "emailInput" TextField
+    t =    10.48s     Synthesize event
+    t =    10.85s     Wait for app.pawly.demo to idle
+    t =    12.01s Type 'ios-ui-owner@examp...' into "emailInput" TextField
+    t =    12.01s     Wait for app.pawly.demo to idle
+    t =    12.34s     Find the "emailInput" TextField
+    t =    12.40s     Check for interrupting elements affecting "emailInput" TextField
+    t =    12.42s     Synthesize event
+    t =    13.05s     Wait for app.pawly.demo to idle
+    t =    13.05s Tap "sendCode" Button
+    t =    13.05s     Wait for app.pawly.demo to idle
+    t =    13.06s     Find the "sendCode" Button
+    t =    13.08s     Check for interrupting elements affecting "sendCode" Button
+    t =    13.10s     Synthesize event
+    t =    13.39s     Wait for app.pawly.demo to idle
+    t =    13.81s Waiting 20.0s for "verifyLogin" Button to exist
+    t =    14.84s     Checking `Expect predicate `existsNoRetry == 1` for object "verifyLogin" Button`
+    t =    14.85s         Checking existence of `"verifyLogin" Button`
+    t =    14.89s Find the "verifyLogin" Button
+    t =    14.91s Tap "verifyLogin" Button
+    t =    14.91s     Wait for app.pawly.demo to idle
+    t =    14.92s     Find the "verifyLogin" Button
+    t =    14.93s     Check for interrupting elements affecting "verifyLogin" Button
+    t =    14.95s     Synthesize event
+    t =    15.25s     Wait for app.pawly.demo to idle
+    t =    16.29s Waiting 20.0s for "宠物" Button to exist
+    t =    17.34s     Checking `Expect predicate `existsNoRetry == 1` for object "宠物" Button`
+    t =    17.34s         Checking existence of `"宠物" Button`
+    t =    17.77s Waiting 30.0s for "modelReady" StaticText to exist
+    t =    18.81s     Checking `Expect predicate `existsNoRetry == 1` for object "modelReady" StaticText`
+    t =    18.81s         Checking existence of `"modelReady" StaticText`
+    t =    18.88s         Capturing element debug description
+    t =    19.83s     Checking `Expect predicate `existsNoRetry == 1` for object "modelReady" StaticText`
+    t =    19.83s         Checking existence of `"modelReady" StaticText`
+    t =    19.89s         Capturing element debug description
+    t =    20.83s     Checking `Expect predicate `existsNoRetry == 1` for object "modelReady" StaticText`
+    t =    20.83s         Checking existence of `"modelReady" StaticText`
+    t =    20.98s         Capturing element debug description
+    t =    21.81s     Checking `Expect predicate `existsNoRetry == 1` for object "modelReady" StaticText`
+    t =    21.81s         Checking existence of `"modelReady" StaticText`
+    t =    25.51s Added attachment named '00-model-status'
+    t =    25.62s Added attachment named '01-pet-home-golden'
+    t =    25.63s Swipe up Target Application 'app.pawly.demo'
+    t =    25.63s     Wait for app.pawly.demo to idle
+    t =    25.63s     Find the Target Application 'app.pawly.demo'
+    t =    25.66s     Check for interrupting elements affecting "Pawly" Application
+    t =    25.72s     Synthesize event
+    t =    26.16s     Wait for app.pawly.demo to idle
+    t =    27.44s Waiting 15.0s for Any (First Match) to exist
+    t =    28.49s     Checking `Expect predicate `existsNoRetry == 1` for object Any (First Match)`
+    t =    28.49s         Checking existence of `Any (First Match)`
+    t =    28.70s Added attachment named '02-private-gallery'
+    t =    28.70s Get all elements bound by index for: Elements matching predicate 'identifier BEGINSWITH "asset-"'
+    t =    28.76s Find the Any (Element at index 0)
+    t =    28.80s Find the "asset-model-0076080652c141ae9588f5c599881413" Button
+    t =    28.84s Find the Target Application 'app.pawly.demo'
+    t =    28.86s Find the Any (Element at index 1)
+    t =    28.91s Find the "asset-image-71a12213f45e43479e3b8f9ce43667ec" Button
+    t =    28.94s Find the Target Application 'app.pawly.demo'
+    t =    28.97s Find the Any (Element at index 2)
+    t =    29.01s Find the "asset-image-82b77757587d45a58914403336019319" Button
+    t =    29.05s Find the Target Application 'app.pawly.demo'
+    t =    29.08s Tap Any (First Match)
+    t =    29.08s     Wait for app.pawly.demo to idle
+    t =    29.08s     Find the Any (First Match)
+    t =    29.13s     Check for interrupting elements affecting "asset-image-71a12213f45e43479e3b8f9ce43667ec" Button
+    t =    29.19s     Synthesize event
+    t =    29.52s     Wait for app.pawly.demo to idle
+    t =    29.97s Waiting 20.0s for "privateAssetImage" Image to exist
+    t =    30.98s     Checking `Expect predicate `existsNoRetry == 1` for object "privateAssetImage" Image`
+    t =    30.98s         Checking existence of `"privateAssetImage" Image`
+    t =    31.17s Added attachment named '03-private-image'
+    t =    31.17s Tap "完成" Button
+    t =    31.17s     Wait for app.pawly.demo to idle
+    t =    31.17s     Find the "完成" Button
+    t =    31.23s     Check for interrupting elements affecting "完成" Button
+    t =    31.27s     Synthesize event
+    t =    31.57s     Wait for app.pawly.demo to idle
+    t =    31.96s Tap "附近" Button
+    t =    31.96s     Wait for app.pawly.demo to idle
+    t =    31.96s     Find the "附近" Button
+    t =    32.01s     Check for interrupting elements affecting "map.fill" Button
+    t =    32.05s     Synthesize event
+    t =    32.35s     Wait for app.pawly.demo to idle
+    t =    35.34s Waiting 15.0s for "nearbyMap" Other to exist
+    t =    36.38s     Checking `Expect predicate `existsNoRetry == 1` for object "nearbyMap" Other`
+    t =    36.38s         Checking existence of `"nearbyMap" Other`
+    t =    36.64s Added attachment named '04-nearby-map'
+    t =    36.64s Tap "消息" Button
+    t =    36.64s     Wait for app.pawly.demo to idle
+    t =    36.65s     Find the "消息" Button
+    t =    36.68s     Check for interrupting elements affecting "bubble.left.and.bubble.right.fill" Button
+    t =    36.71s     Synthesize event
+    t =    37.00s     Wait for app.pawly.demo to idle
+    t =    40.98s Waiting 8.0s for "接受" Button to exist
+    t =    42.01s     Checking `Expect predicate `existsNoRetry == 1` for object "接受" Button`
+    t =    42.01s         Checking existence of `"接受" Button`
+    t =    42.14s         Capturing element debug description
+    t =    42.98s     Checking `Expect predicate `existsNoRetry == 1` for object "接受" Button`
+    t =    42.99s         Checking existence of `"接受" Button`
+    t =    43.04s         Capturing element debug description
+    t =    43.98s     Checking `Expect predicate `existsNoRetry == 1` for object "接受" Button`
+    t =    43.98s         Checking existence of `"接受" Button`
+    t =    44.04s         Capturing element debug description
+    t =    44.98s     Checking `Expect predicate `existsNoRetry == 1` for object "接受" Button`
+    t =    44.98s         Checking existence of `"接受" Button`
+    t =    45.03s         Capturing element debug description
+    t =    46.06s     Checking `Expect predicate `existsNoRetry == 1` for object "接受" Button`
+    t =    46.06s         Checking existence of `"接受" Button`
+    t =    46.12s         Capturing element debug description
+    t =    47.06s     Checking `Expect predicate `existsNoRetry == 1` for object "接受" Button`
+    t =    47.06s         Checking existence of `"接受" Button`
+    t =    47.12s         Capturing element debug description
+    t =    47.98s     Checking `Expect predicate `existsNoRetry == 1` for object "接受" Button`
+    t =    47.98s         Checking existence of `"接受" Button`
+    t =    48.01s         Capturing element debug description
+    t =    48.98s     Checking `Expect predicate `existsNoRetry == 1` for object "接受" Button`
+    t =    48.98s         Checking existence of `"接受" Button`
+    t =    49.03s         Capturing element debug description
+    t =    49.03s     Checking existence of `"接受" Button`
+    t =    49.07s Collecting debug information to assist test failure triage
+    t =    49.07s     Requesting snapshot of accessibility hierarchy for app with pid 34235
+    t =    49.21s Waiting 15.0s for Button (First Match) to exist
+    t =    50.26s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =    50.26s         Checking existence of `Button (First Match)`
+    t =    50.50s Added attachment named '05-contacts'
+    t =    50.50s Tap Button (First Match)
+    t =    50.50s     Wait for app.pawly.demo to idle
+    t =    50.51s     Find the Button (First Match)
+    t =    50.56s     Check for interrupting elements affecting "contact-6bc76ec67dc84f4699412eaacf4f688d" Button
+    t =    50.65s     Synthesize event
+    t =    51.01s     Wait for app.pawly.demo to idle
+    t =    53.79s Waiting 10.0s for "messageInput" TextField to exist
+    t =    54.86s     Checking `Expect predicate `existsNoRetry == 1` for object "messageInput" TextField`
+    t =    54.87s         Checking existence of `"messageInput" TextField`
+    t =    55.11s Tap "messageInput" TextField
+    t =    55.11s     Wait for app.pawly.demo to idle
+    t =    55.11s     Find the "messageInput" TextField
+    t =    55.15s     Check for interrupting elements affecting "messageInput" TextField
+    t =    55.19s     Synthesize event
+    t =    55.49s     Wait for app.pawly.demo to idle
+    t =    56.53s Type 'UI integration wal...' into "messageInput" TextField
+    t =    56.53s     Wait for app.pawly.demo to idle
+    t =    57.57s     Find the "messageInput" TextField
+    t =    57.80s     Check for interrupting elements affecting "messageInput" TextField
+    t =    57.85s     Synthesize event
+    t =    58.57s     Wait for app.pawly.demo to idle
+    t =    58.58s Tap "sendMessage" Button
+    t =    58.58s     Wait for app.pawly.demo to idle
+    t =    58.58s     Find the "sendMessage" Button
+    t =    58.63s     Check for interrupting elements affecting "sendMessage" Button
+    t =    58.68s     Synthesize event
+    t =    58.98s     Wait for app.pawly.demo to idle
+    t =    58.98s Waiting 20.0s for "UI integration walk invitation" StaticText to exist
+    t =    60.04s     Checking `Expect predicate `existsNoRetry == 1` for object "UI integration walk invitation" StaticText`
+    t =    60.04s         Checking existence of `"UI integration walk invitation" StaticText`
+    t =    60.30s Added attachment named '06-chat'
+    t =    60.30s Tap Button (Element at index 0)
+    t =    60.30s     Wait for app.pawly.demo to idle
+    t =    60.30s     Find the Button (Element at index 0)
+    t =    60.35s     Check for interrupting elements affecting "BackButton" Button
+    t =    60.41s     Synthesize event
+    t =    60.73s     Wait for app.pawly.demo to idle
+    t =    61.34s Tap "我的" Button
+    t =    61.34s     Wait for app.pawly.demo to idle
+    t =    61.36s     Find the "我的" Button
+    t =    61.43s     Check for interrupting elements affecting "person.crop.circle" Button
+    t =    61.46s     Synthesize event
+    t =    61.77s     Wait for app.pawly.demo to idle
+    t =    63.97s Waiting 15.0s for "userIdentifier" StaticText to exist
+    t =    65.00s     Checking `Expect predicate `existsNoRetry == 1` for object "userIdentifier" StaticText`
+    t =    65.01s         Checking existence of `"userIdentifier" StaticText`
+    t =    65.20s Added attachment named '07-account'
+    t =    65.20s Tap "logout" Button
+    t =    65.20s     Wait for app.pawly.demo to idle
+    t =    65.21s     Find the "logout" Button
+    t =    65.23s     Check for interrupting elements affecting "logout" Button
+    t =    65.26s     Synthesize event
+    t =    65.59s     Wait for app.pawly.demo to idle
+    t =    67.37s Waiting 8.0s for "confirmLogout" Button to exist
+    t =    68.42s     Checking `Expect predicate `existsNoRetry == 1` for object "confirmLogout" Button`
+    t =    68.42s         Checking existence of `"confirmLogout" Button`
+    t =    68.51s Tap "confirmLogout" Button
+    t =    68.51s     Wait for app.pawly.demo to idle
+    t =    68.51s     Find the "confirmLogout" Button
+    t =    68.58s     Check for interrupting elements affecting "confirmLogout" Button
+    t =    68.61s     Synthesize event
+    t =    68.93s     Wait for app.pawly.demo to idle
+    t =    69.32s Waiting 15.0s for "emailInput" TextField to exist
+    t =    70.38s     Checking `Expect predicate `existsNoRetry == 1` for object "emailInput" TextField`
+    t =    70.38s         Checking existence of `"emailInput" TextField`
+    t =    71.10s Checking existence of `"privateAssetImage" Image`
+    t =    71.24s Added attachment named '08-logged-out'
+    t =    71.24s Tear Down
+Test Case '-[PawlyUITests.MobileFlowTests testRealBackendFlow]' passed (71.665 seconds).
+Test Suite 'MobileFlowTests' passed at 2026-11-04 13:50:57.303.
+	 Executed 1 test, with 0 failures (0 unexpected) in 71.665 (71.678) seconds
+Test Suite 'PawlyUITests.xctest' passed at 2026-11-04 13:50:57.318.
+	 Executed 1 test, with 0 failures (0 unexpected) in 71.665 (71.692) seconds
+Test Suite 'All tests' passed at 2026-11-04 13:50:57.319.
+	 Executed 1 test, with 0 failures (0 unexpected) in 71.665 (71.697) seconds
+2026-11-04 13:50:57.438 xcodebuild[34168:3206156] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+2026-11-04 13:50:57.444 xcodebuild[34168:3206156] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+2026-11-04 13:50:57.454 xcodebuild[34168:3206156] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+2026-11-04 13:50:57.473 xcodebuild[34168:3206156] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+2026-11-04 13:50:57.474 xcodebuild[34168:3206156] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+2026-11-04 13:50:57.477 xcodebuild[34168:3206156] [MT] IDESchemeActionSDKRecord: operatingSystemBuild = <DVTBuildVersion 24A94232>, error = invalidDigitCount(94232).
+2026-11-04 13:50:57.761 xcodebuild[34168:3206156] [MT] IDETestOperationsObserverDebug: 90.195 elapsed -- Testing started completed.
+2026-11-04 13:50:57.761 xcodebuild[34168:3206156] [MT] IDETestOperationsObserverDebug: 0.000 sec, +0.000 sec -- start
+2026-11-04 13:50:57.761 xcodebuild[34168:3206156] [MT] IDETestOperationsObserverDebug: 90.195 sec, +90.195 sec -- end
+
+Test session results, code coverage, and logs:
+	/Users/jbf/Public/codex-handoff/ui-acceptance-10.xcresult
+
+** TEST SUCCEEDED **
+
+Testing started

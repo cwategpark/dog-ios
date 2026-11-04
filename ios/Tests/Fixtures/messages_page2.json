@@ -1,0 +1,14 @@
+{
+  "items": [
+    {
+      "message_id": "4930be7e929449b6956d962a66b0d719",
+      "contact_id": "f30172f8699b4025b86d315cc8d61a37",
+      "sender": "them",
+      "body": "live-message-0",
+      "created_at": 1793764813.464483,
+      "client_id": "live-cid-0"
+    }
+  ],
+  "next_before": null,
+  "next_before_id": null
+}

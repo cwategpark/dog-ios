@@ -1,0 +1,43 @@
+{
+  "profile_id": "toon-cat-harness-shoulder-v2",
+  "asset": "harness-shoulder-local.glb",
+  "wear_region": "chest_back",
+  "anchor": "shoulder",
+  "reference_chest_width": 0.2602300171663848,
+  "reference_torso_span": 0.3409836256672376,
+  "reference_landmarks": {
+    "neck_base": [
+      -0.00339536,
+      0.546947,
+      0.23105004
+    ],
+    "shoulder": [
+      -0.00343932,
+      0.53611469,
+      0.09506029
+    ],
+    "mid_back": [
+      -0.00343932,
+      0.54150182,
+      -0.10989011
+    ],
+    "tail_base": [
+      -0.00343931,
+      0.50632149,
+      -0.34389523
+    ],
+    "front_left": [
+      0.12120825,
+      0.30241996,
+      0.27089122
+    ],
+    "front_right": [
+      -0.12808686,
+      0.31103596,
+      0.19674695
+    ]
+  },
+  "fit_method": "offline_surface_fit_then_runtime_bone_anchor",
+  "forward_axis": "+Z",
+  "up_axis": "+Y"
+}

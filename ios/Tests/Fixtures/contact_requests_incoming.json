@@ -1,0 +1,19 @@
+{
+  "items": [
+    {
+      "request_id": "e7e94b8808714e29b57e30b19ec2237f",
+      "direction": "incoming",
+      "status": "pending",
+      "message": null,
+      "created_at": 1793764813.4530811,
+      "user_public_ref": "ef3588cba1a04be7b10a17e789431892",
+      "pet": {
+        "name": "Aster",
+        "species": "dog",
+        "breed": null,
+        "age_months": 24,
+        "avatar_url": null
+      }
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "status": "passed",
+  "result_bundle": "/Users/jbf/Public/codex-handoff/ui-acceptance-10.xcresult",
+  "screenshots": 9,
+  "backend": "127.0.0.1:18766",
+  "signed_simulator": true
+}

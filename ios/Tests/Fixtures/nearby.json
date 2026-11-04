@@ -1,0 +1,21 @@
+{
+  "items": [
+    {
+      "public_ref": "1448fad955ad4512bc58dee6e5ab0028",
+      "pet": {
+        "name": null,
+        "species": null,
+        "breed": null,
+        "age_months": null,
+        "avatar_url": null
+      },
+      "coarse_region": {
+        "grid": "624:2429",
+        "label": null
+      },
+      "distance_bucket": "lt_1km"
+    }
+  ],
+  "radius_km": 5,
+  "generated_at": 1793764813.4482691
+}

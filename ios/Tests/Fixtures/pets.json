@@ -1,0 +1,13 @@
+{
+  "pets": [
+    {
+      "pet_id": "a35633f64f7747c68423c1fbb1072ce6",
+      "name": "Aster",
+      "species": "dog",
+      "breed": null,
+      "age_months": 24,
+      "dog_size": "medium",
+      "avatar_url": null
+    }
+  ]
+}

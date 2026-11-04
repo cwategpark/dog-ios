@@ -1,0 +1,19 @@
+{
+  "user_id": "a10729a1e6e44556b554c1a496f8676e",
+  "public_ref": "ef3588cba1a04be7b10a17e789431892",
+  "email": "live-a@dogios.test",
+  "full_name": "A Dog",
+  "email_verified_at": 1793764813.298636,
+  "created_at": 1793764813.160377,
+  "pets": [
+    {
+      "pet_id": "a35633f64f7747c68423c1fbb1072ce6",
+      "name": "Aster",
+      "species": "dog",
+      "breed": null,
+      "age_months": 24,
+      "dog_size": "medium",
+      "avatar_url": null
+    }
+  ]
+}
