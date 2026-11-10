@@ -27,7 +27,7 @@ let package = Package(
             path: "PawlyDemo/Features/Mobile",
             exclude: ["GLBModelView.swift", "MobileAccountView.swift", "MobileRootView.swift",
                       "NearbyPetsView.swift", "PetContactsView.swift", "PetSpaceView.swift",
-                      "SocialProfileViews.swift"],
+                      "SocialProfileViews.swift", "OrderLogisticsView.swift"],
             sources: ["MobileAppStore.swift"]
         ),
         .testTarget(

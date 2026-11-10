@@ -141,7 +141,7 @@ struct MobileLoginView: View {
                 }.padding(.top, 32)
                 VStack(alignment: .leading, spacing: 12) {
                     Text("把它的小世界，\n带在身边。").font(.largeTitle.bold()).fixedSize(horizontal: false, vertical: true)
-                    Text("用网站为宠物填写的同一邮箱登录，查看它的资料、照片与专属模型。")
+                    Text("用网站账号邮箱登录，查看宠物名字、上传照片、模型与商品物流。")
                         .foregroundStyle(theme.muted)
                 }
                 MobileCard {

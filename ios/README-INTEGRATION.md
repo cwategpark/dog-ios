@@ -148,7 +148,7 @@ swift test --disable-sandbox --package-path ios
   pet-home personal/default fallback、AssetPage 游标分页、Google 无 key 时 `google_unconfigured` 与 MapKit 回退、
   发现上报/附近查询、消息幂等与分页、订单物流分页/503 错误、私有模型 archive 下载、自由 source 兼容。
 - 全部用 `URLProtocol` stub（`StubURLProtocol`），无真实网络。
-- 本机结果：**135 tests, 1 skipped, 0 failures**（跳过 live 测试；跨语言 live 由 `scripts/acceptance_live.py` 跑通）。
+- 本机结果：**136 tests, 1 skipped, 0 failures**（跳过 live 测试；跨语言 live 由 `scripts/acceptance_live.py` 跑通）。
 
 ### 5.2 Xcode 构建（iOS 模拟器）
 
@@ -182,3 +182,16 @@ xcodebuild -project ios/PawlyDemo.xcodeproj -scheme PawlyDemo \
 - **未实现**：APNs 推送、WebSocket 实时消息、双方短时精确位置共享、社区 Feed/文章（契约未定义或属后续阶段）。
 - Keychain 的 token 存取未在真机做端到端验证；单测使用 `InMemoryTokenStore` 替身（不碰真实钥匙串）。
 - 无商城/支付/Shopify SDK 依赖；数据层不 import 任何商城服务。
+
+
+## 8. 账号同步最终 UI/验收
+
+最终 UI 与验收源码已同步回实际工程：
+
+- `PawlyDemo/Features/Mobile/OrderLogisticsView.swift`
+- `PawlyUITests/WebsiteAccountSyncTests.swift`
+- 最终 12 个账号同步文件的 SHA256 与验收副本一致
+- 小屏验收：iPhone SE（375 点宽）5 项通过；最大辅助字号 + 减少动态效果复验 1 项通过
+- 完整说明与验收摘要：`docs/ios-account-sync-20261110/`
+- 真实物流仍需网站服务端配置 Shopify `read_orders`（超过 60 天还需 `read_all_orders`）；iOS 不会伪造空订单，服务端未配置时显示 503 不可用
+- 未提交真实订单、邮箱、token 或用户隐私数据

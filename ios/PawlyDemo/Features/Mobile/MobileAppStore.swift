@@ -10,6 +10,7 @@ final class MobileAppStore: ObservableObject {
     @Published var starting = true
     @Published var startupError: String?
     @Published var sessionID = UUID()
+    @Published var websiteSyncRevision = UUID()
     @Published var discovery: DiscoveryStatus?
     @Published var socialProfile: SocialProfile?
     @Published var socialAvatarData: Data?
@@ -271,7 +272,7 @@ final class MobileAppStore: ObservableObject {
             try Self.validateGLB(data, sha256: model.sha256)
             let isReference = model.isReferenceModel == true || model.source == "confirmed-breed-reference"
             let title = isReference ? "品种参考模型" :
-                (model.source == "photo-generated" ? "专属宠物模型" : "已保存的宠物模型")
+                (["photo-generated", "text-generated"].contains(model.source ?? "") ? "专属宠物模型" : "已保存的宠物模型")
             return (data, title)
         case .default(let model, _):
             let path = model.url

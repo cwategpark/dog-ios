@@ -50,21 +50,25 @@ final class AccountSyncDataLayerTests: DataLayerTestCase {
         XCTAssertTrue(page.hasMore)
     }
 
-    func testLogisticsWithoutCursorAndMissingOptionalArraysDecodes() async throws {
+    func testLogisticsWithoutCursorAndEmptyHistoryDecodes() async throws {
         let (client, _) = try makeClient(accessToken: "logistics-token")
         StubURLProtocol.setHandler { request in
             XCTAssertEqual(request.url?.path, "/mobile/v1/orders/logistics")
             XCTAssertTrue(request.queryItems.isEmpty)
             return .json("""
-            {"items":[{"id":"order-2","name":"Legacy shape","processed_at":"",
-              "status":"unknown_future"}],"next_cursor":null}
+            {"items":[],"next_cursor":null}
             """)
         }
         let page = try await LogisticsService(client: client).orders()
-        XCTAssertEqual(page.items.first?.items.count, 0)
-        XCTAssertEqual(page.items.first?.shipments.count, 0)
-        XCTAssertEqual(page.items.first?.status, "unknown_future")
+        XCTAssertTrue(page.items.isEmpty)
         XCTAssertFalse(page.hasMore)
+    }
+
+    func testMalformedLogisticsCannotBecomeEmptyOrderHistory() throws {
+        for json in [#"{}"#, #"{"detail":"unexpected"}"#,
+                     #"{"items":[{"id":"order-1","name":"Order","processed_at":"now"}]}"#] {
+            XCTAssertThrowsError(try decoder.decode(LogisticsPage.self, from: Data(json.utf8)))
+        }
     }
 
     func testLogistics503PreservesDetailCodes() async throws {

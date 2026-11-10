@@ -3,6 +3,7 @@ import SwiftUI
 struct PetSpaceView: View {
     @EnvironmentObject private var store: MobileAppStore
     @Environment(\.pawly) private var theme
+    @Environment(\.scenePhase) private var scenePhase
     @State private var pets: [PetSummary] = []
     @State private var selectedPet: String?
     @State private var items: [AssetItem] = []
@@ -19,7 +20,10 @@ struct PetSpaceView: View {
     }
     private var petName: String { selectedPetSummary?.resolvedName ?? "它" }
     private var visibleItems: [AssetItem] {
-        items.filter { filter == "all" || (filter == "model" ? $0.kind == "model" : $0.kind != "model") }
+        items.filter { asset in
+            let supported = asset.kind == "model" || (asset.kind == "photo" && asset.isUploadedPhoto)
+            return supported && (filter == "all" || asset.kind == filter)
+        }
     }
 
     var body: some View {
@@ -27,8 +31,8 @@ struct PetSpaceView: View {
             VStack(alignment: .leading, spacing: 24) {
                 HStack(alignment: .top) {
                     VStack(alignment: .leading, spacing: 6) {
-                        Text("你和\(petName)的小家").font(.largeTitle.bold())
-                        Text("一起长大，每一天。").foregroundStyle(theme.muted)
+                        Text(selectedPet == nil ? "我的宠物与模型" : "你和\(petName)的小家").font(.largeTitle.bold())
+                        Text("与网站同一账号，随时同步。").foregroundStyle(theme.muted)
                     }
                     Spacer(minLength: 8)
                     Image(systemName: "sun.max").font(.title).foregroundStyle(theme.primary)
@@ -37,10 +41,24 @@ struct PetSpaceView: View {
                 if !pets.isEmpty {
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 12) {
+                            Button {
+                                guard selectedPet != nil else { return }
+                                selectedPet = nil
+                                modelRefreshID = UUID()
+                                Task { await reloadAssets() }
+                            } label: {
+                                Text("全部宠物").font(.body.weight(.semibold))
+                                    .padding(.horizontal, 18).frame(minHeight: 48)
+                                    .foregroundStyle(theme.ink)
+                                    .background(selectedPet == nil ? theme.accentSoft : theme.surface, in: Capsule())
+                                    .overlay(Capsule().stroke(theme.border, lineWidth: 1))
+                            }.accessibilityAddTraits(selectedPet == nil ? .isSelected : [])
+                                .accessibilityIdentifier("allPets")
                             ForEach(pets) { pet in
                                 Button {
                                     guard selectedPet != pet.petId else { return }
                                     selectedPet = pet.petId
+                                    modelRefreshID = UUID()
                                     Task { await reloadAssets() }
                                 } label: {
                                     HStack(spacing: 8) {
@@ -92,19 +110,20 @@ struct PetSpaceView: View {
                 }
                 HStack {
                     VStack(alignment: .leading, spacing: 4) {
-                        Text("它的作品集").font(.title2.bold())
-                        Text("此邮箱在网站保存的照片、试穿和模型").font(.callout).foregroundStyle(theme.muted)
+                        Text("我的照片与模型").font(.title2.bold())
+                        Text("网站已保存的原始上传照片与宠物模型").font(.callout).foregroundStyle(theme.muted)
                     }
                     Spacer()
                     if busy { ProgressView() }
                 }
                 Picker("作品类型", selection: $filter) {
                     Text("全部").tag("all")
-                    Text("图片").tag("image")
+                    Text("上传照片").tag("photo")
                     Text("模型").tag("model")
                 }.pickerStyle(.segmented)
+                    .onChange(of: filter) { _, _ in Task { await reloadAssets() } }
                 MobileErrorText(text: error)
-                if visibleItems.isEmpty && !busy {
+                if visibleItems.isEmpty && !busy && error == nil && cursor == nil {
                     MobileEmpty(symbol: "photo.on.rectangle.angled", title: "作品会在这里相遇",
                                 detail: "网站保存到同一邮箱的作品将同步显示。", retry: { Task { await reload() } })
                 } else {
@@ -134,12 +153,15 @@ struct PetSpaceView: View {
                 Button { Task { await reload() } } label: { Label("同步", systemImage: "arrow.clockwise") }.disabled(busy)
             }
             .refreshable { await reload() }
-            .task { await reload() }
+            .task(id: store.websiteSyncRevision) { await reload() }
+            .onChange(of: scenePhase) { _, phase in
+                if phase == .active { Task { await reload() } }
+            }
             .sheet(item: $opened) { asset in NavigationStack { AssetDetailView(asset: asset) } }
     }
 
     private func reload() async {
-        guard !busy, let homes = store.homes, let assets = store.assets else { return }
+        guard let homes = store.homes, let assets = store.assets else { return }
         let operation = UUID()
         assetLoadID = operation
         busy = true; error = nil
@@ -148,8 +170,8 @@ struct PetSpaceView: View {
             let result = try await homes.pets()
             guard assetLoadID == operation, !Task.isCancelled else { return }
             pets = result.pets
-            if !pets.contains(where: { $0.petId == selectedPet }) { selectedPet = pets.first?.petId }
-            let page = try await assets.list(limit: 30, petId: selectedPet)
+            if let selectedPet, !pets.contains(where: { $0.petId == selectedPet }) { self.selectedPet = nil }
+            let page = try await assets.list(kind: filter == "all" ? nil : filter, limit: 30, petId: selectedPet)
             guard assetLoadID == operation, !Task.isCancelled else { return }
             items = page.items; cursor = page.nextCursor
             modelRefreshID = UUID()
@@ -166,7 +188,7 @@ struct PetSpaceView: View {
         busy = true; error = nil; items = []; cursor = nil
         defer { if assetLoadID == operation { busy = false } }
         do {
-            let page = try await assets.list(limit: 30, petId: petID)
+            let page = try await assets.list(kind: filter == "all" ? nil : filter, limit: 30, petId: petID)
             guard assetLoadID == operation, selectedPet == petID, !Task.isCancelled else { return }
             items = page.items; cursor = page.nextCursor
         } catch {
@@ -181,7 +203,7 @@ struct PetSpaceView: View {
         busy = true; error = nil
         defer { if assetLoadID == operation { busy = false } }
         do {
-            let page = try await assets.list(cursor: cursor, limit: 30, petId: petID)
+            let page = try await assets.list(kind: filter == "all" ? nil : filter, cursor: cursor, limit: 30, petId: petID)
             guard assetLoadID == operation, selectedPet == petID, !Task.isCancelled else { return }
             let existing = Set(items.map(\.assetId))
             items += page.items.filter { !existing.contains($0.assetId) }
@@ -193,14 +215,20 @@ struct PetSpaceView: View {
     }
 }
 
+private extension AssetItem {
+    var isUploadedPhoto: Bool {
+        kind == "photo" && (kindRole == "upload" || (kindRole == nil && source == nil && sourceJobId == nil))
+    }
+}
+
 func assetTitle(_ asset: AssetItem) -> String {
     switch asset.kind {
     case "tryon", "outfit": return "试穿作品"
     case "model":
         if asset.isReferenceModel == true || asset.source == "confirmed-breed-reference" { return "品种参考模型" }
-        return asset.source == "photo-generated" ? "专属宠物模型" : "宠物模型"
+        return ["photo-generated", "text-generated"].contains(asset.source ?? "") ? "专属宠物模型" : "宠物模型"
     case "cartoon": return "宠物画像"
-    case "photo": return "宠物照片"
+    case "photo": return "上传照片"
     default: return "网站作品"
     }
 }

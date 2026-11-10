@@ -7,6 +7,8 @@ struct MobileAccountView: View {
     @State private var signingOut = false
     @State private var showSignout = false
     @State private var showSocialEditor = false
+    @State private var syncing = false
+    @State private var synced = false
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 24) {
@@ -37,11 +39,31 @@ struct MobileAccountView: View {
                 MobileCard {
                     VStack(alignment: .leading, spacing: 14) {
                         Label("网站作品同步", systemImage: "arrow.triangle.2.circlepath").font(.headline)
-                        Text("网站上验证此邮箱并保存的图片、试穿作品和模型，可在宠物页的作品集中查看。")
+                        Text("在宠物页查看此账号的宠物名字、上传照片和模型。商品物流可在下方单独查看。")
                             .foregroundStyle(theme.muted)
-                        Button("立即同步账号信息") { Task { await sync() } }.frame(minHeight: 44)
+                        Button { Task { await sync() } } label: {
+                            HStack {
+                                if syncing { ProgressView() }
+                                Text(syncing ? "正在同步" : "立即同步账号信息")
+                            }
+                        }.frame(minHeight: 44).disabled(syncing).accessibilityIdentifier("syncWebsiteAccount")
+                        if synced { Text("账号已更新，照片和模型将在宠物页重新读取。")
+                            .font(.footnote).foregroundStyle(theme.muted).accessibilityIdentifier("websiteSyncComplete") }
                     }
                 }
+                NavigationLink(value: AccountDestination.logistics) {
+                    MobileCard {
+                        HStack(spacing: 14) {
+                            Image(systemName: "shippingbox").font(.title2).accessibilityHidden(true)
+                            VStack(alignment: .leading, spacing: 6) {
+                                Text("商品物流").font(.headline)
+                                Text("查看网站订单的发货与配送信息").font(.callout).foregroundStyle(theme.muted)
+                            }
+                            Spacer(minLength: 0)
+                            Image(systemName: "chevron.right").accessibilityHidden(true)
+                        }.foregroundStyle(theme.ink)
+                    }
+                }.buttonStyle(.plain).accessibilityIdentifier("websiteLogistics")
                 NavigationLink { MobileBlocksView() } label: {
                     MobileCard {
                         HStack {
@@ -59,6 +81,7 @@ struct MobileAccountView: View {
                     .font(.footnote).foregroundStyle(theme.muted).frame(maxWidth: .infinity)
             }.padding(20).frame(maxWidth: 700).frame(maxWidth: .infinity)
         }.background(theme.background).navigationTitle("我的").navigationBarTitleDisplayMode(.inline)
+            .navigationDestination(for: AccountDestination.self) { _ in OrderLogisticsView() }
             .sheet(isPresented: $showSocialEditor) {
                 NavigationStack {
                     SocialProfileCompletionView(editing: true)
@@ -70,10 +93,18 @@ struct MobileAccountView: View {
             }
     }
     private func sync() async {
-        do { try await store.finishLogin() }
+        syncing = true; synced = false; error = nil
+        defer { syncing = false }
+        do {
+            try await store.finishLogin()
+            store.websiteSyncRevision = UUID()
+            synced = true
+        }
         catch { if !store.handleSessionError(error) { self.error = store.friendly(error) } }
     }
 }
+
+private enum AccountDestination: Hashable { case logistics }
 
 struct MobileBlocksView: View {
     @EnvironmentObject private var store: MobileAppStore

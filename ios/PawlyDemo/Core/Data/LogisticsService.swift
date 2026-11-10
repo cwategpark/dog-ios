@@ -19,7 +19,7 @@ public struct LogisticsPage: Decodable, Equatable, Sendable {
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        items = try container.decodeIfPresent([LogisticsOrder].self, forKey: .items) ?? []
+        items = try container.decode([LogisticsOrder].self, forKey: .items)
         nextCursor = try container.decodeIfPresent(String.self, forKey: .nextCursor)
     }
 }
@@ -52,12 +52,12 @@ public struct LogisticsOrder: Decodable, Equatable, Sendable, Identifiable {
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.decodeIfPresent(String.self, forKey: .id) ?? ""
-        name = try container.decodeIfPresent(String.self, forKey: .name) ?? ""
-        processedAt = try container.decodeIfPresent(String.self, forKey: .processedAt) ?? ""
+        id = try container.decode(String.self, forKey: .id)
+        name = try container.decode(String.self, forKey: .name)
+        processedAt = try container.decode(String.self, forKey: .processedAt)
         status = try container.decodeIfPresent(String.self, forKey: .status) ?? "unknown"
-        items = try container.decodeIfPresent([LogisticsOrderItem].self, forKey: .items) ?? []
-        shipments = try container.decodeIfPresent([LogisticsShipment].self, forKey: .shipments) ?? []
+        items = try container.decode([LogisticsOrderItem].self, forKey: .items)
+        shipments = try container.decode([LogisticsShipment].self, forKey: .shipments)
     }
 }
 
@@ -76,8 +76,8 @@ public struct LogisticsOrderItem: Decodable, Equatable, Sendable {
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        title = try container.decodeIfPresent(String.self, forKey: .title) ?? ""
-        quantity = try container.decodeIfPresent(Int.self, forKey: .quantity) ?? 0
+        title = try container.decode(String.self, forKey: .title)
+        quantity = try container.decode(Int.self, forKey: .quantity)
         imageUrl = logisticsSecureURL(try container.decodeIfPresent(String.self, forKey: .imageUrl))
     }
 }
@@ -102,10 +102,10 @@ public struct LogisticsShipment: Decodable, Equatable, Sendable, Identifiable {
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.decodeIfPresent(String.self, forKey: .id) ?? ""
+        id = try container.decode(String.self, forKey: .id)
         status = try container.decodeIfPresent(String.self, forKey: .status) ?? "unknown"
         updatedAt = try container.decodeIfPresent(String.self, forKey: .updatedAt)
-        tracking = try container.decodeIfPresent([LogisticsTracking].self, forKey: .tracking) ?? []
+        tracking = try container.decode([LogisticsTracking].self, forKey: .tracking)
     }
 }
 
