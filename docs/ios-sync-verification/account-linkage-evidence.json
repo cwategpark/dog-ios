@@ -1,0 +1,25 @@
+{
+  "created_at": "2026-11-10T10:36:50.997707+00:00",
+  "canonical_project": "E:\\后端以及数据库设计\\dog-shopify-migration\\migration",
+  "environment": "isolated-test-database",
+  "account_domain": "example.invalid",
+  "live_email_sent": false,
+  "real_generation_calls": 0,
+  "checks": {
+    "website_claim_matches_app_user": true,
+    "app_pet_name_from_website": true,
+    "uploaded_photo_owned_list_and_authenticated_bytes": true,
+    "website_job_archives_model_to_verified_account": true,
+    "app_models_home_and_verified_model_bytes": true,
+    "cross_user_assets_and_pet_home_denied": true,
+    "unauthenticated_private_download_denied": true
+  },
+  "passed": true,
+  "counts": {
+    "pets": 1,
+    "uploaded_photos": 1,
+    "models": 1,
+    "mock_provider_http_requests": 4
+  },
+  "cleaned_up": true
+}

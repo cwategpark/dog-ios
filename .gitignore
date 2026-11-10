@@ -33,3 +33,5 @@ qa/**/run-*/
 qa/**/__pycache__/
 # private runtime login fixture (never commit)
 .pet-model-ui-token.private.json
+# account-linkage disposable run data
+docs/ios-sync-verification/work/
