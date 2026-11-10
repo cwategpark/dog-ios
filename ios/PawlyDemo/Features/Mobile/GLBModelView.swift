@@ -1,23 +1,25 @@
 import SwiftUI
 import WebKit
 
-struct GoldenStage: View {
+struct PetModelStage: View {
     let petID: String?
+    let refreshID: UUID
+    @Binding var title: String
     @EnvironmentObject private var store: MobileAppStore
     @State private var data: Data?
     @State private var error: String?
     @State private var attempt = 0
     var body: some View {
         ZStack {
-            if let data { GLBModelView(data: data).id(petID ?? "default") }
+            if let data { GLBModelView(data: data).id("\(petID ?? "default")-\(refreshID)") }
             else if let error {
                 MobileEmpty(symbol: "pawprint", title: "形象暂时没有打开", detail: error) { attempt += 1 }
-            } else { ProgressView("正在准备金毛形象…") }
-        }.task(id: "\(petID ?? "default")-\(attempt)") {
-            data = nil; error = nil
+            } else { ProgressView("正在同步宠物形象…") }
+        }.task(id: "\(store.sessionID)-\(petID ?? "default")-\(refreshID)-\(attempt)") {
+            data = nil; error = nil; title = "宠物形象"
             do {
-                let bytes = try await store.goldenBytes(petID: petID)
-                if !Task.isCancelled { data = bytes }
+                let result = try await store.petModel(petID: petID)
+                if !Task.isCancelled { data = result.data; title = result.title }
             } catch {
                 if !Task.isCancelled && !store.handleSessionError(error) { self.error = store.friendly(error) }
             }
@@ -27,16 +29,25 @@ struct GoldenStage: View {
 
 struct GLBModelView: View {
     let data: Data
+    var readinessIdentifier = "modelReady"
     @Environment(\.colorScheme) private var colorScheme
     @State private var loaded = false
     @State private var failed = false
+    @State private var fullyFramed = false
     @State private var attempt = 0
     var body: some View {
         ZStack {
-            GLBWebSurface(data: data, dark: colorScheme == .dark, loaded: $loaded, failed: $failed)
+            GLBWebSurface(data: data, dark: colorScheme == .dark, loaded: $loaded, failed: $failed, fullyFramed: $fullyFramed)
                 .id("\(attempt)-\(colorScheme == .dark)")
                 .accessibilityLabel("可拖动和缩放的静态宠物模型")
-            if loaded { Text("形象已就绪").font(.caption).padding(8).background(.ultraThinMaterial, in: Capsule()).frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading).padding(12).accessibilityIdentifier("modelReady") }
+            if loaded {
+                Text("形象已就绪").font(.caption).padding(8).background(.ultraThinMaterial, in: Capsule()).frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading).padding(12).accessibilityIdentifier(readinessIdentifier)
+                    .accessibilityValue(fullyFramed ? "完整取景" : "局部视图")
+                Button("重置视角") { loaded = false; failed = false; fullyFramed = false; attempt += 1 }
+                    .font(.caption).buttonStyle(.bordered).padding(12)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
+                    .accessibilityIdentifier("\(readinessIdentifier)-reset")
+            }
             if !loaded && !failed { ProgressView("正在显示模型…").allowsHitTesting(false) }
             if failed {
                 MobileEmpty(symbol: "cube", title: "暂时无法显示模型", detail: "请重新打开形象。") {
@@ -44,7 +55,7 @@ struct GLBModelView: View {
                 }
             }
         }
-        .onChange(of: colorScheme) { _, _ in loaded = false; failed = false }
+        .onChange(of: colorScheme) { _, _ in loaded = false; failed = false; fullyFramed = false }
     }
 }
 
@@ -53,8 +64,9 @@ private struct GLBWebSurface: UIViewRepresentable {
     let dark: Bool
     @Binding var loaded: Bool
     @Binding var failed: Bool
+    @Binding var fullyFramed: Bool
 
-    func makeCoordinator() -> Coordinator { Coordinator(loaded: $loaded, failed: $failed) }
+    func makeCoordinator() -> Coordinator { Coordinator(loaded: $loaded, failed: $failed, fullyFramed: $fullyFramed) }
     func makeUIView(context: Context) -> WKWebView {
         let config = WKWebViewConfiguration()
         config.websiteDataStore = .nonPersistent()
@@ -78,11 +90,16 @@ private struct GLBWebSurface: UIViewRepresentable {
     final class Coordinator: NSObject, WKScriptMessageHandler, WKNavigationDelegate {
         @Binding var loaded: Bool
         @Binding var failed: Bool
-        init(loaded: Binding<Bool>, failed: Binding<Bool>) { _loaded = loaded; _failed = failed }
+        @Binding var fullyFramed: Bool
+        init(loaded: Binding<Bool>, failed: Binding<Bool>, fullyFramed: Binding<Bool>) {
+            _loaded = loaded; _failed = failed; _fullyFramed = fullyFramed
+        }
         func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
             guard let value = message.body as? String else { return }
             print("Pawly GLB viewer: \(value)")
             if value == "ready" { loaded = true }
+            if value == "framing|full" { fullyFramed = true }
+            if value == "framing|partial" { fullyFramed = false }
             if value.hasPrefix("error") { failed = true }
         }
         func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {

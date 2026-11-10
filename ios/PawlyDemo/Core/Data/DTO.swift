@@ -252,33 +252,295 @@ public struct MobileMeResponse: Codable, Equatable, Sendable {
     }
 }
 
+/// Goals/avoidance can be sent as a single string (legacy simple profile) or an array.
+public struct FlexibleStringList: Codable, Equatable, Sendable {
+    public let values: [String]
+
+    public init(_ values: [String] = []) { self.values = values }
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        if let text = try? container.decode(String.self) {
+            let trimmed = text.trimmingCharacters(in: .whitespacesAndNewlines)
+            values = trimmed.isEmpty ? [] : [trimmed]
+        } else {
+            values = try container.decode([String].self)
+        }
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        try container.encode(values)
+    }
+}
+
+/// Canonical avoidance object: `{status: unknown|none|specified, items: [String]}`.
+/// Also accepts a legacy single string or string array without losing structured status.
+public struct PetAvoidance: Codable, Equatable, Sendable {
+    public let status: String
+    public let items: [String]
+
+    public init(status: String = "unknown", items: [String] = []) {
+        self.status = status
+        self.items = items
+    }
+
+    private enum CodingKeys: String, CodingKey { case status, items }
+
+    public init(from decoder: Decoder) throws {
+        if let keyed = try? decoder.container(keyedBy: CodingKeys.self) {
+            let rawStatus = try keyed.decodeIfPresent(String.self, forKey: .status)?.lowercased()
+            let decodedItems = try keyed.decodeIfPresent([String].self, forKey: .items) ?? []
+            if let rawStatus, ["unknown", "none", "specified"].contains(rawStatus) {
+                status = rawStatus
+            } else {
+                status = decodedItems.isEmpty ? "unknown" : "specified"
+            }
+            items = decodedItems
+            return
+        }
+        let single = try decoder.singleValueContainer()
+        if let text = try? single.decode(String.self) {
+            let normalized = text.trimmingCharacters(in: .whitespacesAndNewlines)
+            if ["unknown", "none"].contains(normalized.lowercased()) {
+                status = normalized.lowercased(); items = []
+            } else {
+                status = normalized.isEmpty ? "unknown" : "specified"
+                items = normalized.isEmpty ? [] : [normalized]
+            }
+            return
+        }
+        if let array = try? single.decode([String].self) {
+            status = array.isEmpty ? "unknown" : "specified"; items = array
+            return
+        }
+        throw DecodingError.dataCorruptedError(in: single,
+            debugDescription: "avoidance must be an object, string, or string array")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var keyed = encoder.container(keyedBy: CodingKeys.self)
+        try keyed.encode(status, forKey: .status)
+        try keyed.encode(items, forKey: .items)
+    }
+
+    public var isUnknown: Bool { status == "unknown" }
+    public var isSpecified: Bool { status == "specified" }
+}
+
+/// `GET /me`/`GET /pets` per-pet lifetime information from the canonical new API.
+/// All fields are optional so an older payload still decodes.
+public struct PetInformation: Codable, Equatable, Sendable {
+    public let type: String?
+    public let petName: String?
+    public let breed: String?
+    public let dogSize: String?
+    public let birthYear: Int?
+    public let birthMonth: Int?
+    public let birthDay: Int?
+    public let birthPrecision: String?
+    public let birthIsEstimated: Bool?
+    public let ageMonthsObserved: Int?
+    public let ageObservedAt: Date?
+    public let goals: FlexibleStringList?
+    public let avoidance: PetAvoidance?
+
+    public init(type: String? = nil,
+                petName: String? = nil,
+                breed: String? = nil,
+                dogSize: String? = nil,
+                birthYear: Int? = nil,
+                birthMonth: Int? = nil,
+                birthDay: Int? = nil,
+                birthPrecision: String? = nil,
+                birthIsEstimated: Bool? = nil,
+                ageMonthsObserved: Int? = nil,
+                ageObservedAt: Date? = nil,
+                goals: FlexibleStringList? = nil,
+                avoidance: PetAvoidance? = nil) {
+        self.type = type
+        self.petName = petName
+        self.breed = breed
+        self.dogSize = dogSize
+        self.birthYear = birthYear
+        self.birthMonth = birthMonth
+        self.birthDay = birthDay
+        self.birthPrecision = birthPrecision
+        self.birthIsEstimated = birthIsEstimated
+        self.ageMonthsObserved = ageMonthsObserved
+        self.ageObservedAt = ageObservedAt
+        self.goals = goals
+        self.avoidance = avoidance
+    }
+}
+
 /// 宠物摘要（`/me`、`/pets` 内嵌）。
 ///
-/// 后端 `pets.name` 可空（网站问卷没有宠物名字段时会创建 `name: null` 的 Pet），因此
-/// Swift 侧必须用 `String?`；否则整个 `/me`、`/pets` 响应会因一个空名字解码失败。
+/// 旧字段 `name/species/breed/age_months/avatar_url` 继续保留；canonical 新响应在每只宠物
+/// 增加 `profile_version` 和 `pet_information`。顶层 `birth_*` 是兼容字段。所有新增字段
+/// 可空，旧响应/旧客户端仍可解码；**不会把未知 age_months 默认为 12**。
 public struct PetSummary: Codable, Equatable, Sendable, Identifiable {
     public let petId: String
     public let name: String?
     public let species: String?
     public let breed: String?
+    public let dogSize: String?
     public let ageMonths: Int?
     public let avatarUrl: URL?
+
+    // Canonical lifetime additions.
+    public let profileVersion: Int?
+    public let petInformation: PetInformation?
+    public let birthYear: Int?
+    public let birthMonth: Int?
+    public let birthDay: Int?
+    public let birthPrecision: String?
+    public let birthIsEstimated: Bool?
+    public let ageMonthsObserved: Int?
+    public let ageObservedAt: Date?
+    public let goals: FlexibleStringList?
+    public let avoidance: PetAvoidance?
 
     public init(petId: String,
                 name: String? = nil,
                 species: String? = nil,
                 breed: String? = nil,
+                dogSize: String? = nil,
                 ageMonths: Int? = nil,
-                avatarUrl: URL? = nil) {
+                avatarUrl: URL? = nil,
+                profileVersion: Int? = nil,
+                petInformation: PetInformation? = nil,
+                birthYear: Int? = nil,
+                birthMonth: Int? = nil,
+                birthDay: Int? = nil,
+                birthPrecision: String? = nil,
+                birthIsEstimated: Bool? = nil,
+                ageMonthsObserved: Int? = nil,
+                ageObservedAt: Date? = nil,
+                goals: FlexibleStringList? = nil,
+                avoidance: PetAvoidance? = nil) {
         self.petId = petId
         self.name = name
         self.species = species
         self.breed = breed
+        self.dogSize = dogSize
         self.ageMonths = ageMonths
         self.avatarUrl = avatarUrl
+        self.profileVersion = profileVersion
+        self.petInformation = petInformation
+        self.birthYear = birthYear
+        self.birthMonth = birthMonth
+        self.birthDay = birthDay
+        self.birthPrecision = birthPrecision
+        self.birthIsEstimated = birthIsEstimated
+        self.ageMonthsObserved = ageMonthsObserved
+        self.ageObservedAt = ageObservedAt
+        self.goals = goals
+        self.avoidance = avoidance
     }
 
     public var id: String { petId }
+
+    /// Nested canonical fields win; top-level birth_* remain a compatibility fallback.
+    public var resolvedName: String? { petInformation?.petName ?? name }
+    public var resolvedSpecies: String? { petInformation?.type ?? species }
+    public var resolvedBreed: String? { petInformation?.breed ?? breed }
+    public var resolvedDogSize: String? { petInformation?.dogSize ?? dogSize }
+    public var resolvedBirthYear: Int? { petInformation?.birthYear ?? birthYear }
+    public var resolvedBirthMonth: Int? { petInformation?.birthMonth ?? birthMonth }
+    public var resolvedBirthDay: Int? { petInformation?.birthDay ?? birthDay }
+    public var resolvedBirthPrecision: String? {
+        (petInformation?.birthPrecision ?? birthPrecision)?.lowercased()
+    }
+    public var resolvedBirthIsEstimated: Bool {
+        petInformation?.birthIsEstimated ?? birthIsEstimated ?? false
+    }
+    public var resolvedObservedAgeMonths: Int? {
+        petInformation?.ageMonthsObserved ?? ageMonthsObserved
+    }
+    public var resolvedObservedAt: Date? {
+        petInformation?.ageObservedAt ?? ageObservedAt
+    }
+    public var resolvedGoals: [String] { (petInformation?.goals ?? goals)?.values ?? [] }
+    public var resolvedAvoidance: PetAvoidance? { petInformation?.avoidance ?? avoidance }
+    public var resolvedAvoidanceItems: [String] { resolvedAvoidance?.items ?? [] }
+
+    /// Local age derivation, never rewriting the server's observed snapshot.
+    /// DOB (day/month/year precision) wins; otherwise observed age + elapsed months.
+    /// Unknown returns nil so the UI can say “年龄未知” instead of assuming 12 months.
+    public func derivedAgeMonths(now: Date = Date()) -> Int? {
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = TimeZone(secondsFromGMT: 0)!
+        let year = resolvedBirthYear
+        let month = resolvedBirthMonth
+        let day = resolvedBirthDay
+        let precision = resolvedBirthPrecision
+        if let year {
+            if precision == "day", let month, let day,
+               let start = calendar.date(from: DateComponents(year: year, month: month, day: day)) {
+                return completedMonths(from: start, to: now)
+            }
+            if precision == "month" || (precision != "year" && month != nil) {
+                if let month,
+                   let start = calendar.date(from: DateComponents(year: year, month: month, day: 1)) {
+                    return completedMonths(from: start, to: now)
+                }
+            }
+            // Year-only precision: report whole years, not invented months.
+            let nowYear = calendar.component(.year, from: now)
+            return max(0, (nowYear - year) * 12)
+        }
+        if let observed = resolvedObservedAgeMonths, let observedAt = resolvedObservedAt {
+            return max(0, observed + completedMonths(from: observedAt, to: now))
+        }
+        return nil
+    }
+
+    /// Python `_completed_months` parity: clamp a 31st birthday to the end of a shorter
+    /// current month, so Jan 31 -> Feb 28 counts as one completed month (not zero).
+    private func completedMonths(from start: Date, to end: Date) -> Int {
+        guard end >= start else { return 0 }
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = TimeZone(secondsFromGMT: 0)!
+        let startParts = calendar.dateComponents([.year, .month, .day], from: start)
+        let endParts = calendar.dateComponents([.year, .month, .day], from: end)
+        guard let startYear = startParts.year, let startMonth = startParts.month,
+              let startDay = startParts.day, let endYear = endParts.year,
+              let endMonth = endParts.month, let endDay = endParts.day else { return 0 }
+        var months = (endYear - startYear) * 12 + endMonth - startMonth
+        let daysInEndMonth = calendar.range(of: .day, in: .month, for: end)?.count ?? 28
+        let anniversaryDay = min(startDay, daysInEndMonth)
+        if endDay < anniversaryDay { months -= 1 }
+        return max(0, months)
+    }
+
+    /// Human-facing local age. Unknown is explicit; legacy static `age_months` is labelled as
+    /// a historical record, never silently treated as current/derived.
+    public func ageDescription(now: Date = Date()) -> String {
+        if let months = derivedAgeMonths(now: now) {
+            let precision = resolvedBirthPrecision
+            let approximate = resolvedBirthIsEstimated || precision != "day"
+            let prefix = approximate ? "约 " : ""
+            if precision == "year" {
+                let years = months / 12
+                if years <= 0 {
+                    return "未满1岁（仅知出生年份）"
+                }
+                return "\(prefix)\(years) 岁"
+            }
+            let years = months / 12
+            let remaining = months % 12
+            if years > 0 && remaining > 0 {
+                return "\(prefix)\(years) 岁 \(remaining) 个月"
+            }
+            if years > 0 { return "\(prefix)\(years) 岁" }
+            return "\(prefix)\(remaining) 个月"
+        }
+        if let ageMonths {
+            return "记录月龄 \(ageMonths) 个月（历史值，未随时更新）"
+        }
+        return "年龄未知"
+    }
 }
 
 /// `GET /mobile/v1/pets`。
@@ -387,6 +649,8 @@ public struct PersonalModel: Codable, Equatable, Sendable {
     public let url: String
     public let source: String?
     public let sourceJobId: String?
+    public let isReferenceModel: Bool?
+    public let breedSlug: String?
 
     public init(assetId: String? = nil,
                 role: String? = "personal",
@@ -398,7 +662,9 @@ public struct PersonalModel: Codable, Equatable, Sendable {
                 sha256: String? = nil,
                 url: String,
                 source: String? = nil,
-                sourceJobId: String? = nil) {
+                sourceJobId: String? = nil,
+                isReferenceModel: Bool? = nil,
+                breedSlug: String? = nil) {
         self.assetId = assetId
         self.role = role
         self.isStatic = isStatic
@@ -410,6 +676,8 @@ public struct PersonalModel: Codable, Equatable, Sendable {
         self.url = url
         self.source = source
         self.sourceJobId = sourceJobId
+        self.isReferenceModel = isReferenceModel
+        self.breedSlug = breedSlug
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -418,7 +686,7 @@ public struct PersonalModel: Codable, Equatable, Sendable {
         case isStatic = "static"
         case isDefault = "isDefault"
         case format, mime, bytes, sha256, url, source
-        case sourceJobId
+        case sourceJobId, isReferenceModel, breedSlug
     }
 }
 
@@ -427,6 +695,9 @@ public struct PersonalModel: Codable, Equatable, Sendable {
 /// `GET /mobile/v1/assets` 的资产条目。
 public struct AssetItem: Codable, Equatable, Sendable, Identifiable {
     public let assetId: String
+    public let petId: String?
+    /// Website archive role; `upload` identifies the historical original image.
+    public let kindRole: String?
     /// `photo` | `tryon` | `outfit` | `cartoon` | `model` | `manifest`
     public let kind: String?
     public let format: String?
@@ -437,8 +708,13 @@ public struct AssetItem: Codable, Equatable, Sendable, Identifiable {
     public let createdAt: Date?
     /// 需 Bearer 的下载路径；数据层负责带授权取字节，绝不当作公开链接分发。
     public let downloadUrl: String?
+    public let source: String?
+    public let isReferenceModel: Bool?
+    public let breedSlug: String?
 
     public init(assetId: String,
+                petId: String? = nil,
+                kindRole: String? = nil,
                 kind: String? = nil,
                 format: String? = nil,
                 mime: String? = nil,
@@ -446,8 +722,13 @@ public struct AssetItem: Codable, Equatable, Sendable, Identifiable {
                 sha256: String? = nil,
                 sourceJobId: String? = nil,
                 createdAt: Date? = nil,
-                downloadUrl: String? = nil) {
+                downloadUrl: String? = nil,
+                source: String? = nil,
+                isReferenceModel: Bool? = nil,
+                breedSlug: String? = nil) {
         self.assetId = assetId
+        self.petId = petId
+        self.kindRole = kindRole
         self.kind = kind
         self.format = format
         self.mime = mime
@@ -456,6 +737,9 @@ public struct AssetItem: Codable, Equatable, Sendable, Identifiable {
         self.sourceJobId = sourceJobId
         self.createdAt = createdAt
         self.downloadUrl = downloadUrl
+        self.source = source
+        self.isReferenceModel = isReferenceModel
+        self.breedSlug = breedSlug
     }
 
     public var id: String { assetId }
@@ -580,21 +864,54 @@ public struct PublicPetSummary: Codable, Equatable, Sendable {
     }
 }
 
+/// Additive social fields in nearby/contact/request responses.
+///
+/// These are optional so an older canonical backend (or a pre-social migration response) still
+/// decodes. `authenticatedPath` is `/mobile/v1/users/{public_ref}/avatar`; never a private media
+/// path or email. Default avatars are represented by `defaultKey` and rendered locally.
+public struct SocialAvatarReference: Codable, Equatable, Sendable {
+    /// `none` | `default` | `upload`
+    public let kind: String?
+    public let defaultKey: String?
+    public let authenticatedPath: String?
+    public let available: Bool?
+
+    public init(kind: String? = nil,
+                defaultKey: String? = nil,
+                authenticatedPath: String? = nil,
+                available: Bool? = nil) {
+        self.kind = kind
+        self.defaultKey = defaultKey
+        self.authenticatedPath = authenticatedPath
+        self.available = available
+    }
+
+    public var isDefault: Bool { kind == "default" }
+    public var isUpload: Bool { kind == "upload" }
+}
+
 public struct NearbyItem: Codable, Equatable, Sendable, Identifiable {
     public let publicRef: String
     public let pet: PublicPetSummary?
     public let coarseRegion: CoarseRegion?
     /// `lt_1km` | `1_3km` | `3_10km` | `10_25km`
     public let distanceBucket: String?
+    /// Additive public social fields; optional for backward compatibility.
+    public let socialDisplayName: String?
+    public let socialAvatar: SocialAvatarReference?
 
     public init(publicRef: String,
                 pet: PublicPetSummary? = nil,
                 coarseRegion: CoarseRegion? = nil,
-                distanceBucket: String? = nil) {
+                distanceBucket: String? = nil,
+                socialDisplayName: String? = nil,
+                socialAvatar: SocialAvatarReference? = nil) {
         self.publicRef = publicRef
         self.pet = pet
         self.coarseRegion = coarseRegion
         self.distanceBucket = distanceBucket
+        self.socialDisplayName = socialDisplayName
+        self.socialAvatar = socialAvatar
     }
 
     public var id: String { publicRef }
@@ -644,19 +961,25 @@ public struct ContactRequestItem: Codable, Equatable, Sendable, Identifiable {
     public let pet: PublicPetSummary?
     public let status: String?
     public let createdAt: Date?
+    public let socialDisplayName: String?
+    public let socialAvatar: SocialAvatarReference?
 
     public init(requestId: String,
                 direction: String? = nil,
                 userPublicRef: String? = nil,
                 pet: PublicPetSummary? = nil,
                 status: String? = nil,
-                createdAt: Date? = nil) {
+                createdAt: Date? = nil,
+                socialDisplayName: String? = nil,
+                socialAvatar: SocialAvatarReference? = nil) {
         self.requestId = requestId
         self.direction = direction
         self.userPublicRef = userPublicRef
         self.pet = pet
         self.status = status
         self.createdAt = createdAt
+        self.socialDisplayName = socialDisplayName
+        self.socialAvatar = socialAvatar
     }
 
     public var id: String { requestId }
@@ -694,15 +1017,21 @@ public struct ContactItem: Codable, Equatable, Sendable, Identifiable {
     public let userPublicRef: String?
     public let pet: PublicPetSummary?
     public let since: Date?
+    public let socialDisplayName: String?
+    public let socialAvatar: SocialAvatarReference?
 
     public init(contactId: String,
                 userPublicRef: String? = nil,
                 pet: PublicPetSummary? = nil,
-                since: Date? = nil) {
+                since: Date? = nil,
+                socialDisplayName: String? = nil,
+                socialAvatar: SocialAvatarReference? = nil) {
         self.contactId = contactId
         self.userPublicRef = userPublicRef
         self.pet = pet
         self.since = since
+        self.socialDisplayName = socialDisplayName
+        self.socialAvatar = socialAvatar
     }
 
     public var id: String { contactId }

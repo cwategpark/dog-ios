@@ -157,7 +157,9 @@ def public_pet(pet: Pet | None) -> dict:
         "species": pet.species,
         "breed": pet.breed,
         "age_months": pet.age_months,
-        "avatar_url": f"/mobile/v1/assets/{pet.avatar_asset_id}/download" if pet.avatar_asset_id else None,
+        # Public social responses never expose the private pet-asset download path.
+        # Public/social avatars are a separate controlled resource.
+        "avatar_url": None,
     }
 
 
@@ -189,11 +191,13 @@ def nearby(sessions, settings, user_id: str, radius_km=None) -> dict:
             user = db.get(User, candidate.user_id)
             if not user:
                 continue
+            from .social_profile_api import social_fields_for_viewer
             items.append({
                 "public_ref": user.public_ref,
                 "pet": public_pet(latest_pet(db, user.id)),
                 "coarse_region": {"grid": f"{candidate.grid_x}:{candidate.grid_y}", "label": candidate.region_label},
                 "distance_bucket": distance_bucket(distance),
+                **social_fields_for_viewer(db, user_id, user.id, user.public_ref, settings),
                 "_distance": distance,
             })
         items.sort(key=lambda item: item["_distance"])
@@ -309,9 +313,12 @@ def list_contact_requests(sessions, user_id: str, direction: str = "incoming") -
             if blocked_between(db, user_id, other_id):
                 continue
             other = db.get(User, other_id)
+            from .social_profile_api import social_fields_for_viewer
+            fields = social_fields_for_viewer(db, user_id, other_id, other.public_ref) if other else {}
             items.append({**serialize_request(row, direction),
                           "user_public_ref": other.public_ref if other else None,
-                          "pet": public_pet(latest_pet(db, other_id)) if other else None})
+                          "pet": public_pet(latest_pet(db, other_id)) if other else None,
+                          **fields})
         return {"items": items}
 
 
@@ -380,8 +387,10 @@ def list_contacts(sessions, user_id: str) -> dict:
             other = db.get(User, other_id)
             if not other:
                 continue
+            from .social_profile_api import social_fields_for_viewer
             items.append({"contact_id": row.id, "user_public_ref": other.public_ref,
-                          "pet": public_pet(latest_pet(db, other_id)), "since": row.created_at})
+                          "pet": public_pet(latest_pet(db, other_id)), "since": row.created_at,
+                          **social_fields_for_viewer(db, user_id, other.id, other.public_ref)})
         return {"items": items}
 
 

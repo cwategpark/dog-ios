@@ -26,7 +26,8 @@ let package = Package(
             dependencies: ["DogiosDataLayer"],
             path: "PawlyDemo/Features/Mobile",
             exclude: ["GLBModelView.swift", "MobileAccountView.swift", "MobileRootView.swift",
-                      "NearbyPetsView.swift", "PetContactsView.swift", "PetSpaceView.swift"],
+                      "NearbyPetsView.swift", "PetContactsView.swift", "PetSpaceView.swift",
+                      "SocialProfileViews.swift"],
             sources: ["MobileAppStore.swift"]
         ),
         .testTarget(

@@ -7,9 +7,10 @@
 
 | 交付 | 路径 |
 |---|---|
-| 数据层源码 | `ios/PawlyDemo/Core/Data/`（12 个文件，自动进入 App target） |
+| 数据层源码 | `ios/PawlyDemo/Core/Data/`（15 个文件，自动进入 App target） |
 | SwiftPM 包（库 + 测试） | `ios/Package.swift` |
-| 单元测试 | `ios/Tests/DataLayerTests/`（92 个 XCTest，含 20 个真实后端响应 fixture 解码） |
+| 单元测试 | `ios/Tests/DataLayerTests/`（135 个 XCTest，含 1 个 live skip；URLProtocol stub） |
+| 账号同步数据层 | `LogisticsService.swift`、`PrivateModelsService.swift`，见下方 |
 | 工程配置 | `ios/Info.plist`、`ios/PawlyDemo.xcodeproj/project.pbxproj` |
 | 本文档 | `ios/README-INTEGRATION.md` |
 
@@ -28,6 +29,9 @@ PawlyDemo/Core/Data/
   IdentityService.swift  email/start、email/verify、refresh、logout、me
   AssetService.swift     资产分页、需认证的私有下载、manifest
   PetHomeService.swift   pet-home 清单 + personal/default 选择规则
+  LogisticsService.swift 账号订单物流分页
+  PrivateModelsService.swift 账号模型注册表与 archive 下载
+  SocialProfileService.swift 公开昵称/头像
   DiscoveryService.swift 发现开关、区域上报、附近列表（无地图依赖）
   ContactService.swift   好友申请/接受/拒绝、联系人、拉黑
   MessageService.swift   私聊幂等发送与分页
@@ -58,7 +62,8 @@ PawlyDemo/Core/Data/
 
 - `ios/Info.plist`：`DogiosAPIBaseURL = $(DOGIOS_API_BASE_URL)`。
 - `ios/PawlyDemo.xcodeproj/project.pbxproj`：target Debug/Release 均设
-  `DOGIOS_API_BASE_URL = "http://127.0.0.1:18766"`（本机联调默认，可编译）。
+  当前 `DOGIOS_API_BASE_URL` 构建设置由主代理在本机联调环境维护；仓库不保存真实密钥。
+  应用运行时始终可用环境变量或用户级 xcconfig 覆盖，源码默认回退为 `http://127.0.0.1:18766`。
 
 本机/生产覆盖方式（**不要改提交的默认值**）：
 
@@ -141,9 +146,9 @@ swift test --disable-sandbox --package-path ios
 - 覆盖：DTO 解码（缺可选字段/未知字段/ISO8601）、baseURL 优先级与 https 规则、Bearer 头、
   401→单飞 refresh→重试一次、refresh 失败清 token、状态码语义映射、私有下载带 token 与 403/404、
   pet-home personal/default fallback、AssetPage 游标分页、Google 无 key 时 `google_unconfigured` 与 MapKit 回退、
-  发现上报/附近查询、消息幂等与分页。
+  发现上报/附近查询、消息幂等与分页、订单物流分页/503 错误、私有模型 archive 下载、自由 source 兼容。
 - 全部用 `URLProtocol` stub（`StubURLProtocol`），无真实网络。
-- 本机结果：**92 tests, 1 skipped, 0 failures**（跳过 live 测试；跨语言 live 由 `scripts/acceptance_live.py` 跑通）。
+- 本机结果：**135 tests, 1 skipped, 0 failures**（跳过 live 测试；跨语言 live 由 `scripts/acceptance_live.py` 跑通）。
 
 ### 5.2 Xcode 构建（iOS 模拟器）
 
@@ -155,8 +160,7 @@ xcodebuild -project ios/PawlyDemo.xcodeproj -scheme PawlyDemo \
   -derivedDataPath ios/build build CODE_SIGNING_ALLOWED=NO
 ```
 
-本机结果：**BUILD SUCCEEDED**。产物 Info.plist 中
-`DogiosAPIBaseURL = http://127.0.0.1:18766`、`GoogleMapsAPIKey = ""` 已由构建设置展开。
+本机结果：**BUILD SUCCEEDED**。产物 Info.plist 的 `DogiosAPIBaseURL` 由工程构建设置/环境变量展开；仓库不保存真实密钥。
 
 构建产物目录：`ios/build/`（根 `.gitignore` 已忽略）、`ios/.build/`（`ios/.gitignore` 已忽略）。
 
@@ -165,7 +169,7 @@ xcodebuild -project ios/PawlyDemo.xcodeproj -scheme PawlyDemo \
 | 文件 | 内容 |
 |---|---|
 | `var/logs/final-ios-build.log` | xcodebuild 全量日志，末尾 `** BUILD SUCCEEDED **` |
-| `var/logs/final-swift-test.log` | `swift test` 全量日志，末尾 `Executed 92 tests, with 1 test skipped and 0 failures` |
+| `var/logs/final-swift-test.log` | `swift test` 全量日志，末行测试运行器以 XCTest 输出为准 |
 
 ## 7. 已知边界（本轮未做/未验证）
 
@@ -174,7 +178,7 @@ xcodebuild -project ios/PawlyDemo.xcodeproj -scheme PawlyDemo \
 - **未与真实后端联调**：单测全部 URLProtocol stub；真实契约以 `docs/mobile-api-contract.md` 为准，
   后端若以 OpenAPI 修订字段需同步 `DTO.swift`（当前按契约 v1 实现）。
 - **未在真机运行**：仅 iOS 27 模拟器编译验证；未启动 App 做运行时联调（本轮只交付数据层与编译验证）。
-- **无 UI**：不含任何 SwiftUI 页面/视觉/布局；也不改动既有演示 UI。
+- 数据层当前包含 SwiftUI 入口所需的 API/DTO；UI 页面由主代理另行维护。
 - **未实现**：APNs 推送、WebSocket 实时消息、双方短时精确位置共享、社区 Feed/文章（契约未定义或属后续阶段）。
 - Keychain 的 token 存取未在真机做端到端验证；单测使用 `InMemoryTokenStore` 替身（不碰真实钥匙串）。
 - 无商城/支付/Shopify SDK 依赖；数据层不 import 任何商城服务。

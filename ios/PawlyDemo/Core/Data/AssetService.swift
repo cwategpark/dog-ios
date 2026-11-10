@@ -11,11 +11,15 @@ public final class AssetService: @unchecked Sendable {
         self.client = client
     }
 
-    /// GET `/mobile/v1/assets?kind=&cursor=&limit=`（游标不透明）。
+    /// GET `/mobile/v1/assets?kind=&cursor=&limit=&pet_id=`（游标不透明）。
     public func list(kind: String? = nil,
                      cursor: String? = nil,
-                     limit: Int? = nil) async throws -> AssetPage {
+                     limit: Int? = nil,
+                     petId: String? = nil) async throws -> AssetPage {
         var query: [URLQueryItem] = []
+        if let petId, !petId.isEmpty {
+            query.append(URLQueryItem(name: "pet_id", value: petId))
+        }
         if let kind, !kind.isEmpty {
             query.append(URLQueryItem(name: "kind", value: kind))
         }

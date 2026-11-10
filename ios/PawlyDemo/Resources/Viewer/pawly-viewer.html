@@ -24,10 +24,40 @@ try {
  const light=new THREE.DirectionalLight(0xfff5df,2);light.position.set(4,6,5);scene.add(light);
  const fill=new THREE.DirectionalLight(0xffffff,1.5);fill.position.set(-4,2,-3);scene.add(fill);
  const controls=new OrbitControls(camera,renderer.domElement);
- controls.enablePan=false;controls.enableDamping=false;controls.minDistance=2.4;controls.maxDistance=8;
- controls.maxPolarAngle=Math.PI*0.52;controls.target.set(0,0.9,0);camera.position.set(3.4,1.9,4.5);
- const render=()=>renderer.render(scene,camera);controls.addEventListener('change',render);
- addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);render()});
+ controls.enablePan=false;controls.enableDamping=false;
+ controls.maxPolarAngle=Math.PI*0.52;
+ const initialDirection=new THREE.Vector3(3.4,1,4.5).normalize();
+ let fittedBounds=null,lastFraming=null,fitDistance=null;
+ const corners=box=>[box.min.x,box.max.x].flatMap(x=>[box.min.y,box.max.y].flatMap(y=>[box.min.z,box.max.z].map(z=>new THREE.Vector3(x,y,z))));
+ const render=()=>{
+   renderer.render(scene,camera);
+   if(!fittedBounds)return;
+   const points=corners(fittedBounds).map(point=>point.project(camera));
+   const full=points.every(point=>Math.abs(point.x)<=0.92&&Math.abs(point.y)<=0.92&&point.z>-1&&point.z<1);
+   if(full!==lastFraming){lastFraming=full;notify('framing|'+(full?'full':'partial'))}
+ };
+ const fitCamera=()=>{
+   const width=Math.max(1,document.documentElement.clientWidth),height=Math.max(1,document.documentElement.clientHeight);
+   camera.aspect=width/height;camera.updateProjectionMatrix();renderer.setSize(width,height);
+   if(!fittedBounds){render();return}
+   const center=fittedBounds.getCenter(new THREE.Vector3());
+   const right=new THREE.Vector3().crossVectors(camera.up,initialDirection).normalize();
+   const up=new THREE.Vector3().crossVectors(initialDirection,right).normalize();
+   const vertical=Math.tan(THREE.MathUtils.degToRad(camera.fov/2)),horizontal=vertical*camera.aspect;
+   let distance=0;
+   for(const corner of corners(fittedBounds)){
+     const relative=corner.sub(center),depth=relative.dot(initialDirection);
+     distance=Math.max(distance,Math.abs(relative.dot(right))/horizontal+depth,Math.abs(relative.dot(up))/vertical+depth);
+   }
+   fitDistance=Math.max(distance*1.18,0.1);
+   controls.target.copy(center);camera.position.copy(center).addScaledVector(initialDirection,fitDistance);
+   controls.minDistance=fitDistance*0.15;controls.maxDistance=fitDistance*4;
+   camera.near=Math.max(fitDistance/1000,0.001);camera.far=Math.max(fitDistance*20,100);camera.updateProjectionMatrix();
+   controls.update();controls.saveState();render();
+ };
+ controls.addEventListener('change',render);
+ addEventListener('resize',fitCamera);
+ new ResizeObserver(fitCamera).observe(document.documentElement);
  const manager=new THREE.LoadingManager();
  manager.setURLModifier(url=>{if(!url.startsWith('pawlyviewer:')&&!url.startsWith('blob:')&&!url.startsWith('data:'))throw Error('external resource');return url});
  const bytes=await (await fetch('pawlyviewer://viewer/model.glb')).arrayBuffer();
@@ -38,7 +68,7 @@ try {
    const scale=2.5/Math.max(size.x,size.y,size.z);
    model.position.sub(center);const group=new THREE.Group();group.add(model);group.scale.setScalar(scale);
    group.position.y=size.y*scale/2;scene.add(group);
-   controls.target.set(0,size.y*scale*0.43,0);controls.update();render();
+   fittedBounds=new THREE.Box3().setFromObject(group);fitCamera();
    window.pawlyRendered={meshes:0,triangles:0};
    model.traverse(n=>{if(n.isMesh){window.pawlyRendered.meshes++;window.pawlyRendered.triangles+=(n.geometry.index?.count??n.geometry.attributes.position.count)/3}});
    notify('ready');

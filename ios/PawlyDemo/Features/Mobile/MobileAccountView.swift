@@ -6,6 +6,7 @@ struct MobileAccountView: View {
     @State private var error: String?
     @State private var signingOut = false
     @State private var showSignout = false
+    @State private var showSocialEditor = false
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 24) {
@@ -13,13 +14,19 @@ struct MobileAccountView: View {
                 MobileCard {
                     VStack(alignment: .leading, spacing: 16) {
                         HStack(spacing: 14) {
-                            Image(systemName: "person.crop.circle.fill").font(.system(size: 48)).foregroundStyle(theme.accent)
+                            SocialAvatarView(profile: store.socialProfile,
+                                             bytes: store.socialAvatarData,
+                                             defaultKey: store.socialProfile?.avatar.defaultKey)
+                                .frame(width: 56, height: 56)
                             VStack(alignment: .leading, spacing: 6) {
-                                Text(store.me?.fullName ?? "宠物家长").font(.title3.bold())
+                                Text(store.socialProfile?.displayName ?? "宠物家长").font(.title3.bold())
                                 Text(store.me?.email ?? "").font(.callout).textSelection(.enabled)
                             }
                         }
                         Label("邮箱已验证", systemImage: "checkmark.seal.fill").font(.callout).foregroundStyle(theme.success)
+                        Button("编辑公开昵称与头像") { showSocialEditor = true }
+                            .frame(minHeight: 44)
+                            .accessibilityIdentifier("editSocialProfile")
                         Divider()
                         Text("专属用户识别码").font(.headline)
                         Text(store.me?.userId ?? "").font(.footnote.monospaced()).textSelection(.enabled)
@@ -52,6 +59,12 @@ struct MobileAccountView: View {
                     .font(.footnote).foregroundStyle(theme.muted).frame(maxWidth: .infinity)
             }.padding(20).frame(maxWidth: 700).frame(maxWidth: .infinity)
         }.background(theme.background).navigationTitle("我的").navigationBarTitleDisplayMode(.inline)
+            .sheet(isPresented: $showSocialEditor) {
+                NavigationStack {
+                    SocialProfileCompletionView(editing: true)
+                        .environmentObject(store)
+                }
+            }
             .confirmationDialog("退出后，此设备将清除当前账号的登录状态和作品预览。", isPresented: $showSignout) {
                 Button("退出登录", role: .destructive) { Task { signingOut = true; await store.logout(); signingOut = false } }.accessibilityIdentifier("confirmLogout")
             }

@@ -1,0 +1,96 @@
+{
+  "user_id": "b38c3be41d994b17bd686affea0760ad",
+  "public_ref": "b924db16d0924894b2a3522a4adcc10c",
+  "email": "lifetime.fixture@example.test",
+  "full_name": null,
+  "email_verified_at": 1793874724.2040582,
+  "created_at": 1793874724.193435,
+  "pets": [
+    {
+      "pet_id": "2969021a5b634c318e5f82625e8f85e8",
+      "name": "Fixture Golden",
+      "species": "dog",
+      "breed": "Golden Retriever",
+      "age_months": 40,
+      "dog_size": "large",
+      "avatar_url": null,
+      "birth_year": 2023,
+      "birth_month": 6,
+      "birth_day": null,
+      "birth_precision": "month",
+      "birth_is_estimated": false,
+      "age_months_observed": null,
+      "age_observed_at": null,
+      "goals": [
+        "play",
+        "walk"
+      ],
+      "avoidance": {
+        "status": "specified",
+        "items": [
+          "chicken",
+          "beef"
+        ]
+      },
+      "age_is_estimated": false,
+      "pet_information": {
+        "type": "dog",
+        "pet_name": "Fixture Golden",
+        "breed": "Golden Retriever",
+        "dog_size": "large",
+        "birth_precision": "month",
+        "birth_is_estimated": false,
+        "birth_year": 2023,
+        "birth_month": 6,
+        "goals": [
+          "play",
+          "walk"
+        ],
+        "avoidance": {
+          "status": "specified",
+          "items": [
+            "chicken",
+            "beef"
+          ]
+        }
+      },
+      "profile_version": 1
+    },
+    {
+      "pet_id": "2be1257a4a454ff1917d2da702cd83c8",
+      "name": "Fixture Unknown Avoidance",
+      "species": "dog",
+      "breed": null,
+      "age_months": 24,
+      "dog_size": "small",
+      "avatar_url": null,
+      "birth_year": null,
+      "birth_month": null,
+      "birth_day": null,
+      "birth_precision": "unknown",
+      "birth_is_estimated": true,
+      "age_months_observed": 24,
+      "age_observed_at": 1793874725.435116,
+      "goals": null,
+      "avoidance": {
+        "status": "unknown",
+        "items": []
+      },
+      "age_is_estimated": true,
+      "pet_information": {
+        "type": "dog",
+        "pet_name": "Fixture Unknown Avoidance",
+        "dog_size": "small",
+        "birth_precision": "unknown",
+        "birth_is_estimated": true,
+        "age_months_observed": 24,
+        "age_observed_at": 1793874725.435116,
+        "avoidance": {
+          "status": "unknown",
+          "items": []
+        }
+      },
+      "profile_version": 1
+    }
+  ]
+}

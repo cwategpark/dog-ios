@@ -11,7 +11,13 @@ struct PetSpaceView: View {
     @State private var error: String?
     @State private var filter = "all"
     @State private var opened: AssetItem?
-    private var petName: String { pets.first { $0.petId == selectedPet }?.name ?? "它" }
+    @State private var modelRefreshID = UUID()
+    @State private var modelTitle = "宠物形象"
+    @State private var assetLoadID = UUID()
+    private var selectedPetSummary: PetSummary? {
+        pets.first { $0.petId == selectedPet }
+    }
+    private var petName: String { selectedPetSummary?.resolvedName ?? "它" }
     private var visibleItems: [AssetItem] {
         items.filter { filter == "all" || (filter == "model" ? $0.kind == "model" : $0.kind != "model") }
     }
@@ -33,28 +39,40 @@ struct PetSpaceView: View {
                         HStack(spacing: 12) {
                             ForEach(pets) { pet in
                                 Button {
+                                    guard selectedPet != pet.petId else { return }
                                     selectedPet = pet.petId
+                                    Task { await reloadAssets() }
                                 } label: {
                                     HStack(spacing: 8) {
                                         Image(systemName: "pawprint.fill")
-                                        Text(pet.name ?? "未命名宠物")
+                                        Text(pet.resolvedName ?? "未命名宠物")
                                     }.font(.body.weight(.semibold)).padding(.horizontal, 18).frame(minHeight: 48)
                                         .foregroundStyle(theme.ink)
                                         .background(selectedPet == pet.petId ? theme.accentSoft : theme.surface,
                                                     in: Capsule())
                                         .overlay(Capsule().stroke(theme.border, lineWidth: 1))
                                 }.accessibilityAddTraits(selectedPet == pet.petId ? .isSelected : [])
+                                    .accessibilityIdentifier("pet-\(pet.petId)")
                             }
                         }
+                    }.accessibilityIdentifier("petSelector")
+                    if let pet = selectedPetSummary {
+                        Text("年龄：\(pet.ageDescription())")
+                            .font(.callout).foregroundStyle(theme.muted)
+                            .accessibilityIdentifier("petAge")
                     }
                 }
                 VStack(alignment: .leading, spacing: 0) {
                     HStack {
-                        Label("默认金毛形象", systemImage: "sparkle").font(.callout.weight(.semibold))
+                        Label(modelTitle, systemImage: "sparkle").font(.callout.weight(.semibold))
                         Spacer()
                         Text("静态模型").font(.caption).foregroundStyle(theme.muted)
                     }.padding(18)
-                    GoldenStage(petID: selectedPet).frame(height: 310)
+                    PetModelStage(petID: selectedPet, refreshID: modelRefreshID, title: $modelTitle).frame(height: 310)
+                    if modelTitle == "品种参考模型" {
+                        Text("按你在网站确认的品种展示参考形象。")
+                            .font(.footnote).foregroundStyle(theme.muted).padding(.horizontal, 18)
+                    }
                     HStack {
                         Image(systemName: "hand.draw")
                         Text("拖动看看它 · 双指缩放").font(.footnote)
@@ -67,7 +85,7 @@ struct PetSpaceView: View {
                     MobileCard {
                         VStack(alignment: .leading, spacing: 8) {
                             Text("先把网站中的它带过来").font(.headline)
-                            Text("在网站完成问卷并验证此邮箱后，宠物资料和已保存作品会出现在这里。")
+                            Text("在网站填写宠物资料并验证同一邮箱后，宠物和已保存作品会出现在这里。")
                                 .foregroundStyle(theme.muted)
                         }
                     }
@@ -121,29 +139,55 @@ struct PetSpaceView: View {
     }
 
     private func reload() async {
-        guard let homes = store.homes, let assets = store.assets else { return }
+        guard !busy, let homes = store.homes, let assets = store.assets else { return }
+        let operation = UUID()
+        assetLoadID = operation
         busy = true; error = nil
-        defer { busy = false }
+        defer { if assetLoadID == operation { busy = false } }
         do {
             let result = try await homes.pets()
+            guard assetLoadID == operation, !Task.isCancelled else { return }
             pets = result.pets
             if !pets.contains(where: { $0.petId == selectedPet }) { selectedPet = pets.first?.petId }
-            let page = try await assets.list(limit: 30)
+            let page = try await assets.list(limit: 30, petId: selectedPet)
+            guard assetLoadID == operation, !Task.isCancelled else { return }
+            items = page.items; cursor = page.nextCursor
+            modelRefreshID = UUID()
+        } catch {
+            guard assetLoadID == operation, !Task.isCancelled else { return }
+            if !store.handleSessionError(error) { self.error = store.friendly(error) }
+        }
+    }
+    private func reloadAssets() async {
+        guard let assets = store.assets else { return }
+        let operation = UUID()
+        assetLoadID = operation
+        let petID = selectedPet
+        busy = true; error = nil; items = []; cursor = nil
+        defer { if assetLoadID == operation { busy = false } }
+        do {
+            let page = try await assets.list(limit: 30, petId: petID)
+            guard assetLoadID == operation, selectedPet == petID, !Task.isCancelled else { return }
             items = page.items; cursor = page.nextCursor
         } catch {
+            guard assetLoadID == operation, !Task.isCancelled else { return }
             if !store.handleSessionError(error) { self.error = store.friendly(error) }
         }
     }
     private func loadMore() async {
-        guard let cursor, let assets = store.assets else { return }
+        guard !busy, let cursor, let assets = store.assets else { return }
+        let operation = assetLoadID
+        let petID = selectedPet
         busy = true; error = nil
-        defer { busy = false }
+        defer { if assetLoadID == operation { busy = false } }
         do {
-            let page = try await assets.list(cursor: cursor, limit: 30)
+            let page = try await assets.list(cursor: cursor, limit: 30, petId: petID)
+            guard assetLoadID == operation, selectedPet == petID, !Task.isCancelled else { return }
             let existing = Set(items.map(\.assetId))
             items += page.items.filter { !existing.contains($0.assetId) }
             self.cursor = page.nextCursor
         } catch {
+            guard assetLoadID == operation, !Task.isCancelled else { return }
             if !store.handleSessionError(error) { self.error = store.friendly(error) }
         }
     }
@@ -152,7 +196,9 @@ struct PetSpaceView: View {
 func assetTitle(_ asset: AssetItem) -> String {
     switch asset.kind {
     case "tryon", "outfit": return "试穿作品"
-    case "model": return "宠物模型"
+    case "model":
+        if asset.isReferenceModel == true || asset.source == "confirmed-breed-reference" { return "品种参考模型" }
+        return asset.source == "photo-generated" ? "专属宠物模型" : "宠物模型"
     case "cartoon": return "宠物画像"
     case "photo": return "宠物照片"
     default: return "网站作品"
@@ -206,7 +252,7 @@ struct AssetDetailView: View {
         VStack(spacing: 20) {
             if let data {
                 if asset.kind == "model", asset.format?.lowercased() == "glb" {
-                    GLBModelView(data: data).frame(maxHeight: .infinity)
+                    GLBModelView(data: data, readinessIdentifier: "archiveModelReady").frame(maxHeight: .infinity)
                 } else if let image = UIImage(data: data) {
                     Image(uiImage: image).resizable().scaledToFit().padding(12).accessibilityIdentifier("privateAssetImage")
                 } else {
