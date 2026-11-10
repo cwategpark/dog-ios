@@ -61,9 +61,9 @@ PawlyDemo/Core/Data/
 工程内位置：
 
 - `ios/Info.plist`：`DogiosAPIBaseURL = $(DOGIOS_API_BASE_URL)`。
-- `ios/PawlyDemo.xcodeproj/project.pbxproj`：target Debug/Release 均设
-  当前 `DOGIOS_API_BASE_URL` 构建设置由主代理在本机联调环境维护；仓库不保存真实密钥。
-  应用运行时始终可用环境变量或用户级 xcconfig 覆盖，源码默认回退为 `http://127.0.0.1:18766`。
+- `ios/PawlyDemo.xcodeproj/project.pbxproj`：target Debug/Release 的
+  `DOGIOS_API_BASE_URL` 当前指向 `https://quebec-week-preparing-treating.trycloudflare.com`。
+  应用运行时仍可用环境变量或用户级 xcconfig 覆盖；源码 fallback 为 `http://127.0.0.1:18766`。
 
 本机/生产覆盖方式（**不要改提交的默认值**）：
 
