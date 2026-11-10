@@ -1,0 +1,86 @@
+[
+  {
+    "attachments" : [
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "33357929-7E62-41B1-BB96-709E07707E9C",
+        "deviceName" : "Codex Account Sync Small QA",
+        "exportedFileName" : "58AF1F7E-18AD-4DB2-A088-0A4E72E1CC86.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "synthetic-website-logistics-empty_0_3F5EDD32-EFEF-4167-BB14-753410583899.png",
+        "timestamp" : 1794307710.861
+      }
+    ],
+    "testIdentifier" : "WebsiteAccountSyncTests/testEmptyLogisticsIsDistinctFromUnavailable()",
+    "testIdentifierURL" : "test://com.apple.xcode/PawlyDemo/PawlyUITests/WebsiteAccountSyncTests/testEmptyLogisticsIsDistinctFromUnavailable"
+  },
+  {
+    "attachments" : [
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "33357929-7E62-41B1-BB96-709E07707E9C",
+        "deviceName" : "Codex Account Sync Small QA",
+        "exportedFileName" : "A954CA55-F218-4FB0-8C0A-CC7C0208F0F8.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "synthetic-website-logistics-normal_0_EF287810-708D-4C9E-9ED5-19DC4E8E2DDE.png",
+        "timestamp" : 1794307735.362
+      }
+    ],
+    "testIdentifier" : "WebsiteAccountSyncTests/testNormalLogisticsShowsWebsiteOrderAndBothShipmentsWithoutShopping()",
+    "testIdentifierURL" : "test://com.apple.xcode/PawlyDemo/PawlyUITests/WebsiteAccountSyncTests/testNormalLogisticsShowsWebsiteOrderAndBothShipmentsWithoutShopping"
+  },
+  {
+    "attachments" : [
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "33357929-7E62-41B1-BB96-709E07707E9C",
+        "deviceName" : "Codex Account Sync Small QA",
+        "exportedFileName" : "F501C2EE-B624-41AB-9A3C-145A5E18B6C3.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "synthetic-logistics-requested-landscape_0_9C5F94A7-F320-49C5-90A6-8CBFFF85B26E.png",
+        "timestamp" : 1794307764.178
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "33357929-7E62-41B1-BB96-709E07707E9C",
+        "deviceName" : "Codex Account Sync Small QA",
+        "exportedFileName" : "FDEABBC6-8EFD-4EE8-A573-34EC253AF8CC.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "synthetic-logistics-dark-accessibility-xxxl_0_11423E4E-2E03-4FDB-B873-6464F51B880D.png",
+        "timestamp" : 1794307763.693
+      }
+    ],
+    "testIdentifier" : "WebsiteAccountSyncTests/testOptionalDarkLargeTextAndLandscapeLogisticsRemainsNavigable()",
+    "testIdentifierURL" : "test://com.apple.xcode/PawlyDemo/PawlyUITests/WebsiteAccountSyncTests/testOptionalDarkLargeTextAndLandscapeLogisticsRemainsNavigable"
+  },
+  {
+    "attachments" : [
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "33357929-7E62-41B1-BB96-709E07707E9C",
+        "deviceName" : "Codex Account Sync Small QA",
+        "exportedFileName" : "F89118AB-45A1-43D5-BFBE-A9684DB5EB56.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "synthetic-private-upload-preview_0_49F30C7D-92BB-49F5-BEDC-B031F52AFB7E.png",
+        "timestamp" : 1794307794.846
+      }
+    ],
+    "testIdentifier" : "WebsiteAccountSyncTests/testPetNamesUploadedPhotoAndTextGeneratedModelStayInAccount()",
+    "testIdentifierURL" : "test://com.apple.xcode/PawlyDemo/PawlyUITests/WebsiteAccountSyncTests/testPetNamesUploadedPhotoAndTextGeneratedModelStayInAccount"
+  },
+  {
+    "attachments" : [
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "33357929-7E62-41B1-BB96-709E07707E9C",
+        "deviceName" : "Codex Account Sync Small QA",
+        "exportedFileName" : "ED9613FB-B274-4799-9E8F-4BFD538DC8A7.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "synthetic-website-logistics-unavailable_0_4D565BB2-89CF-4F03-AAC4-1B1E29A9660F.png",
+        "timestamp" : 1794307814.999
+      }
+    ],
+    "testIdentifier" : "WebsiteAccountSyncTests/testUnconfiguredLogisticsShowsUnavailableAndNeverEmptyHistory()",
+    "testIdentifierURL" : "test://com.apple.xcode/PawlyDemo/PawlyUITests/WebsiteAccountSyncTests/testUnconfiguredLogisticsShowsUnavailableAndNeverEmptyHistory"
+  }
+]

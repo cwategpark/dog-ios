@@ -1,0 +1,26 @@
+[
+  {
+    "attachments" : [
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "33357929-7E62-41B1-BB96-709E07707E9C",
+        "deviceName" : "Codex Account Sync Small QA",
+        "exportedFileName" : "31D07C5D-F9AF-4F9C-933E-0F4FA1FA9096.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "synthetic-logistics-requested-landscape_0_5E73207C-FBF3-44D9-A272-B51D9D825106.png",
+        "timestamp" : 1794308029.224
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "33357929-7E62-41B1-BB96-709E07707E9C",
+        "deviceName" : "Codex Account Sync Small QA",
+        "exportedFileName" : "FE599174-82D0-44AA-A22E-FE82EE81B92F.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "synthetic-logistics-dark-accessibility-xxxl_0_83387BB6-1F30-4A73-B9AC-79F876F73549.png",
+        "timestamp" : 1794308028.187
+      }
+    ],
+    "testIdentifier" : "WebsiteAccountSyncTests/testOptionalDarkLargeTextAndLandscapeLogisticsRemainsNavigable()",
+    "testIdentifierURL" : "test://com.apple.xcode/PawlyDemo/PawlyUITests/WebsiteAccountSyncTests/testOptionalDarkLargeTextAndLandscapeLogisticsRemainsNavigable"
+  }
+]

@@ -49,3 +49,19 @@ App Debug/Release 已更新为网站当前地址：`https://quebec-week-preparin
 新版 App 已安装至 Mac 现有 iPhone 18 Pro 模拟器。测试回环服务、临时私有登录文件及本次新建小屏模拟器均已清理；原有 iPhone 18 Pro 模拟器保留。
 
 本机 `ios/` 是同步后的源码副本；`qa/fixture_server.py` 是仅监听 Mac 回环地址的测试服务。验收使用 InMemoryTokenStore，不改用户 Keychain。
+
+## 可复现 QA 夹具运行方式
+
+在 repo 根目录运行，fixture 只绑定 Mac 回环地址 `127.0.0.1:18786`；`--project-root` 必须指
+到包含 `public-assets/website-golden-master.glb` 的 repo 根，`--work-dir` 使用 `/tmp` 下的
+一次性私有目录。运行产生的 `.pet-model-ui-token.private.json` 和 `run-*` 工作数据不会入库。
+
+```bash
+cd /Users/jbf/Documents/dog-ios
+python3 qa/fixture_server.py \
+  --project-root "$(pwd)" \
+  --work-dir /tmp/dogios-account-sync-qa
+```
+
+`WebsiteAccountSyncTests` 依赖此脚本与本机回环服务；截图证据位于本目录的
+`screenshots/` 与 `screenshots-reduced-motion/`。不要提交运行中的 fixture 文件或 token。

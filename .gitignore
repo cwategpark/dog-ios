@@ -25,3 +25,11 @@ var/logs-public/
 .pytest_cache/
 # staging snapshot (verified separately)
 .handoff/
+# reproducible QA fixture: keep the script, ignore private runtime login/work data
+qa/.work/
+qa/work/
+qa/**/*.private.json
+qa/**/run-*/
+qa/**/__pycache__/
+# private runtime login fixture (never commit)
+.pet-model-ui-token.private.json
