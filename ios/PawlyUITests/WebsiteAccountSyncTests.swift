@@ -82,7 +82,7 @@ final class WebsiteAccountSyncTests: XCTestCase {
         reveal(photo, in: app)
         XCTAssertFalse(app.buttons[modelID].exists)
         XCTAssertFalse(app.buttons["asset-image-" + String(repeating: "3", count: 32)].exists,
-                       "Try-on images are outside the requested account photo scope")
+                       "Generated previews must not appear under original uploads")
         XCTAssertFalse(app.buttons["asset-image-" + String(repeating: "4", count: 32)].exists,
                        "Generated photos must not be passed off as original uploads")
         photo.tap()
@@ -91,6 +91,32 @@ final class WebsiteAccountSyncTests: XCTestCase {
         XCTAssertTrue(app.navigationBars["上传照片"].exists)
         assertNoShopping(in: app)
         capture("synthetic-private-upload-preview")
+    }
+
+    func testWebsitePreviewAppearsInAllAndPreviewGalleryWithPrivateDownload() throws {
+        guard ProcessInfo.processInfo.environment["DOGIOS_RUN_WEBSITE_SYNC_ASSETS_UI"] == "1" else {
+            throw XCTSkip("Optional asset preview acceptance; enable DOGIOS_RUN_WEBSITE_SYNC_ASSETS_UI=1")
+        }
+        let app = try launchFixture("normal")
+        let previewID = "asset-image-" + String(repeating: "3", count: 32)
+        let photoID = "asset-image-" + String(repeating: "1", count: 32)
+        let modelID = "asset-model-" + String(repeating: "2", count: 32)
+        let preview = app.buttons[previewID].firstMatch
+        let previewFilter = app.segmentedControls.buttons["预览图片"].firstMatch
+        reveal(previewFilter, in: app)
+        XCTAssertTrue(previewFilter.isHittable)
+        XCTAssertTrue(preview.waitForExistence(timeout: 10), "Saved website previews must be visible in All")
+        previewFilter.tap()
+        XCTAssertTrue(preview.waitForExistence(timeout: 10))
+        XCTAssertFalse(app.buttons[photoID].exists)
+        XCTAssertFalse(app.buttons[modelID].exists)
+        reveal(preview, in: app)
+        preview.tap()
+        XCTAssertTrue(app.images["privateAssetImage"].waitForExistence(timeout: 15),
+                      "Generated previews must open through the authenticated image download")
+        XCTAssertTrue(app.navigationBars["商品预览"].exists)
+        assertNoShopping(in: app)
+        capture("synthetic-private-product-preview")
     }
 
     func testOptionalDarkLargeTextAndLandscapeLogisticsRemainsNavigable() throws {

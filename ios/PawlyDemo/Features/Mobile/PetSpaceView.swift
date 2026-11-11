@@ -21,7 +21,7 @@ struct PetSpaceView: View {
     private var petName: String { selectedPetSummary?.resolvedName ?? "它" }
     private var visibleItems: [AssetItem] {
         items.filter { asset in
-            let supported = asset.kind == "model" || (asset.kind == "photo" && asset.isUploadedPhoto)
+            let supported = asset.kind == "model" || asset.kind == "tryon" || (asset.kind == "photo" && asset.isUploadedPhoto)
             return supported && (filter == "all" || asset.kind == filter)
         }
     }
@@ -111,7 +111,7 @@ struct PetSpaceView: View {
                 HStack {
                     VStack(alignment: .leading, spacing: 4) {
                         Text("我的照片与模型").font(.title2.bold())
-                        Text("网站已保存的原始上传照片与宠物模型").font(.callout).foregroundStyle(theme.muted)
+                        Text("网站已保存的上传照片、商品预览与宠物模型").font(.callout).foregroundStyle(theme.muted)
                     }
                     Spacer()
                     if busy { ProgressView() }
@@ -119,6 +119,7 @@ struct PetSpaceView: View {
                 Picker("作品类型", selection: $filter) {
                     Text("全部").tag("all")
                     Text("上传照片").tag("photo")
+                    Text("预览图片").tag("tryon")
                     Text("模型").tag("model")
                 }.pickerStyle(.segmented)
                     .onChange(of: filter) { _, _ in Task { await reloadAssets() } }
@@ -223,7 +224,8 @@ private extension AssetItem {
 
 func assetTitle(_ asset: AssetItem) -> String {
     switch asset.kind {
-    case "tryon", "outfit": return "试穿作品"
+    case "tryon": return "商品预览"
+    case "outfit": return "试穿作品"
     case "model":
         if asset.isReferenceModel == true || asset.source == "confirmed-breed-reference" { return "品种参考模型" }
         return ["photo-generated", "text-generated"].contains(asset.source ?? "") ? "专属宠物模型" : "宠物模型"

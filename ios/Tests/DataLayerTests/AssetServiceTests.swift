@@ -86,6 +86,33 @@ final class AssetServiceTests: DataLayerTestCase {
         XCTAssertTrue(page.hasMore)
     }
 
+    func testWebsitePreviewListAndDownloadUseSameVerifiedAccount() async throws {
+        let (client, _) = try makeClient(accessToken: "preview-owner")
+        let payload = Data([0x89, 0x50, 0x4E, 0x47])
+        StubURLProtocol.setHandler { request in
+            XCTAssertEqual(request.authorizationHeader, "Bearer preview-owner")
+            if request.url?.path == "/mobile/v1/assets" {
+                XCTAssertEqual(request.queryValue("kind"), "tryon")
+                XCTAssertEqual(request.queryValue("pet_id"), "pet-1")
+                return .json("""
+                {"items":[{"asset_id":"preview-1","pet_id":"pet-1","kind":"tryon",
+                  "kind_role":"generated","format":"png","mime":"image/png",
+                  "download_url":"/mobile/v1/assets/preview-1/download"}],"next_cursor":null}
+                """)
+            }
+            XCTAssertEqual(request.url?.path, "/mobile/v1/assets/preview-1/download")
+            return StubURLProtocol.StubResponse(status: 200,
+                                                headers: ["Content-Type": "image/png"], body: payload)
+        }
+        let service = AssetService(client: client)
+        let page = try await service.list(kind: "tryon", petId: "pet-1")
+        let preview = try XCTUnwrap(page.items.first)
+        XCTAssertEqual(preview.kind, "tryon")
+        XCTAssertEqual(preview.petId, "pet-1")
+        let downloaded = try await service.data(for: preview)
+        XCTAssertEqual(downloaded, payload)
+    }
+
     func testListLastPageHasNoCursor() async throws {
         let (client, _) = try makeClient(accessToken: "access-private")
         StubURLProtocol.setHandler { request in
