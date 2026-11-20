@@ -59,7 +59,7 @@ public struct EmptyBody: Decodable, Equatable, Sendable {
 /// - async/await `URLSession`，JSON snake_case。
 /// - 需要认证的请求自动加 `Authorization: Bearer`。
 /// - 401：用 refresh token **单飞（single-flight）** 刷新，成功后原请求重试一次；
-///   refresh 失败则清空 token 并抛 `MobileAPIError.unauthorized`。
+///   只有 refresh 被服务端拒绝时才清空 token；临时传输/服务错误保留凭据供重试。
 /// - 可通过 `session` 注入 `URLProtocol` stub，测试不连真实网络。
 public final class MobileAPIClient: @unchecked Sendable {
     public let config: AppConfig
@@ -194,16 +194,25 @@ public final class MobileAPIClient: @unchecked Sendable {
                     }
                     return bundle
                 } catch {
-                    // Only this generation may lose credentials. A response from
-                    // an old refresh can neither overwrite nor clear a new login.
+                    // A temporary failure is not evidence that credentials were revoked.
+                    // Only the session rejected by the server may lose its credentials.
                     let isCurrent = withState {
                         guard generation == expected else { return false }
-                        if tokenStore.load()?.refreshToken == current.refreshToken { tokenStore.clear() }
+                        if let api = error as? MobileAPIError,
+                           api.kind == .unauthorized,
+                           tokenStore.load()?.refreshToken == current.refreshToken {
+                            tokenStore.clear()
+                        }
                         return true
                     }
                     guard isCurrent else { throw MobileAPIError.cancelled() }
-                    if let api = error as? MobileAPIError, api.kind == .cancelled { throw api }
-                    throw MobileAPIError.unauthorized().scoped(to: expected)
+                    if let api = error as? MobileAPIError {
+                        if api.kind == .unauthorized {
+                            throw MobileAPIError.unauthorized().scoped(to: expected)
+                        }
+                        throw api.scoped(to: expected)
+                    }
+                    throw error
                 }
             })
             refreshFlight = flight

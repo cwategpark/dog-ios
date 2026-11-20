@@ -3,6 +3,56 @@ import XCTest
 @testable import DogiosDataLayer
 
 final class MobileAPIClientTests: DataLayerTestCase {
+    func testRefreshHTTPFailuresOtherThanUnauthorizedKeepSessionAndAllowRetry() async throws {
+        for status in [403, 429, 500, 503] {
+            let (client, store) = try makeClient(accessToken: "access-old", refreshToken: "refresh-old")
+            let originalGeneration = client.sessionGeneration
+            StubURLProtocol.setHandler { _ in
+                .json(#"{"detail":"temporary_failure"}"#, status: status)
+            }
+            do {
+                _ = try await client.refreshSession()
+                XCTFail("Temporary refresh failure should be reported")
+            } catch let error as MobileAPIError {
+                XCTAssertEqual(error.kind, MobileAPIError.kind(for: status))
+                XCTAssertEqual(error.sessionGeneration, originalGeneration)
+            }
+            XCTAssertEqual(store.load()?.refreshToken, "refresh-old")
+            XCTAssertEqual(client.sessionGeneration, originalGeneration)
+
+            StubURLProtocol.setHandler { request in
+                XCTAssertEqual(request.httpBodyJSON?["refresh_token"] as? String, "refresh-old")
+                return .json(#"{"access_token":"access-new","refresh_token":"refresh-new"}"#)
+            }
+            _ = try await client.refreshSession()
+            XCTAssertEqual(store.load()?.accessToken, "access-new")
+        }
+    }
+
+    func testRefreshNetworkFailureDoesNotSignOut() async throws {
+        let (client, store) = try makeClient(accessToken: "access-old", refreshToken: "refresh-old")
+        StubURLProtocol.setHandler { _ in throw URLError(.notConnectedToInternet) }
+        do {
+            _ = try await client.send(.get("/mobile/v1/me"), as: MobileMeResponse.self)
+            XCTFail("Offline request should fail")
+        } catch let error as MobileAPIError {
+            XCTAssertEqual(error.kind, .network)
+        }
+        // Exercise the refresh request itself, after a protected request has expired.
+        StubURLProtocol.setHandler { request in
+            if request.url?.path == "/mobile/v1/auth/refresh" { throw URLError(.notConnectedToInternet) }
+            return .json(#"{"detail":"expired_access"}"#, status: 401)
+        }
+        do {
+            _ = try await client.send(.get("/mobile/v1/me"), as: MobileMeResponse.self)
+            XCTFail("Offline refresh should fail")
+        } catch let error as MobileAPIError {
+            XCTAssertEqual(error.kind, .network)
+        }
+        XCTAssertEqual(store.load()?.accessToken, "access-old")
+        XCTAssertEqual(store.load()?.refreshToken, "refresh-old")
+    }
+
     // MARK: Bearer
 
     func testBearerHeaderIsAddedForAuthenticatedRequests() async throws {

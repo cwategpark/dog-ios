@@ -50,9 +50,9 @@ public enum DogiosISO8601 {
         if let utcIndex = timePart.firstIndex(where: { $0 == "Z" || $0 == "z" }) {
             timePart = String(timePart[timePart.startIndex..<utcIndex])
         } else if let signIndex = timePart.firstIndex(where: { $0 == "+" || $0 == "-" }) {
+            let sign = timePart[signIndex] == "-" ? -1 : 1
             let offsetPart = String(timePart[timePart.index(after: signIndex)...])
             timePart = String(timePart[timePart.startIndex..<signIndex])
-            let sign = timePart.hasSuffix("-") ? -1 : 1
             let digits = offsetPart.replacingOccurrences(of: ":", with: "")
             guard let hours = Int(digits.prefix(2)), let minutes = Int(digits.dropFirst(2).prefix(2)) else { return nil }
             offsetSeconds = sign * (hours * 3600 + minutes * 60)

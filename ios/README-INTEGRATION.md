@@ -62,7 +62,7 @@ PawlyDemo/Core/Data/
 
 - `ios/Info.plist`：`DogiosAPIBaseURL = $(DOGIOS_API_BASE_URL)`。
 - `ios/PawlyDemo.xcodeproj/project.pbxproj`：target Debug/Release 的
-  `DOGIOS_API_BASE_URL` 当前指向 `https://quebec-week-preparing-treating.trycloudflare.com`。
+  `DOGIOS_API_BASE_URL` 指向正式站 `https://shop.wagelpaw.com`。App 直接访问该域下的 `/mobile/v1`。
   应用运行时仍可用环境变量或用户级 xcconfig 覆盖；源码 fallback 为 `http://127.0.0.1:18766`。
 
 本机/生产覆盖方式（**不要改提交的默认值**）：
@@ -78,8 +78,8 @@ xcodebuild -project ios/PawlyDemo.xcodeproj -scheme PawlyDemo \
 DOGIOS_API_BASE_URL=https://api.example.com
 ```
 
-真实地址/密钥建议放在本机（不入库）的 xcconfig 或用户级 build setting 中，例如
-`~/Library/Developer/Xcode/UserData/xcconfig/…`；仓库内只保留可公开的 localhost 默认值与空 key。
+开发环境地址和密钥可放在本机的 xcconfig 或用户级 build setting 中，例如
+`~/Library/Developer/Xcode/UserData/xcconfig/…`。仓库记录公开生产地址与 localhost 回退值，密钥配置保持为空。
 
 ### 3.2 Google Maps key
 
@@ -106,7 +106,7 @@ AppConfig.preferredMapProviderID == "mapkit"   // 回退 MapKit
 
 - **认证头**：`requiresAuth` 请求自动加 `Authorization: Bearer <access_token>`。
 - **401 处理**：用 refresh token **单飞（single-flight）** 刷新（并发 401 只发一次 `/auth/refresh`），
-  成功后原请求重试一次；refresh 失败清空 token 并抛 `MobileAPIError.unauthorized`。
+  成功后原请求重试一次。服务端拒绝刷新凭据时清空 token；网络或服务暂时异常时保留会话并返回对应错误。
 - **不做自动重试**：非幂等请求（消息发送等）不自动重试；唯一重试是 401 刷新后重放原请求（保留原 body / `client_id`）。
 - **错误映射**（`MobileAPIError.Kind`）：401 unauthorized、403 forbidden、404 notFound、409 conflict、
   410 gone、422 validation、429 rateLimited（解析 `Retry-After`）、503 unavailable、5xx server；

@@ -269,7 +269,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
-				DOGIOS_API_BASE_URL = "https://quebec-week-preparing-treating.trycloudflare.com";
+				DOGIOS_API_BASE_URL = "https://shop.wagelpaw.com";
 				EXCLUDED_SOURCE_FILE_NAMES = "AppState.swift APIClient.swift MainTabView.swift CartView.swift GenerateView.swift HomeView.swift LoginView.swift ProfileView.swift AddPetSheet.swift Components.swift ProductCard.swift ProductDetailView.swift ShopView.swift";
 				GOOGLE_MAPS_API_KEY = "";
 				ENABLE_PREVIEWS = YES;
@@ -298,7 +298,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
-				DOGIOS_API_BASE_URL = "https://quebec-week-preparing-treating.trycloudflare.com";
+				DOGIOS_API_BASE_URL = "https://shop.wagelpaw.com";
 				EXCLUDED_SOURCE_FILE_NAMES = "AppState.swift APIClient.swift MainTabView.swift CartView.swift GenerateView.swift HomeView.swift LoginView.swift ProfileView.swift AddPetSheet.swift Components.swift ProductCard.swift ProductDetailView.swift ShopView.swift";
 				GOOGLE_MAPS_API_KEY = "";
 				ENABLE_PREVIEWS = YES;

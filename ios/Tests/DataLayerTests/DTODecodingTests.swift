@@ -3,6 +3,12 @@ import XCTest
 @testable import DogiosDataLayer
 
 final class DTODecodingTests: DataLayerTestCase {
+    func testLegacySpacedTimestampKeepsNegativeOffset() throws {
+        let expected = try XCTUnwrap(DogiosISO8601.date(from: "2026-11-15T13:00:00Z"))
+        let actual = try XCTUnwrap(DogiosISO8601.date(from: "2026-11-15 08:00:00-05:00"))
+        XCTAssertEqual(actual.timeIntervalSince1970, expected.timeIntervalSince1970, accuracy: 0.001)
+    }
+
     private let decoder = DogiosJSON.makeDecoder()
 
     private func decode<T: Decodable>(_ type: T.Type, _ json: String) throws -> T {
